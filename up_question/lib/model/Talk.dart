@@ -7,10 +7,10 @@ class Talk extends Comparable {
   DateTime startTime;
   DateTime endTime;
   String location;
-  Image backgroundImage;
+  String backgroundImagePath;
   List<Question> questionList = new List();
 
-  Talk({this.title, this.speaker, this.startTime, this.endTime, this.location, this.backgroundImage});
+  Talk({this.title, this.speaker, this.startTime, this.endTime, this.location, this.backgroundImagePath});
 
   @override
   int compareTo(other) {

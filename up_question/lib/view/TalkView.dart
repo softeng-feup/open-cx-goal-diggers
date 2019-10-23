@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:up_question/model/Talk.dart';
 
 class TalkView extends StatelessWidget {
-  final String talkTitle, room,assetBackgroundPath;
-  final int hour, minutes;
+  final Talk localtalk;
 
-  TalkView({this.talkTitle, this.hour, this.minutes, this.room,this.assetBackgroundPath});
+  TalkView(this.localtalk);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class TalkView extends StatelessWidget {
         
         decoration: BoxDecoration(
           image: DecorationImage(
-                  image: AssetImage(assetBackgroundPath),
+                  image: AssetImage(localtalk.backgroundImagePath),
                   fit: BoxFit.fill
           )
         
@@ -22,8 +22,8 @@ class TalkView extends StatelessWidget {
         padding: EdgeInsets.only(top:4,left: 4,bottom: 4),
         
         constraints: BoxConstraints(
-            maxHeight: 80,
-            minWidth: 500,
+            maxHeight: 80, //TODO:MAX HEIGHT DEVE DEPENDER DO N DE TALKS
+            minWidth: 500, //TODO:ESTICAR A TODO O ECRA -> LARGURA ECRA
 
         ),
         
@@ -31,7 +31,7 @@ class TalkView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             //Title
-            Text(talkTitle,
+            Text(localtalk.title,
       
               style: TextStyle(  
                 fontWeight: FontWeight.bold,
@@ -40,7 +40,7 @@ class TalkView extends StatelessWidget {
               ),
             ),
             //Conference Room
-            Text(room,
+            Text(localtalk.location,
                 
               style:TextStyle( 
                 fontSize: 15,
@@ -51,7 +51,7 @@ class TalkView extends StatelessWidget {
 
             //Hour and Minutes as INTEGERS
 
-            Text(hour.toString() + ':' + minutes.toString(),
+            Text(localtalk.startTime.toString() + '-' + localtalk.endTime.toString(),
               style: TextStyle(
                   
                 fontSize: 15,
