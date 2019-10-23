@@ -1,5 +1,5 @@
-import 'talk.dart';
-import 'user.dart';
+import 'Talk.dart';
+import 'User.dart';
 
 class Question extends Comparable {
   Talk talk;

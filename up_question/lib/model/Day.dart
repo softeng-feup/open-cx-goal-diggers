@@ -1,4 +1,4 @@
-import 'package:up_question/model/talk.dart';
+import 'package:up_question/model/Talk.dart';
 
 class Day extends Comparable{
   DateTime day; // TODO: ver se isto ou uma Date normal
