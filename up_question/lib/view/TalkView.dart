@@ -9,7 +9,12 @@ class TalkView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    
+    return InkWell( 
+      
+      onTap: ()=>print('Talk button pressed'),
+
+      child:Container(
         
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -50,8 +55,8 @@ class TalkView extends StatelessWidget {
             ),
 
             //Hour and Minutes as INTEGERS
-
-            Text(localtalk.startTime.toString() + '-' + localtalk.endTime.toString(),
+            //TODO:ESTA A IMPRIMIR NO CABECALHO UM INTEIRO. QUE E WEEKDAY. FAZER UMA FUNCAO PARA CONVERTER O WEEKDAY PARA PT. EXITIRA EMBEBIDA???
+            Text(localtalk.startTime.hour.toString() + ':'+ localtalk.startTime.minute.toString()+ '-' + localtalk.endTime.hour.toString() + ':'+ localtalk.endTime.minute.toString(),
               style: TextStyle(
                   
                 fontSize: 15,
@@ -61,6 +66,7 @@ class TalkView extends StatelessWidget {
   
             ),
           ],
-        ));
+        ))
+        );
   }
 }
