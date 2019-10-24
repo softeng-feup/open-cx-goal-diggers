@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:up_question/view/QuestionScreen.dart';
+import 'package:up_question/view/QuestionView.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: QuestionPageView(),//MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

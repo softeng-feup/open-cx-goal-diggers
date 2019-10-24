@@ -5,6 +5,7 @@ import 'package:up_question/model/User.dart';
 import 'package:up_question/view/TalkView.dart';
 
 class QuestionPageView extends StatelessWidget {
+  // TODO:
   /*
   * Testing
   * -----------
@@ -15,7 +16,7 @@ class QuestionPageView extends StatelessWidget {
       startTime: new DateTime.now(),
       endTime: new DateTime.now(),
       location: "FEUP",
-      backgroundImagePath: "assets\images\BIG_DATA_BACKGROUND.png");
+      backgroundImagePath: "assets/images/BIG_DATA_BACKGROUND.png");
 
   final List<Question> questions = <Question>[
     new Question(question: "Sample Question0?"),
@@ -33,13 +34,21 @@ class QuestionPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: ListView.builder(
-          itemCount: questions.length,
-          itemBuilder: (BuildContext context, int index) {
-            return QuestionView(question: questions[index]);
-          }),
+      child: Material(
+        child: Stack(
+          children: <Widget>[
+            TalkView(T),
+            ListView.builder(
+                itemCount: questions.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return QuestionView(question: questions[index]);
+                })
+          ],
+        ),
+      ),
       alignment: Alignment.center,
       padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+      margin: EdgeInsets.all(5),
       decoration: BoxDecoration(color: Colors.grey),
     );
   }
@@ -66,14 +75,23 @@ class QuestionViewState extends State<QuestionView> {
     return Material(
         child: Container(
             color: Colors.white,
-            height: 150, // TODO: relative size
+            height: 150,
+            // TODO: relative size
             width: 400,
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             margin: EdgeInsets.all(5),
             child: Stack(children: <Widget>[
               Container(
                 alignment: Alignment.topLeft,
-                child: Row(children: <Widget>[IconButton(icon: Icon(Icons.face), iconSize: 30,), Text("John", style: TextStyle(fontSize: 20))],),
+                child: Row(
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.face),
+                      iconSize: 30,
+                    ),
+                    Text("John", style: TextStyle(fontSize: 20))
+                  ],
+                ),
               ),
               Container(
                   alignment: Alignment.centerLeft,
@@ -90,22 +108,22 @@ class QuestionViewState extends State<QuestionView> {
                     children: <Widget>[
                       IconButton(
                         icon: Icon(Icons.arrow_upward),
-                        iconSize: 18,
+                        iconSize: 20,
                         onPressed: null,
                       ),
                       IconButton(
                         icon: Icon(Icons.arrow_downward),
-                        iconSize: 18,
+                        iconSize: 20,
                         onPressed: null,
                       ),
                       IconButton(
                         icon: Icon(Icons.insert_comment),
-                        iconSize: 18,
+                        iconSize: 20,
                         onPressed: null,
                       ),
                       IconButton(
                         icon: Icon(Icons.share),
-                        iconSize: 18,
+                        iconSize: 20,
                         onPressed: null,
                       )
                     ],
