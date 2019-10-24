@@ -7,6 +7,7 @@ class Question extends Comparable {
   int votes;
   DateTime postedTime;
   User user;
+  bool anonimous = false;
 
   Question({this.question});
 

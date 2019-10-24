@@ -67,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      //resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -107,10 +108,95 @@ class _MyHomePageState extends State<MyHomePage> {
                 '$_counter',
                 style: Theme.of(context).textTheme.display1,
               ),*/
-              QuestionScreen(),
+
+              //QuestionScreen(),
+              Positioned(
+                child: Container(
+                  // black box
+                  decoration: BoxDecoration(
+                    color: Color(0xAF000000),
+                  ),
+                  padding: EdgeInsets.all(109),
+                  width: MediaQuery.of(context).size.width,
+                ),
+                top: 312,
+              ),
+              Positioned(
+                child: Container(
+                  //white box
+                  child: Text(
+                    'Username',
+                    style: TextStyle(
+                        color: Color(0xFFD3D3D3),
+                        fontSize: 24),
+                    textAlign: TextAlign.left,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFFFFFF),
+                  ),
+                  padding: EdgeInsets.fromLTRB(8, 4, 150, 4),
+                ),
+                top: 368,
+                left: 20,
+              ),
+              Positioned(
+                child: Container(
+                  //grey box
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFFFFFF),
+                        fontSize: 24),
+                    textAlign: TextAlign.center,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF696969),
+                  ),
+                  padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
+                ),
+                top: 368,
+                right: 20,
+              ),
+              Positioned(
+                child: Container(
+                  //blue box
+                  child: Text(
+                    'Login with twitter',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFFFFFF),
+                        fontSize: 24),
+                    textAlign: TextAlign.center,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF2DAAE1),
+                  ),
+                  padding: EdgeInsets.fromLTRB(25, 8, 25, 8),
+                  width: MediaQuery.of(context).size.width,
+                  height: 44,
+                ),
+                top: 426,
+                left: 20,
+                right: 20,
+              ),
+              Positioned(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/twitter.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  width: 44,
+                  height: 44,
+                ),
+                top: 426,
+                left: 20,
+              ),
             ],
           ),
-               ),
+        ),
       ),
 
       floatingActionButton: FloatingActionButton(
