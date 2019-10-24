@@ -8,6 +8,8 @@ class Question extends Comparable {
   DateTime postedTime;
   User user;
 
+  Question({this.question});
+
   void upVoted(){
     this.votes++;
   }
