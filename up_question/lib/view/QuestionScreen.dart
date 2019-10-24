@@ -56,6 +56,7 @@ class _QuestionFormState extends State<QuestionForm> {
                             decoration: InputDecoration(
                               enabledBorder: _questionOutlineBorder,
                               focusedBorder: _questionOutlineBorder,
+                              errorBorder: _questionOutlineBorder, // TODO: por uma margem vermelha
                               hintText: 'Enter your question here...',
                             ),
                             maxLines: 10,
