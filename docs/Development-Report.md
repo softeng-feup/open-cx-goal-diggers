@@ -68,11 +68,32 @@ A more detailed analysis of this topic is made below targeting RUP & AGILE metho
 
 ### Use case diagram 
 
-* **Actor**. Any user attending a lecture and the speaker who is giving it.
-* **Description**. The purpose of this use case is to better organize the questions the audience might have during a lecture. Users can see other questions and vote on them or even share them on twitter. In the end the speaker can see all the questions sorted by the number of votes and answer them.
-* **Preconditions and Postconditions**. Users first need to login, which they can do using twitter. Then they need to choose from the schedule the lecture they are attending.
-* **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. The system is always updating this list, as more questions are made. The sorting can be changed by the user, when clicked the sorting dropdown box. It allows the user to select from 'Top', 'Trending' and 'New', to which the system will update the questions order, based on the option selected. Users can click on upvote and downvote on all the questions and the system will update the number of votes and the order of the list. Users can also select to share the question with twitter, if they are logged in with an account. If the plus button is clicked, the system will open a pop-up with a box for a user to write a question. Bellow this box, there is a checkout box that, when clicked, the user will be able to share the question anonymously. There are also two buttons to share, one with twitter, that when clicked, the system will close the pop-up and add the question to the list. The speaker will only be able to see the list of all the questions.
-* **Alternative Flows and Exceptions**. Document other, legitimate usage scenarios that can take place within this use case, stating any differences in the sequence of steps that take place. In addition, describe any anticipated error conditions that could occur during execution of the use case, and define how the system is to respond to those conditions.
+#### Ask Questions
+* **Actor**. Any user attending a lecture.
+* **Description**. The purpose of this use case is to make questions and saving all of them on a list
+* **Preconditions and Postconditions**. Users first need to login, which they can do using twitter. Then they need to choose from the schedule the lecture they are attending. Finally they need to click the plus button. In the end the system will add the question to the list. When the lecture is over, users can't ask questions anymore.
+* **Normal Flow**. After the plus button is clicked, the system will open a pop-up with a box for a user to write a question. Then the user can click on the button to share the question and the system will close the pop-up and add the question to the list.
+* **Alternative Flows and Exceptions**. In the pop-up there is a checkout box that, when clicked, the user will be able to share the question anonymously. There is also another button to share the question, that will share it also with twitter. If the user is not logged in with twitter, the system will show an error message.
+
+#### See Questions
+* **Actors**. Any user attending a lecture and the speaker who is giving it.
+* **Description**. The purpose of this use case is to make all the questions visible for everyone who is in the lecture.
+* **Preconditions and Postconditions**. Users first need to login, which they can do using twitter. Then they need to choose from the schedule the lecture they are attending. All the questions can be seen even after the lecture is over.
+* **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. The system is always updating this list, as more questions are made.
+* **Alternative Flows and Exceptions**. The sorting can be changed by the user, when clicked the sorting dropdown box. It allows the user to select from 'Top', 'Trending' and 'New', to which the system will update the questions order, based on the option selected.
+
+#### Vote on Questions
+* **Actor**. Any user attending a lecture.
+* **Description**. The purpose of this use case is to be able to vote on the questions.
+* **Preconditions and Postconditions**. Users first need to login, which they can do using twitter. Then they need to choose from the schedule the lecture they are attending. When the lecture is over, users can't vote on the questions anymore.
+* **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. Users can click on upvote and downvote on all the questions and the system will update the number of votes and the order of the list.
+
+#### Answer Questions
+* **Actor**. The speaker who is giving the lecture.
+* **Description**. The purpose of this use case is to be able to answer the questions.
+* **Preconditions and Postconditions**. Speakers first need to login, which they can do using twitter. Then they need to choose from the schedule the lecture they are giving.
+* **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. At the end of each lecture, speakers can answer this questions to clarify the audience.
+* **Alternative Flows and Exceptions**. After the lecture is over, speaker can answer the questions, by clicking on the comment button of a giving question.
 
 ![User Case Diagram](UserCase.jpg)
  *Fig.1: User Case Diagram*
