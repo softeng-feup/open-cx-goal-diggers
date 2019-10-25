@@ -100,36 +100,24 @@ A more detailed analysis of this topic is made below targeting RUP & AGILE metho
 
 ### User stories
 
-
 User Stories | MoSCoW | Tshirt_Size | Acceptance Tests|
 ---|---|---|---|
- As a participant, I want to be able to ask my question. | Must |
- As speaker, i want to be able to see all questions done, so that i could reply them | Must |
- As a participant, I want to be able to vote previously asked questions so that the most interesting questions get answered by the speaker | Should |
- As a speaker, I want to be able to see the most voted questions so that I can answer them first. | Should |
- As a participant, I want to be able to select the conference I'm in so that I can ask questions in the proper site. | Should |
- As a participant, I would like to ask anonymous questions so that I don't reveal my identity.  |Should |
- As a speaker and user, I want to be able to authenticate in order to connect my profile with the activity that I'm attending.|Should|
- As a user, I want to share my questions on Twitter so that my followers know what my interests are.|Should |
- As an organizer, I want to share the most voted questions to promote the conference.|Should |
- As an organizer, I want to use the data in order to make networking easier.| Should| 
- As user i would like to share my question with my Twitter followers|Should|
+ As a participant, I want to be able to ask my question. | Must | | GIVEN participant has logged on on the application <br> WHEN the participant submittes a question <br> THEN other people on the talk will be able to see the question|
+ As speaker, i want to be able to see all questions done, so that i could reply them | Must | | GIVEN participants have submitted their questions <br> AND speaker have logged on on the application <br> AND speaker selects the right conference <br> WHEN speaker sees the questions asked <br> THEN the speaker can reply the questions asked
+ As a participant, I want to be able to vote previously asked questions so that the most interesting questions get answered by the speaker | Should | | 
+ As a speaker, I want to be able to see the most voted questions so that I can answer them first. | Should | |
+ As a participant, I want to be able to select the conference I'm in so that I can ask questions in the proper site. | Should | | GIVEN participant has logged on on the application <br> WHEN participant selects the conference <br> THEN participant can ask question in the proper site
+ As a participant, I would like to ask anonymous questions so that I don't reveal my identity.  | Should | | GIVEN participant has logged on on the application <br> AND participant has selected the right conference <br> AND participant has written a quetion <br> WHEN participant select the checkbox anonymous <br> AND participant share the question <br> THEN the participant asked a question without revealing his identity
+ As a speaker and user, I want to be able to authenticate in order to connect my profile with the activity that I'm attending.|Should| | GIVEN both participant or user have launched the application <br> WHEN both participant or user have logged in <br> THEN both participant or user are able to connect their profile to the activity they are intending
+ As a user, I want to share my questions on Twitter so that my followers know what my interests are.|Should | | GIVEN user as logged on on the application with Twitter <br> AND user has selected the right conference <br> AND user has written his question <br> WHEN user selects the option "Share with Twitter" <br> THEN the user's question has been shared on Twitter
+ As an organizer, I want to share the most voted questions to promote the conference.|Should | | GIVEN the organizer has logged on on the application <br> AND the organizer has selected the right conference <br> WHEN the organizer selects the share option on the intended question <br> THEN the question selected by the organizer has been shared
+ As an organizer, I want to use the data in order to make networking easier.| Should| | GIVEN the organizer has logged on on the application <br> AND the organizer has selected the right conference <br> AND the organizer has privileged acess to the app data <br> WHEN the organizer acess the app data <br> THEN the organizer is able to make networking easier
+ As user i would like to share my question with my Twitter followers|Should| | GIVEN user has submitted a question <br> AND has logged on on Twitter <br> WHEN user shares the question on Twitter <br> THEN user followers will be able to see the question
  
  #### Mockups
  
- The mockups for this project were developed in Figma and can be found [here](https://www.figma.com/file/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=0%3A1).  
-
- ![Login Page](mockups/login.png)
- *Fig.1: Login Page*
-
- ![Schedule](mockups/schedule.png)
- *Fig.2: Schedule*
-
- ![Posted Questions](mockups/questions.png)
- *Fig.3: Posted Questions*
-
- ![New Question Form](mockups/question_form.png)
- *Fig.4 New Question Form*
+ The mockups for this project were developed in Figma and can be found [here](https://www.figma.com/file/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=0%3A1). 
+ (or, as an alternative, in the folder [mockups](https://github.com/softeng-feup/open-cx-goal-diggers/tree/master/docs/mockups) of this directory)
 
  
 ## Architectural Structure
