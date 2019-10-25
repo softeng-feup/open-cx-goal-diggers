@@ -1,56 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/model/Day.dart';
-import 'package:up_question/model/day.dart' as prefix0;
+import 'package:intl/intl.dart';
 import 'package:up_question/view/TalkView.dart';
 
 class DayView extends StatelessWidget {
   final Day day;
   DayView(this.day);
-  
-  
-  String weekdaytoptpt( int weekday){
-
-    switch(weekday){
-
-      case 0 :{
-        return "Domingo";
-      }
-
-      case 1:{
-        return "Segunda-Feira";  
-      }
-      
-      case 2:{
-        return "Terça-Feira";
-      }
-
-      case 3:{
-
-        return "Quarta-Feira";
-
-      }
-      
-      case 4:{
-        return "Quinta-Feira";
-      }
-      
-      case 5:{
-
-        return "Sexta-Feira";
-
-      }
-
-      case 6:{
-
-        return "Sábado";
-
-      }
-
-    }
-
-    return "Invalid Day";
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +33,7 @@ class DayView extends StatelessWidget {
             minWidth: 500, //TODO:ESTICAR A TODO O ECRA -> LARGURA ECRA
           ),
           child: Text(
-            weekdaytoptpt(2),
+            DateFormat('EEEE').format(day.day),
             style: TextStyle(fontSize: 30,color: Colors.white),
           ),
           padding: EdgeInsets.only(left: 4),
