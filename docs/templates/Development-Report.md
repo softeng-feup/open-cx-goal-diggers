@@ -183,7 +183,7 @@ For each user story you should write also the acceptance tests (textually in Ghe
 
 At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. MoSCoW method) and the team should add an estimative of the effort to implemente it, in t-shirt sizes (XS, S, M, L, XL).
 | User Stories | MoSCoW | tshirt_size|
-|--|--|--|
+|---|---|---|
 | As a participant, I want to be able to ask my question. | Must | XXL
 | As speaker, i want to be able to see all questions done, so that i could reply them | Must |XXL
 | As a participant, I want to be able to vote previously asked questions so that the most interesting questions get answered by the speaker | Should |
