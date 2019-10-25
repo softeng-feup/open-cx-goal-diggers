@@ -182,19 +182,19 @@ For each user story you should write also the acceptance tests (textually in Ghe
   
 
 At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. MoSCoW method) and the team should add an estimative of the effort to implemente it, in t-shirt sizes (XS, S, M, L, XL).
-| User Stories | MoSCoW | tshirt_size|
-|---|---|---|
-| As a participant, I want to be able to ask my question. | Must | XXL
-| As speaker, i want to be able to see all questions done, so that i could reply them | Must |XXL
-| As a participant, I want to be able to vote previously asked questions so that the most interesting questions get answered by the speaker | Should |
-| As a speaker, I want to be able to see the most voted questions so that I can answer them first. | Should |
-| As a participant, I want to be able to select the conference I'm in so that I can ask questions in the proper site. | Should |
-| As a participant, I would like to ask anonymous questions so that I don't reveal my identity. | Should |
-| As a speaker and user, I want to be able to authenticate in order to connect my profile with the activity that I'm attending.|Should|
-| As a user, I want to share my questions on Twitter so that my followers know what my interests are.|Should |
-| As an organizer, I want to share the most voted questions to promote the conference.|Should |
-|As an organizer, I want to use the data in order to make networking easier.| Should|
-|As user i would like to share my question with my Twitter followers|Should
+ User Stories | MoSCoW | tshirt_size
+---|---|---
+ As a participant, I want to be able to ask my question. | Must | XXL
+ As speaker, i want to be able to see all questions done, so that i could reply them | Must |XXL
+ As a participant, I want to be able to vote previously asked questions so that the most interesting questions get answered by the speaker | Should |
+ As a speaker, I want to be able to see the most voted questions so that I can answer them first. | Should |
+ As a participant, I want to be able to select the conference I'm in so that I can ask questions in the proper site. | Should |
+ As a participant, I would like to ask anonymous questions so that I don't reveal my identity.  |Should |
+ As a speaker and user, I want to be able to authenticate in order to connect my profile with the activity that I'm attending.|Should|
+ As a user, I want to share my questions on Twitter so that my followers know what my interests are.|Should |
+ As an organizer, I want to share the most voted questions to promote the conference.|Should |
+ As an organizer, I want to use the data in order to make networking easier.| Should| 
+ As user i would like to share my question with my Twitter followers|Should|
 
 
 
