@@ -73,12 +73,12 @@ class _QuestionsPageState extends State<QuestionPageView>{
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _addItem();
           showDialog(
               context: context,
               builder: (context) {
                 return QuestionForm(questionList: questions);
               });
+          _addItem();
         },
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
