@@ -114,10 +114,10 @@ User Stories | MoSCoW | Tshirt_Size | Acceptance Tests|
  As an organizer, I want to use the data in order to make networking easier.| Should| | GIVEN the organizer has logged on on the application <br> AND the organizer has selected the right conference <br> AND the organizer has privileged acess to the app data <br> WHEN the organizer acess the app data <br> THEN the organizer is able to make networking easier
  As user i would like to share my question with my Twitter followers|Should| | GIVEN user has submitted a question <br> AND has logged on on Twitter <br> WHEN user shares the question on Twitter <br> THEN user followers will be able to see the question
  
- #### Mockups
+ ### Mockups
  
  The mockups for this project were developed in Figma and can be found [here](https://www.figma.com/file/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=0%3A1). 
- (or, as an alternative, in the folder [mockups](https://github.com/softeng-feup/open-cx-goal-diggers/tree/master/docs/mockups) of this directory)
+ <br> (or, as an alternative, in the folder [mockups](https://github.com/softeng-feup/open-cx-goal-diggers/tree/master/docs/mockups) of this directory)
 
  
 ## Architectural Structure
