@@ -4,13 +4,13 @@ Welcome to the documentation pages of the **openCX- UpQuestion** project!
 
 You can find here detailed information about the project, from a high-level product vision to low-level implementation decisions, organized as a kind of Software Development Report 
 
-* Business modeling
+* #### Business modeling
 
     *  [Product Vision](#Product-Vision)
 
     *  [Elevator Pitch](#Elevator-Pitch)
 
-* ### Requirements
+* #### Requirements
 
     *  [Use Case Diagram](#Use-case-diagram)
 
@@ -18,21 +18,7 @@ You can find here detailed information about the project, from a high-level prod
 
     * [Mockups](#Mockups)
 
-*****
-* Architecture and Design
-
-*  [Architectural and design decisions]()
-
-*  [Technological architecture]()
-
-*  [Logical architecture]()
-
-
-* Test
-
-*  [Automated tests](): Functional tests, integration tests, acceptance tests, as much automated as possible.
-
-****
+* #### Tasks Management Tool
 
 So far, contributions are exclusively made by the initial Goal Diggers team, but we hope to open them to the community, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
 
@@ -97,6 +83,8 @@ User Stories | MoSCoW | Tshirt_Size | Acceptance Tests|
  As user i would like to share my question with my Twitter followers|Should|
  
  #### Mockups
+ 
+ The mockups for this project were developed in Figma and can be found [here](https://www.figma.com/file/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=0%3A1).  
 
  ![Login Page](mockups/login.png)
  *Fig.1: Login Page*
@@ -113,6 +101,9 @@ User Stories | MoSCoW | Tshirt_Size | Acceptance Tests|
  
                         ***Por Preencher***
  
+ 
+## Tasks Management Tools
+To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
 
 
 
