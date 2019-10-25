@@ -71,6 +71,9 @@ A more detailed analysis of this topic is made below targeting RUP & AGILE metho
 * **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. The system is always updating this list, as more questions are made. The sorting can be changed by the user, when clicked the sorting dropdown box. It allows the user to select from 'Top', 'Trending' and 'New', to which the system will update the questions order, based on the option selected. Users can click on upvote and downvote on all the questions and the system will update the number of votes and the order of the list. Users can also select to share the question with twitter, if they are logged in with an account. If the plus button is clicked, the system will open a pop-up with a box for a user to write a question. Bellow this box, there is a checkout box that, when clicked, the user will be able to share the question anonymously. There are also two buttons to share, one with twitter, that when clicked, the system will close the pop-up and add the question to the list. The speaker will only be able to see the list of all the questions.
 * **Alternative Flows and Exceptions**. Document other, legitimate usage scenarios that can take place within this use case, stating any differences in the sequence of steps that take place. In addition, describe any anticipated error conditions that could occur during execution of the use case, and define how the system is to respond to those conditions.
 
+![User Case Diagram](UserCase.jpg)
+ *Fig.1: User Case Diagram*
+
 ### User stories
 
 
