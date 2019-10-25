@@ -20,6 +20,8 @@ You can find here detailed information about the project, from a high-level prod
 
 * #### Tasks Management Tool
 
+***
+
 So far, contributions are exclusively made by the initial Goal Diggers team, but we hope to open them to the community, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
 
 Please contact us!
