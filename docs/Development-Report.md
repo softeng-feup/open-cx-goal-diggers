@@ -51,17 +51,12 @@ Team Members:
 
 ## Product Vision
 
-1) To make great questions heard (by the speaker)
-
-
-
+To make great questions heard (by the speaker)
 
 
 ## Elevator Pitch
 
-Pitch: Cansado dos silêncios finais quando o orador pergunta "Questões?"; Cansado de ouvir a velhinha da 3ª fila a contar a história de vida e a ocupar o teu espaço de perguntas? Envia-nos as tuas perguntas e vota nas tuas favoritas. Quem sabe se não serás tu o escolhido.
-
-
+Tired of the long awkward silences when speaker asks "Any questions??"; Tired of hearing the front line old lady telling her life story taking up your question space? Don't worry!! Send us your questions and upvote your favorites. Make your voice heard without the hassle of waiting for a mic.
 
 
 ## Requirements
