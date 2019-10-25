@@ -100,8 +100,21 @@ User Stories | MoSCoW | Tshirt_Size | Acceptance Tests|
  As user i would like to share my question with my Twitter followers|Should|
  
  #### Mockups
+
+ ![Login Page](mockups/login.png)
+ *Fig.1: Login Page*
+
+ ![Schedule](mockups/schedule.png)
+ *Fig.2: Schedule*
+
+ ![Posted Questions](mockups/questions.png)
+ *Fig.3: Posted Questions*
+
+ ![New Question Form](mockups/question_form.png)
+ *Fig.4 New Question Form*
+
  
-                         ***Por Preencher***
+                        ***Por Preencher***
  
 
 
