@@ -21,11 +21,9 @@ Please contact us!
 
 Thank you!
 
-André Gomes
-Manuel Coutinho
-Roberto Mourato
-Ruben Almeida
-Tiago Silva
+    André Gomes          Manuel Coutinho  
+    Roberto Mourato      Ruben Almeida  
+    Tiago Silva  
 
 ## Product Vision
 
@@ -34,9 +32,23 @@ Tiago Silva
 ## Requirements
 
 
+UpQuestion was designed to end up with the inefficient experience of the participants in a conference at the end moment when questions are made/answered.
+
+The main stakeholders identified in the given context are:
+
+* The Participant- Person who attend to listen the speaker in   a certain talk. Has the capability to Submit questions and   to upvote other participants questions he thinks deserve     being answered.
+
+* The Speaker- Person expert on the subject who performs the   talk. Has limited time to answer an, also, limited number     of questions and intend to invest that time to answer the     most interesting questions.
+
+We believe that a communitarian forum open to all conference participants with features of upvote is our greatest ally to cluster the greatest questions, those that will be answered in that limited period.
+
+A more detailed analysis of this topic is made below targeting RUP & AGILE methodologies of requirement engineering:
+
+
+
 ### Use case diagram
 
-
+                                    **PREENCHER**
 ### User stories
 
 
