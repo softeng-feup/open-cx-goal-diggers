@@ -4,15 +4,23 @@ import 'package:flutter/widgets.dart';
 import 'package:up_question/model/Question.dart';
 
 class QuestionForm extends StatefulWidget {
+  // TODO: mudar para talk depois
+  List<Question> questionList;
+
+  QuestionForm({this.questionList});
+
   @override
   _QuestionFormState createState() {
-    return _QuestionFormState();
+    return _QuestionFormState(questionList: questionList);
   }
 }
 
 class _QuestionFormState extends State<QuestionForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final _question = new Question();
+  List<Question> questionList;
+
+  _QuestionFormState({this.questionList});
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +110,9 @@ class _QuestionFormState extends State<QuestionForm> {
                                   final form = _formKey.currentState;
                                   if (form.validate()) {
                                     form.save();
-                                    //_question.save();
-                                    _showDialog(context);
+                                    questionList.add(_question);
+                                    // TODO: ver isto
+                                    //_showDialog(context);
                                   }
                                 },
                                 child: Text(

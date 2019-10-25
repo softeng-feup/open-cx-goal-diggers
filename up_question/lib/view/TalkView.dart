@@ -11,8 +11,8 @@ class TalkView extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return InkWell( 
-      
-      onTap: ()=>print('Talk button pressed'),
+      // TODO: passar a lecture certa
+      onTap: ()=> Navigator.pushNamed(context, '/QuestionsPage'),
 
       child:Container(
         
