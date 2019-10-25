@@ -18,6 +18,9 @@ You can find here detailed information about the project, from a high-level prod
 
     * [Mockups](#Mockups)
 
+* #### Architectural Structure
+    * [MVC](#Architectural-Structure)
+ 
 * #### Tasks Management Tool
 
 ***
@@ -108,8 +111,11 @@ User Stories | MoSCoW | Tshirt_Size | Acceptance Tests|
  *Fig.4 New Question Form*
 
  
-                        ***Por Preencher***
- 
+## Architectural Structure
+
+
+### MVC
+We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
  
 ## Tasks Management Tools
 To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
