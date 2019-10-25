@@ -34,16 +34,18 @@ You can find here detailed information about the project, from a high-level prod
 
 ****
 
-So far, contributions are exclusively made by the initial team, but we hope to open them to the community, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
+So far, contributions are exclusively made by the initial Goal Diggers team, but we hope to open them to the community, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
 
 Please contact us!
 
 Thank you!
 
-    André Gomes          Manuel Coutinho  
-    Roberto Mourato      Ruben Almeida  
-    Tiago Silva 
-    
+Team Members:
+  - [André Gomes](https://github.com/andremsgomes)
+  - [Manuel Coutinho](https://github.com/ManelCoutinho) 
+  - [Roberto Mourato](https://github.com/RobertoMourato)
+  - [Ruben Almeida](https://github.com/arubenruben) 
+  - [Tiago Silva](https://github.com/tiagogsilva) 
 
 ***
 
