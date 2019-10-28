@@ -113,6 +113,7 @@ class _QuestionFormState extends State<QuestionForm> {
                                     questionList.add(_question);
                                     // TODO: ver isto
                                     //_showDialog(context);
+                                    Navigator.pop(context);
                                   }
                                 },
                                 child: Text(

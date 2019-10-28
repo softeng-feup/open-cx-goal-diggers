@@ -6,7 +6,8 @@ class Question extends Comparable {
   String question;
   int votes;
   DateTime postedTime;
-  User user;
+  // TODO: ver depois isto
+  User user = new User(username: "Default");
   bool anonimous = false;
 
   Question({this.question});

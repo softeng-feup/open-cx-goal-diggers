@@ -7,15 +7,13 @@ import 'package:up_question/view/Widgets/QuestionForm.dart';
 import '../TalkView.dart';
 
 class QuestionPageView extends StatefulWidget {
-
-
   @override
   _QuestionsPageState createState() {
     return _QuestionsPageState();
   }
 }
 
-class _QuestionsPageState extends State<QuestionPageView>{
+class _QuestionsPageState extends State<QuestionPageView> {
   // TODO:
   /*
   * Testing
@@ -39,37 +37,24 @@ class _QuestionsPageState extends State<QuestionPageView>{
     new Question(question: "Sample Question6?")
   ];
 
-  int value = questions.length;
-
-  _addItem() {
-    setState(() {
-      value++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Questions"),
       ),
-      body: new Container(
-        child: Material(
-          child: Stack(
-            children: <Widget>[
-              TalkView(T),
-              ListView.builder(
-                  itemCount: this.value,
-                  itemBuilder: (BuildContext context, int index) {
-                    return QuestionView(question: questions[index]);
-                  })
-            ],
-          ),
-        ),
-        alignment: Alignment.center,
-        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-        margin: EdgeInsets.all(5),
-        decoration: BoxDecoration(color: Colors.grey),
+      body: Column(
+        children: <Widget>[
+          TalkView(T),
+          Expanded(
+            child: new ListView.builder(
+                // TODO: problema, so aparece a seguir depois de adicionar a 2ª
+                itemCount: questions.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return QuestionView(question: questions[index]);
+                }),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -78,11 +63,9 @@ class _QuestionsPageState extends State<QuestionPageView>{
               builder: (context) {
                 return QuestionForm(questionList: questions);
               });
-          _addItem();
         },
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
-

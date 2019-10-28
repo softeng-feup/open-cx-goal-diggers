@@ -19,62 +19,65 @@ class QuestionViewState extends State<QuestionView> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: Container(
-            color: Colors.white,
-            height: 150,
-            // TODO: relative size
-            width: 400,
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            margin: EdgeInsets.all(5),
-            child: Stack(children: <Widget>[
-              Container(
-                alignment: Alignment.topLeft,
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.face),
-                      iconSize: 30,
-                    ),
-                    Text("John", style: TextStyle(fontSize: 20))
-                  ],
+    return Container(
+        height: 150,
+        // TODO: relative size
+        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        decoration: BoxDecoration(
+            border:
+                Border(bottom: BorderSide(color: Color(0xFF353535), width: 3))),
+        child: Stack(children: <Widget>[
+          Container(
+            alignment: Alignment.topLeft,
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.face),
+                  iconSize: 30,
                 ),
-              ),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    question.question,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 18),
-                  )),
-              Container(
-                  alignment: Alignment.bottomRight,
-                  padding: EdgeInsets.fromLTRB(150, 0, 0, 0),
-                  // TODO: Relative positioning
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.arrow_upward),
-                        iconSize: 20,
-                        onPressed: null,
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.arrow_downward),
-                        iconSize: 20,
-                        onPressed: null,
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.insert_comment),
-                        iconSize: 20,
-                        onPressed: null,
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.share),
-                        iconSize: 20,
-                        onPressed: null,
-                      )
-                    ],
-                  ))
-            ])));
+                Text(_getUserName(question), style: TextStyle(fontSize: 20))
+              ],
+            ),
+          ),
+          Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                question.question,
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 18),
+              )),
+          Container(
+              alignment: Alignment.bottomRight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.arrow_upward, color: Color(0xFF353535)),
+                    iconSize: 20,
+                    onPressed: null,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.arrow_downward, color: Color(0xFF353535)),
+                    iconSize: 20,
+                    onPressed: null,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.insert_comment, color: Color(0xFF353535)),
+                    iconSize: 20,
+                    onPressed: null,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.share, color: Color(0xFF353535)),
+                    iconSize: 20,
+                    onPressed: null,
+                  )
+                ],
+              ))
+        ]));
+  }
+
+  _getUserName(Question question) {
+    if (question.anonimous) return "Anonimous";
+    return question.user.username;
   }
 }
