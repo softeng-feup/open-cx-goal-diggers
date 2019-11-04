@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "922604780628",
+    "firebase_url": "https://esof-upquestion.firebaseio.com",
+    "project_id": "esof-upquestion",
+    "storage_bucket": "esof-upquestion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922604780628:android:48c7e046991ed8b17f01c1",
+        "android_client_info": {
+          "package_name": "pt.goal_diggers.up_question"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922604780628-c38oj4ak6k24fs4von4ctqspanrn8cgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7sqeRPDMLHPIxTPtWkHPdw6bFhF_T_to"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922604780628-c38oj4ak6k24fs4von4ctqspanrn8cgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
