@@ -1,15 +1,22 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:up_question/model/Talk.dart';
+import 'package:up_question/controller/database.dart';
 
 class TalkView extends StatelessWidget {
   final Talk localtalk;
 
   TalkView(this.localtalk);
+  
+  final Talks auxiliar=Talks();
+
+  
 
   @override
   Widget build(BuildContext context) {
     
+    auxiliar.initState();
+
     return InkWell( 
       // TODO: passar a lecture certa
       onTap: ()=> Navigator.pushNamed(context, '/QuestionsPage'),

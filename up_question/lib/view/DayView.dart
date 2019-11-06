@@ -3,13 +3,18 @@ import 'package:flutter/widgets.dart';
 import 'package:up_question/model/Day.dart';
 import 'package:intl/intl.dart';
 import 'package:up_question/view/TalkView.dart';
+import 'package:up_question/controller/database.dart';
 
 class DayView extends StatelessWidget {
   final Day day;
   DayView(this.day);
 
+  final Talks auxiliar=Talks();
+  
+
   @override
   Widget build(BuildContext context) {
+    auxiliar.initState();
     // TODO: NOT COMPLETED YET
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,6 +45,7 @@ class DayView extends StatelessWidget {
         ),
         //Iterate List of items
         for (var item in day.talks) TalkView(item),
+
 
       ],
     );
