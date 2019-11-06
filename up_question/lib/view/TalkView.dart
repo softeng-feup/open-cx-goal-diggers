@@ -9,64 +9,53 @@ class TalkView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    return InkWell( 
-      // TODO: passar a lecture certa
-      onTap: ()=> Navigator.pushNamed(context, '/QuestionsPage'),
-
-      child:Container(
-        
-        decoration: BoxDecoration(
-          image: DecorationImage(
-                  image: AssetImage(localtalk.backgroundImagePath),
-                  fit: BoxFit.fill
-          )
-        
-        ),
-        
-        padding: EdgeInsets.only(top:4,left: 4,bottom: 4),
-        
-        constraints: BoxConstraints(
-            maxHeight: 80, //TODO:MAX HEIGHT DEVE DEPENDER DO N DE TALKS
-            minWidth: 500, //TODO:ESTICAR A TODO O ECRA -> LARGURA ECRA
-
-        ),
-        
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            //Title
-            Text(localtalk.title,
-      
-              style: TextStyle(  
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Colors.white,
-              ),
-            ),
-            //Conference Room
-            Text(localtalk.location,
-                
-              style:TextStyle( 
-                fontSize: 15,
-                color: Colors.white,
-              
-              ),
-            ),
-
-            //Hour and Minutes as INTEGERS
-            //TODO:ESTA A IMPRIMIR NO CABECALHO UM INTEIRO. QUE E WEEKDAY. FAZER UMA FUNCAO PARA CONVERTER O WEEKDAY PARA PT. EXITIRA EMBEBIDA???
-            Text(localtalk.startTime.hour.toString() + ':'+ localtalk.startTime.minute.toString()+ '-' + localtalk.endTime.hour.toString() + ':'+ localtalk.endTime.minute.toString(),
-              style: TextStyle(
-                  
-                fontSize: 15,
-                color: Colors.white,
-
-                ),  
-  
-            ),
-          ],
-        ))
-        );
+    return InkWell(
+        // TODO: passar a lecture certa
+        onTap: () => Navigator.pushNamed(context, '/QuestionsPage'),
+        child: Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(localtalk.backgroundImagePath),
+                    colorFilter: new ColorFilter.mode(Color.fromRGBO(196, 196, 196, 0.85), BlendMode.dstATop),
+                    fit: BoxFit.fill)),
+            padding: EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                //Title
+                Text(
+                  localtalk.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
+                ),
+                //Conference Room
+                Text(
+                  localtalk.location,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+                //Hour and Minutes as INTEGERS
+                //TODO:ESTA A IMPRIMIR NO CABECALHO UM INTEIRO. QUE E WEEKDAY. FAZER UMA FUNCAO PARA CONVERTER O WEEKDAY PARA PT. EXITIRA EMBEBIDA???
+                Text(
+                  localtalk.startTime.hour.toString() +
+                      ':' +
+                      localtalk.startTime.minute.toString() +
+                      '-' +
+                      localtalk.endTime.hour.toString() +
+                      ':' +
+                      localtalk.endTime.minute.toString(),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            )));
   }
 }

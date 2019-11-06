@@ -50,6 +50,8 @@ flutter:
   assets:
     - assets/images/background.jpg
     - assets/images/big_data_back.png
+    - assets/images/user_bg.png
+    - assets/images/profile_pic.png
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
