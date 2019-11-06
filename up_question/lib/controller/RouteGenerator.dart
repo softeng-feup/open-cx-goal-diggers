@@ -8,7 +8,7 @@ import 'package:up_question/view/Pages/ScheduleScreen.dart';
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/HomePage':
+      case '/HomePage': case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/SchedulePage':
         return MaterialPageRoute(builder: (_) => ScheduleScreen(day: MyApp.database.day)); // TODO: fazer agenda e passar agenda
