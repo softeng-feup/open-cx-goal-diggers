@@ -11,7 +11,7 @@ class Router {
       case '/HomePage': case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/SchedulePage':
-        return MaterialPageRoute(builder: (_) => ScheduleScreen(day: MyApp.database.day)); // TODO: fazer agenda e passar agenda
+        return MaterialPageRoute(builder: (_) => ScheduleScreen(days: MyApp.database.schedule)); // TODO: fazer agenda e passar agenda
       case '/QuestionsPage':
         return MaterialPageRoute(builder: (_) => QuestionPageView()); // TODO: passar argumentos corretos
       default:

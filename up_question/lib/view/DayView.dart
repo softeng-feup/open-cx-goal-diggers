@@ -13,30 +13,18 @@ class DayView extends StatelessWidget {
     // TODO: NOT COMPLETED YET
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-
-      //TODO:R.A: LIST VIEW SINCE WE MIGHT NEED TO SCROLL DOWN TALKS IN THE SAME DAY. DISCUSS THIS
-
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(53, 53, 53, 1),
-            /*
-              image:DecorationImage(
-                //image: AssetImage(),
-                //fit: BoxFit.fill,
-
-              ),
-              */
-          ),
-          constraints: BoxConstraints(
-            maxHeight: 80, //TODO:MAX HEIGHT DEVE DEPENDER DO N DE TALKS
-            minWidth: 500, //TODO:ESTICAR A TODO O ECRA -> LARGURA ECRA
-          ),
-          child: Text(
-            DateFormat('EEEE').format(day.day),
-            style: TextStyle(fontSize: 30,color: Colors.white),
-          ),
+          width:  MediaQuery.of(context).size.width,
+          color: Color.fromRGBO(53, 53, 53, 1),
           padding: EdgeInsets.only(left: 4),
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Text(
+              DateFormat('EEEE').format(day.day),
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            ),
+          ),
         ),
         //Iterate List of items
         for (var item in day.talks) TalkView(item),
