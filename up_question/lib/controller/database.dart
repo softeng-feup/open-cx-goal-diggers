@@ -3,15 +3,18 @@ import 'package:up_question/model/Day.dart';
 import 'package:up_question/model/Talk.dart';
 import 'package:intl/intl.dart';
 
-class Talks  {
+class DatabaseService  {
 
-  Day day;
   //TODO: CONSTRUTOR CHAMAR METODO INIT
 
-  Talks(this.day);
+  String idForDatabaseWeekDay;
+  
+  DatabaseService(this.idForDatabaseWeekDay);
 
+}
+  Day retrevieDataonDayX(String id) {
 
-  void retrevieDataonDayX() {
+    Day day;
 
     final String strDayWeek=DateFormat('EEEE').format(day.day);
 
@@ -51,6 +54,9 @@ class Talks  {
         print(container.location);
         print(key);      
       }
+
     });
+    
+    return day;
   }
 }

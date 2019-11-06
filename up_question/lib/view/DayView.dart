@@ -9,6 +9,7 @@ class DayView extends StatelessWidget {
   final Day day;
   DayView(this.day);
 
+
   
   
   
@@ -16,6 +17,9 @@ class DayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
+      final Day mine=Day(
+          day:DateTime.now(),
+          talks:[]);
     
     //na database os dias estao em minuscula.
 
