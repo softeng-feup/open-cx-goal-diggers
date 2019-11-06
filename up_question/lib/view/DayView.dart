@@ -9,12 +9,16 @@ class DayView extends StatelessWidget {
   final Day day;
   DayView(this.day);
 
-  final Talks auxiliar=Talks();
+  
+  
   
 
   @override
   Widget build(BuildContext context) {
-    auxiliar.initState();
+    
+    
+    //na database os dias estao em minuscula.
+
     // TODO: NOT COMPLETED YET
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

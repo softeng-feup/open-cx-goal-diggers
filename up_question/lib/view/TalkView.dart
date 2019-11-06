@@ -8,15 +8,9 @@ class TalkView extends StatelessWidget {
 
   TalkView(this.localtalk);
   
-  final Talks auxiliar=Talks();
-
-  
-
   @override
   Widget build(BuildContext context) {
-    
-    auxiliar.initState();
-
+  
     return InkWell( 
       // TODO: passar a lecture certa
       onTap: ()=> Navigator.pushNamed(context, '/QuestionsPage'),
