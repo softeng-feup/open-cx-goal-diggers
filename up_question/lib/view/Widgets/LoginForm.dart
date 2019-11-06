@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/auth.dart';
 import 'package:up_question/main.dart';
 import 'package:up_question/model/User.dart';
+import 'package:up_question/view/Widgets/Loading.dart';
 
 class LoginForm extends StatefulWidget {
   final Function toggleForm;
@@ -18,8 +19,8 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   User user = new User();
-
   final AuthService _auth = AuthService();
+  bool loading = false;
 
   padding_fun(){
     if( MediaQuery.of(context).viewInsets.bottom - MediaQuery.of(context).size.height * 0.09 < 0)
@@ -58,7 +59,7 @@ class _LoginFormState extends State<LoginForm> {
             color: Color(0xAF000000), // TODO: macro
             width: MediaQuery.of(context).size.width,
             height: height_fun(),
-            child: SingleChildScrollView(
+            child: loading ? Loading() : SingleChildScrollView(
               padding: EdgeInsets.only(left: 20.0, right: 20, top: 26, bottom: 8),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -129,7 +130,10 @@ class _LoginFormState extends State<LoginForm> {
                           if (form.validate()) {
                             form.save();
 
+                            setState(() => loading = true );
                             dynamic result = await _auth.signin(user.email, user.password);
+
+                            setState(() => loading = false );
 
                             if (result != null) {
                               if(!result.isEmailVerified)

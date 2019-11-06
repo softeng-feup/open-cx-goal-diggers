@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:up_question/controller/auth.dart';
 import 'package:up_question/main.dart';
 import 'package:up_question/model/User.dart';
+import 'package:up_question/view/Widgets/Loading.dart';
 
 class RegisterForm extends StatefulWidget {
   final Function toggleForm;
@@ -16,6 +17,7 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final AuthService _auth = AuthService();
+  bool loading = false;
 
   final _passController = TextEditingController();
   User user = new User();
@@ -59,7 +61,7 @@ class _RegisterFormState extends State<RegisterForm> {
             color: Color(0xAF000000), // TODO: macro
             width: MediaQuery.of(context).size.width,
             height: height_fun(),
-            child: SingleChildScrollView(
+            child: loading ? Loading() : SingleChildScrollView(
                   padding:
                       EdgeInsets.only(left: 20.0, right: 20, top: 26, bottom: 8),
                   child: Column(
@@ -171,9 +173,14 @@ class _RegisterFormState extends State<RegisterForm> {
 
                             if (form.validate()) {
                               form.save();
+                              setState(() => loading = true);
+
+                              // TODO: depois apagar isto
                               MyApp.database.users.add(user);
 
                               dynamic result = await _auth.register(user.email, user.password);
+
+                              setState(() => loading = false);
 
                               if (result != null) {
                                 _showDialog(context, 'Register Successful');
