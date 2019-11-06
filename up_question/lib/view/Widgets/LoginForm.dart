@@ -2,9 +2,9 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/auth.dart';
-import 'package:up_question/main.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
+import 'package:up_question/view/Widgets/PasswordForm.dart';
 
 class LoginForm extends StatefulWidget {
   final Function toggleForm;
@@ -21,6 +21,10 @@ class _LoginFormState extends State<LoginForm> {
   User user = new User();
   final AuthService _auth = AuthService();
   bool loading = false;
+  bool showPassResetForm = false;
+  void togglePasswordForm(){
+    setState(() => showPassResetForm = !showPassResetForm);
+  }
 
   padding_fun(){
     if( MediaQuery.of(context).viewInsets.bottom - MediaQuery.of(context).size.height * 0.09 < 0)
@@ -51,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
     UnderlineInputBorder _underlineBorder = UnderlineInputBorder(
       borderSide: BorderSide(color: Colors.white, width: 2.0),
     );
-    return Padding(
+    return showPassResetForm ? PasswordForm(toggleForm: togglePasswordForm,) : Padding(
       padding: EdgeInsets.only(bottom: padding_fun()),
       child: new Form(
           key: this._formKey,
@@ -216,7 +220,7 @@ class _LoginFormState extends State<LoginForm> {
                           textColor: Color(0xCCFFFFFF),
 
                           onPressed: () {
-                            _showDialog(context, "TODO: forget password");
+                            togglePasswordForm();
                           },
                           child: Text('Forgot password?'),
                         ),
