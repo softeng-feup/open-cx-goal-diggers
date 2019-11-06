@@ -3,60 +3,72 @@ import 'package:up_question/model/Day.dart';
 import 'package:up_question/model/Talk.dart';
 import 'package:intl/intl.dart';
 
-class DatabaseService  {
-
+class DatabaseService {
   //TODO: CONSTRUTOR CHAMAR METODO INIT
 
-  String idForDatabaseWeekDay;
-  
-  DatabaseService(this.idForDatabaseWeekDay);
+  List<Talk> retrevieTalkonDay(String dayKey, DateTime dayTime) {
+    List<Talk> tempTalkList = List();
 
-}
-  Day retrevieDataonDayX(String id) {
+    final DatabaseReference talkBlockRef =
+        FirebaseDatabase.instance.reference();
 
-    Day day;
+    talkBlockRef.child('talks').once().then((DataSnapshot snapTalk) {
+      var keysTalk = snapTalk.value.keys;
+      var dataTalk = snapTalk.value;
 
-    final String strDayWeek=DateFormat('EEEE').format(day.day);
+      for (var key in keysTalk) {
+        //Se o dia for o correto entao puxo
 
-    final String catstr='talks/'+(strDayWeek.toLowerCase());
+        if (dataTalk[key]['idDay'] == dayKey) {
+          Talk talkAuxiliar = Talk(
+              title: dataTalk[key]['title'],
+              speaker: dataTalk[key]['speaker'],
+              startTime: DateTime(dayTime.year, dayTime.month, dayTime.day,
+                  dataTalk[key]['hour_start'], dataTalk[key]['min_start']),
+              endTime: DateTime(dayTime.year, dayTime.month, dayTime.day,
+                  dataTalk[key]['hour_finish'], dataTalk[key]['min_finish']),
+              location: dataTalk[key]['room'],
+              //TODO:ChangeBackgroundImagePath
+              backgroundImagePath: 'assets/images/big_data_back.png');
 
-    print(catstr);
+          tempTalkList.add(talkAuxiliar);
+          print(tempTalkList.last.endTime.toUtc());
+        }
+      }
+    });
+    return tempTalkList;
+  }
+
+  List<Day> retrevieDataonDay() {
+    List<Day> tempDayList = new List();
 
     final DatabaseReference ref = FirebaseDatabase.instance.reference();
 
-    //os urls para a Database tem o dia sempre em minuscula
-    ref.child(catstr).once().then((DataSnapshot snap) {
+    ref.child('days').once().then((DataSnapshot snap) {
+      //keys inside days block day1....day2...etc
       var keys = snap.value.keys;
 
       var data = snap.value;
-      day.talks.clear();
 
       for (var key in keys) {
+        List<Talk> talkListTemp;
 
-        DateTime timeAuxStart=DateTime(data[key]['year'],data[key]['month'],data[key]['day'],data[key]['hour'],data[key]['minute']);
-        DateTime timeAuxEnd=DateTime(data[key]['year'],data[key]['month'],data[key]['day'],data[key]['hour'],data[key]['minute']);
+        //Limpo array de talks para ter garantia que talks erradas nao sobram em memoria
 
-        //TODO:NULL BACKGROUND PATH
-        
-        Talk container =  Talk(
-          title:data[key]['title'],
-          speaker:data[key]['speaker'],
-          startTime:timeAuxStart,
-          endTime:timeAuxEnd,
-          location:data[key]['location'],
-          backgroundImagePath: null
-        );
-      
-        day.talks.add(container);
+        DateTime day = DateTime(
+            data[key]['year'], data[key]['month'], data[key]['day_month']);
 
-        print('Inserido');
-        print(container.title);
-        print(container.location);
-        print(key);      
+        talkListTemp =  retrevieTalkonDay(key, day);
+
+        //Se houve talks naquele dia, entao adiciono ao array associado ao dia
+        if (talkListTemp != null) {
+          tempDayList.add(Day(day: day, talks: talkListTemp));
+        } else {
+          
+          tempDayList.add(Day(day: day, talks: null));
+        }
       }
-
     });
-    
-    return day;
+    return tempDayList;
   }
 }

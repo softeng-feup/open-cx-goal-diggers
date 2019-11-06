@@ -11,11 +11,12 @@ class DayView extends StatelessWidget {
 
 
   
-  
-  
-
   @override
   Widget build(BuildContext context) {
+
+      DatabaseService aux=DatabaseService();
+
+      print(aux.retrevieDataonDay().length);
     
       final Day mine=Day(
           day:DateTime.now(),
