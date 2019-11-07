@@ -14,7 +14,7 @@ class DayView extends StatelessWidget {
   Widget build(BuildContext context) {
       DatabaseService aux = DatabaseService();
 
-      aux.retrevieSchedule();
+      aux.retrieveSchedule();
     
       final Day mine=Day(
           day:DateTime.now(),
