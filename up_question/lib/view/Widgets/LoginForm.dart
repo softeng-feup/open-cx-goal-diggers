@@ -26,17 +26,18 @@ class _LoginFormState extends State<LoginForm> {
     setState(() => showPassResetForm = !showPassResetForm);
   }
 
-  padding_fun(){
-    if( MediaQuery.of(context).viewInsets.bottom - MediaQuery.of(context).size.height * 0.09 < 0)
-      return  MediaQuery.of(context).viewInsets.bottom;
-    return MediaQuery.of(context).viewInsets.bottom - MediaQuery.of(context).size.height * 0.09;
+  padding_fun() {
+    if (MediaQuery.of(context).viewInsets.bottom -
+            MediaQuery.of(context).size.height * 0.09 <
+        0) return MediaQuery.of(context).viewInsets.bottom;
+    return MediaQuery.of(context).viewInsets.bottom -
+        MediaQuery.of(context).size.height * 0.09;
   }
 
   final double MAX_HEIGHT = 315;
 
-  double height_fun(){
-    if(MediaQuery.of(context).viewInsets.bottom == 0)
-      return MAX_HEIGHT;
+  double height_fun() {
+    if (MediaQuery.of(context).viewInsets.bottom == 0) return MAX_HEIGHT;
     double height = MediaQuery.of(context).size.height;
 
     // height without SafeArea
@@ -44,10 +45,11 @@ class _LoginFormState extends State<LoginForm> {
 
     // height without status and toolbar
     // TODO: 26 macro de baixo
-    double utilHeight = height - padding.top - kToolbarHeight - padding.bottom - 26;
+    double utilHeight =
+        height - padding.top - kToolbarHeight - padding.bottom - 26;
 
     double _height = utilHeight - MediaQuery.of(context).viewInsets.bottom;
-    return (_height > MAX_HEIGHT) ?  MAX_HEIGHT : _height;
+    return (_height > MAX_HEIGHT) ? MAX_HEIGHT : _height;
   }
 
   @override
@@ -127,7 +129,6 @@ class _LoginFormState extends State<LoginForm> {
                             borderRadius: BorderRadius.circular(10.0)),
                         color: Color(0xFF353535),
                         textColor: Colors.white,
-
                         onPressed: () async {
                           final form = _formKey.currentState;
 
@@ -140,9 +141,10 @@ class _LoginFormState extends State<LoginForm> {
                             setState(() => loading = false );
 
                             if (result != null) {
-                              if(!result.isEmailVerified)
-                                _showDialog(context, 'Please Confirm your Email');
-                              else{
+                              if (!result.isEmailVerified)
+                                _showDialog(
+                                    context, 'Please Confirm your Email');
+                              else {
                                 _showDialog(context, 'Login Successfull');
                                 Navigator.pushNamed(context, '/SchedulePage');
                               }
@@ -204,7 +206,6 @@ class _LoginFormState extends State<LoginForm> {
                         child: RaisedButton(
                           color: Color(0x0000000),
                           textColor: Color(0xCCFFFFFF),
-
                           onPressed: () {
                             widget.toggleForm();
                           },
@@ -218,7 +219,6 @@ class _LoginFormState extends State<LoginForm> {
                         child: RaisedButton(
                           color: Color(0x00000000),
                           textColor: Color(0xCCFFFFFF),
-
                           onPressed: () {
                             togglePasswordForm();
                           },

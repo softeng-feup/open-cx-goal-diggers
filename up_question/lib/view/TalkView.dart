@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:up_question/model/Talk.dart';
+import 'package:up_question/controller/database.dart';
 
 class TalkView extends StatelessWidget {
   final Talk localtalk;
@@ -17,7 +18,8 @@ class TalkView extends StatelessWidget {
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(localtalk.backgroundImagePath),
-                    colorFilter: new ColorFilter.mode(Color.fromRGBO(196, 196, 196, 0.85), BlendMode.dstATop),
+                    colorFilter: new ColorFilter.mode(
+                        Color.fromRGBO(196, 196, 196, 0.85), BlendMode.dstATop),
                     fit: BoxFit.fill)),
             padding: EdgeInsets.all(8),
             child: Column(

@@ -2,14 +2,50 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:up_question/controller/database.dart';
+import 'package:up_question/model/Database.dart';
 import 'package:up_question/model/Day.dart';
 import 'package:up_question/view/DayView.dart';
+import 'package:up_question/view/Widgets/Loading.dart';
 
-class ScheduleScreen extends StatelessWidget {
+class ScheduleScreen extends StatefulWidget {
+  @override
+  _ScheduleScreenState createState() {
+    return _ScheduleScreenState();
+  }
+}
+
+class _ScheduleScreenState extends State<ScheduleScreen> {
+  DatabaseService _db;
+
+  @override
+  void initState() {
+    super.initState();
+    _db = new DatabaseService();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return FutureBuilder<List<Day>>(
+      future: _db.retrevieSchedule(),
+      builder: (BuildContext context, AsyncSnapshot<List<Day>> snapshot) {
+        if (!snapshot.hasData) {
+          return Loading();
+        } else {
+          final schedule = snapshot.data;
+          return ScheduleWidget(days: schedule,);
+        }
+      },
+    );
+  }
+}
+
+class ScheduleWidget extends StatelessWidget{
   // TODO: mudar depois para lista
   final List<Day> days;
 
-  ScheduleScreen({this.days});
+  ScheduleWidget({this.days});
 
   @override
   Widget build(BuildContext context) {

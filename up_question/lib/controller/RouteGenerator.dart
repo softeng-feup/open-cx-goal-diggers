@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:up_question/main.dart';
 import 'package:up_question/view/Pages/HomePage.dart';
 import 'package:up_question/view/Pages/QuestionsScreen.dart';
 import 'package:up_question/view/Pages/ScheduleScreen.dart';
@@ -11,7 +10,8 @@ class Router {
       case '/HomePage': case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/SchedulePage':
-        return MaterialPageRoute(builder: (_) => ScheduleScreen(days: MyApp.database.schedule)); // TODO: fazer agenda e passar agenda
+        //return MaterialPageRoute(builder: (_) => ScheduleScreen(days: MyApp.database.schedule)); // TODO: fazer agenda e passar agenda
+        return MaterialPageRoute(builder: (_) => ScheduleScreen()); // TODO: fazer agenda e passar agenda
       case '/QuestionsPage':
         return MaterialPageRoute(builder: (_) => QuestionPageView()); // TODO: passar argumentos corretos
       default:
