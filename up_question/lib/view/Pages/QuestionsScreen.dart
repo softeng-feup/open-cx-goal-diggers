@@ -37,6 +37,9 @@ class _QuestionsPageState extends State<QuestionPageView> {
     new Question(question: "Sample Question6?")
   ];
 
+  List<String> _options = ['Top', 'Trending', 'New'];
+  String _selectedOption = 'Top';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +49,29 @@ class _QuestionsPageState extends State<QuestionPageView> {
       body: Column(
         children: <Widget>[
           TalkView(T),
+          DropdownButton(
+              value: _selectedOption,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedOption = newValue;
+                });
+              },
+              elevation: 0,
+              isDense: true,
+              isExpanded: true,
+              items: _options.map((option) {
+                return DropdownMenuItem(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      SizedBox(width: 10),
+                      new Text(option),
+                    ],
+                  ),
+                  value: option,
+                );
+              }).toList(),
+            ),
           Expanded(
             child: new ListView.builder(
                 // TODO: problema, so aparece a seguir depois de adicionar a 2ª
