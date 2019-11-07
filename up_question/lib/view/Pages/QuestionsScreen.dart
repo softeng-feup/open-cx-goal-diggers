@@ -27,7 +27,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
       location: "FEUP",
       backgroundImagePath: "assets/images/big_data_back.png");
 
-  static List<Question> questions = <Question>[
+  List<Question> questions = <Question>[
     new Question(question: "Sample Question0?"),
     new Question(question: "Sample Question1?"),
     new Question(question: "Sample Question2?"),
@@ -37,8 +37,36 @@ class _QuestionsPageState extends State<QuestionPageView> {
     new Question(question: "Sample Question6?")
   ];
 
-  List<String> _options = ['Top', 'Trending', 'New'];
+  List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
+
+  bool compareQuestions(int i) {
+    switch(_selectedOption) {
+      case 'Top':
+        return questions[i+1].votes > questions[i].votes;
+      case 'New':
+        return questions[i+1].postedTime.isAfter(questions[i].postedTime);
+      case 'Old':
+        return questions[i+1].postedTime.isBefore(questions[i].postedTime);
+    }
+    return false;
+  }
+
+  sortQuestions() {
+    bool sorted = false;
+
+    while(!sorted) {
+      sorted = true;
+      for (int i = 0; i < questions.length-1; i++) {
+        if (compareQuestions(i)) {
+          Question tempQuestion = questions[i];
+          questions[i] = questions[i+1];
+          questions[i+1] = tempQuestion;
+          sorted = false;
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +83,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                 setState(() {
                   _selectedOption = newValue;
                 });
+                sortQuestions();
               },
               elevation: 0,
               isDense: true,
