@@ -66,9 +66,9 @@ class Database {
         location: 'B 003',
         backgroundImagePath: 'assets/images/big_data_back.png'),
   ];
-  static Day day = Day(day: DateTime.now(), talks: talks_1);
-  static Day day2 = Day(day: nextDay, talks: talks_2);
-  static Day day3 = Day(day: nextNextDay, talks: talks_3);
+  //static Day day = Day(day: DateTime.now(), talks: talks_1);
+  //static Day day2 = Day(day: nextDay, talks: talks_2);
+  //static Day day3 = Day(day: nextNextDay, talks: talks_3);
 
   //List<Day> schedule = [day, day2, day3];
 }

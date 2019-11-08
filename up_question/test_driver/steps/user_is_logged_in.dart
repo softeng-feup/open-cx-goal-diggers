@@ -5,20 +5,18 @@ import 'package:flutter_gherkin/flutter_gherkin.dart';
 
 class InsertedEmail extends GivenWithWorld<FlutterWorld> {
   InsertedEmail()
-      : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 60));
+      : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 10));
 
   @override
   Future<void> executeStep() async {
-    // TODO: implement executeStep
     FlutterDriverUtils.tap(world.driver, find.ancestor(of: find.text('Already have an account?'), matching: find.byType('ButtonTheme')));
-    String input1 = "test@test.com";
+    String input1 = "up201705985@fe.up.pt";
     //await FlutterDriverUtils.tap(world.driver, find.byValueKey('inputKeyString'));
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('Email'), input1);
     return null;
   }
 
   @override
-  // TODO: implement pattern
   RegExp get pattern => RegExp(r"A user inserts an email");
 
 }
@@ -26,23 +24,22 @@ class InsertedEmail extends GivenWithWorld<FlutterWorld> {
 class InsertedPassword extends AndWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
-    // TODO: implement executeStep
-    String input1 = "password";
+    String input1 = "testpassword";
     //await FlutterDriverUtils.tap(world.driver, find.byValueKey('inputKeyString'));
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('Password'), input1);
     return null;
   }
 
   @override
-  // TODO: implement pattern
   RegExp get pattern => RegExp(r"A user inserts a password");
 
 }
 
 class TapedLoginButton extends WhenWithWorld<FlutterWorld> {
   @override
-  Future<void> executeStep() {
+  Future<void> executeStep() async {
     // TODO: implement executeStep
+    await FlutterDriverUtils.tap(world.driver, find.ancestor(of: find.text('Login'), matching: find.byType('RaisedButton')));
     return null;
   }
 
@@ -55,12 +52,11 @@ class TapedLoginButton extends WhenWithWorld<FlutterWorld> {
 class UserLoggedIn extends ThenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() {
-    // TODO: implement executeStep
+    //  TODO: implement verification
     return null;
   }
 
   @override
-  // TODO: implement pattern
   RegExp get pattern => RegExp(r"The user is logged in");
 
 }

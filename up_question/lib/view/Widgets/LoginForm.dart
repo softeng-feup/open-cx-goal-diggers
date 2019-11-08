@@ -86,7 +86,7 @@ class _LoginFormState extends State<LoginForm> {
                       helperText: ' ',
                     ),
                     validator: (value) {
-                      if (value.isEmpty) return 'Please enter your username';
+                      if (value.isEmpty) return 'Please enter your email';
                     },
                     // TODO: mudar depois
                     onSaved: (val) => setState(() => user.email = val),
