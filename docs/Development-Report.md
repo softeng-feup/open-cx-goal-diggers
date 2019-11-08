@@ -20,8 +20,11 @@ You can find here detailed information about the project, from a high-level prod
 
 * #### Architectural Structure
     * [MVC](#Architectural-Structure)
+    * [Backend](#Backend)
+         * [Firebase](#Backend)
  
 * #### Tasks Management Tool
+
 
 ***
 
@@ -125,6 +128,17 @@ User Stories | MoSCoW | Tshirt_Size | Acceptance Tests|
 
 ### MVC
 We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
+
+### Backend
+
+An application as UpQuestion with the aim of manipulate multiple questions in different talks will generate a huge amount of data easily. Furthermore, for testing purposes, a local static database is a nonsense further than the prototyping phase. The effective test to evaluate the practicability of our design is made submitting plenty of questions, and, then, manipulate it simulating the role of user and speaker.
+For these reasons, we decided to move forward and integrate in our Flutter App an online backend software that could resolve the greatest number of user stories as possible. The decision made was integrate Firebase from Google(same producer of Flutter).
+Firebase is a backend API with support to Flutter that provide between plenty of services, two very interlinked with our goals, authentication services with email/password, but also with twitter (that we will yet explore), furthermore, it provides the capability to store data in a NoSQL structure.
+
+
+
+
+
  
 ## Tasks Management Tools
 To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
