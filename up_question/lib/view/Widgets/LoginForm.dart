@@ -71,6 +71,7 @@ class _LoginFormState extends State<LoginForm> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextFormField(
+                    key: Key("Email"),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       contentPadding:
@@ -95,6 +96,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                   TextFormField(
+                    key: Key('Password'),
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                     decoration: InputDecoration(

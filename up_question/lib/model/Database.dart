@@ -70,5 +70,5 @@ class Database {
   static Day day2 = Day(day: nextDay, talks: talks_2);
   static Day day3 = Day(day: nextNextDay, talks: talks_3);
 
-  List<Day> schedule = [day, day2, day3];
+  //List<Day> schedule = [day, day2, day3];
 }

@@ -3,6 +3,7 @@ import 'package:up_question/controller/auth.dart';
 import 'package:up_question/main.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
+import 'dart:ui';
 
 class RegisterForm extends StatefulWidget {
   final Function toggleForm;
