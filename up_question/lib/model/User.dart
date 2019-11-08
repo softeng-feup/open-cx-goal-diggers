@@ -7,4 +7,6 @@ class User {
   User({this.username,this.password,this.email});
   User.loggedUser({this.email, this.uid});
 
+  // TODO: complete
+  User.fromData(Map data) : username = data['username'];
 }

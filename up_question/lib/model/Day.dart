@@ -1,12 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:up_question/model/Talk.dart';
 
 class Day extends Comparable{
-  String dayID;
+  DocumentReference dayRef;
   DateTime day; // TODO: ver se isto ou uma Date normal
   List<Talk> talks; // TODO: mudar para estrutura ordenada
   
   Day({this.day, this.talks});
-  Day.fromMap(Map snapshot, String ID) : day = snapshot['date'].toDate() ?? '', dayID = ID ?? '';
+  Day.fromMap(Map snapshot, DocumentReference reference) : day = snapshot['date'].toDate() ?? '', dayRef = reference ?? '';
 
   addTalks(List<Talk> talks){
     this.talks = talks;
