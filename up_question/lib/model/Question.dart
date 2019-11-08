@@ -5,12 +5,12 @@ import 'User.dart';
 
 class Question extends Comparable {
   DocumentReference questionRef;
+  DocumentReference talkRef;
   Talk talk;
   String question;
   int votes;
   DateTime postedTime;
   // TODO: ver depois isto
-  User user = new User(username: "Default");
   DocumentReference userRef;
   bool anonimous = false;
 
@@ -35,13 +35,24 @@ class Question extends Comparable {
       : questionRef = reference ?? '',
         question = data['question'] ?? '',
         anonimous = data['anonimous'] ?? '',
-        //talk = data['idTalk'] ?? '',
+        talkRef = data['idTalk'] ?? '',
         userRef = data['user'] ?? '',
         votes = data['nVotes'] ?? ''{
     DateTime date = data['postedTime'].toDate();
 
     postedTime = DateTime(
         startTime.year, startTime.month, startTime.day, date.hour, date.minute) ?? '';
+  }
+
+  toJson() {
+    return {
+      "anonimous": anonimous,
+      "idTalk": talkRef,
+      "nVotes": 0,
+      "postedTime": Timestamp.now(),
+      "question": question,
+      "user" : userRef
+    };
   }
 
 }

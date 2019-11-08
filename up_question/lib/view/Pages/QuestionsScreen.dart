@@ -90,7 +90,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
           showDialog(
               context: context,
               builder: (context) {
-                return QuestionForm(questionList: questions);
+                return QuestionForm(talk: talk);
               });
         },
         child: Icon(Icons.add),

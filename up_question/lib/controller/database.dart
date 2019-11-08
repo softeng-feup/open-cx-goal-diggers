@@ -2,10 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:up_question/model/Day.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
+import 'package:up_question/model/User.dart';
 
 class DatabaseService {
   //TODO: CONSTRUTOR CHAMAR METODO INIT
   final dbReference = Firestore.instance;
+
+  Future<User> getUserByRef(DocumentReference userRef) async{
+    var result = await userRef.get();
+    User tempUser = User.fromData(result.data);
+    return tempUser;
+  }
 
   Future<List<Question>> retrieveQuestions(Talk talk) async {
     var questionReference = dbReference.collection('questions').where('idTalk', isEqualTo: talk.talkRef);
@@ -42,5 +49,12 @@ class DatabaseService {
       day.addTalks(talks);
     }
     return tempDayList;
+  }
+
+  Future addQuestion(Question data) async{
+    var result  = await dbReference.collection('questions').add(data.toJson()) ;
+
+    return ;
+
   }
 }

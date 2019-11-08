@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/Question.dart';
+import 'package:up_question/model/User.dart';
+
+import 'Widgets/Loading.dart';
 
 class QuestionView extends StatefulWidget {
   final Question question;
@@ -16,6 +20,8 @@ class QuestionViewState extends State<QuestionView> {
   Question question;
 
   QuestionViewState(this.question);
+
+  DatabaseService _db = new DatabaseService();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +41,19 @@ class QuestionViewState extends State<QuestionView> {
                   icon: Icon(Icons.face),
                   iconSize: 30,
                 ),
-                Text(_getUserName(question), style: TextStyle(fontSize: 20))
+                FutureBuilder<User>(
+                  future: _db.getUserByRef(question.userRef),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<User> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Loading();
+                    } else {
+                      final user = snapshot.data;
+                      return Text(question.anonimous ? "Anonimous" : user.username,
+                          style: TextStyle(fontSize: 20));
+                    }
+                  },
+                ),
               ],
             ),
           ),
@@ -74,10 +92,5 @@ class QuestionViewState extends State<QuestionView> {
                 ],
               ))
         ]));
-  }
-
-  _getUserName(Question question) {
-    if (question.anonimous) return "Anonimous";
-    return question.user.username;
   }
 }
