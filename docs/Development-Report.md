@@ -103,20 +103,37 @@ A more detailed analysis of this topic is made below targeting RUP & AGILE metho
 
 ### User stories
 
-User Stories | MoSCoW | Tshirt_Size | Acceptance Tests|
----|---|---|---|
- As a participant, I want to be able to ask my question. | Must | | GIVEN participant has logged on on the application <br> AND participant has selected the right conference <br> WHEN the participant submittes a question <br> THEN other people on the talk will be able to see the question|
- As speaker, i want to be able to see all questions done, so that i could reply them | Must | | GIVEN participants have submitted their questions <br> AND speaker have logged on on the application <br> AND speaker has selected the right conference <br> WHEN speaker sees the questions asked <br> THEN the speaker can reply the questions asked
- As a participant, I want to be able to vote previously asked questions so that the most interesting questions get answered by the speaker | Should | | GIVEN participant has logged on on the application <br> AND participant has selected the right conference <br> WHEN participant sees the previously asked questions <br> THEN participant is able to vote on the previously voted questions
- As a speaker, I want to be able to see the most voted questions so that I can answer them first. | Should | | GIVEN speaker has logged on on the application <br> AND speaker has selected the right conference <br> AND participants have submitted their questions <br> AND speaker is able to see the most voted questions made by the participants <br> WHEN speaker sees the questions made by the participants <br> THEN speaker is able to answer the most voted questions first
- As a participant, I want to be able to select the conference I'm in so that I can ask questions in the proper site. | Should | | GIVEN participant has logged on on the application <br> WHEN participant selects the conference <br> THEN participant can ask question in the proper site
- As a participant, I would like to ask anonymous questions so that I don't reveal my identity.  | Should | | GIVEN participant has logged on on the application <br> AND participant has selected the right conference <br> AND participant has written a quetion <br> WHEN participant select the checkbox anonymous <br> AND participant share the question <br> THEN the participant asked a question without revealing his identity
- As a speaker and user, I want to be able to authenticate in order to connect my profile with the activity that I'm attending.|Should| | GIVEN both participant or user have launched the application <br> WHEN both participant or user have logged in <br> THEN both participant or user are able to connect their profile to the activity they are intending
- As a user, I want to share my questions on Twitter so that my followers know what my interests are.|Should | | GIVEN user as logged on on the application with Twitter <br> AND user has selected the right conference <br> AND user has written his question <br> WHEN user selects the option "Share with Twitter" <br> THEN the user's question has been shared on Twitter
- As an organizer, I want to share the most voted questions to promote the conference.|Should | | GIVEN the organizer has logged on on the application <br> AND the organizer has selected the right conference <br> WHEN the organizer selects the share option on the intended question <br> THEN the question selected by the organizer has been shared
- As an organizer, I want to use the data in order to make networking easier.| Should| | GIVEN the organizer has logged on on the application <br> AND the organizer has selected the right conference <br> AND the organizer has privileged acess to the app data <br> WHEN the organizer acess the app data <br> THEN the organizer is able to make networking easier
- As user i would like to share my question with my Twitter followers|Should| | GIVEN user has submitted a question <br> AND has logged on on Twitter <br> WHEN user shares the question on Twitter <br> THEN user followers will be able to see the question
- 
+We are using Trello to keep track of the user stories in the state of:
+
+* Planed of (Backlog)
+* Under Work (Doing)  
+* Done. 
+
+You have a [link](#Tasks-Management-Tools) to check all the dashboard bellow, but here we brief you that information with a screenshot of our Trello's user stories organization. 
+
+A exampling picture of the status of our Trello organization is the following:
+
+![](https://i.imgur.com/l8s83Wo.png)
+
+
+
+
+
+
+#### First sprint
+
+&nbsp;In the first sprint our focus was on implementing the prototype. That demanded to architecture the future design under we would code into, an MVC one, using a local DataBase, implement the UI designed in the mockups from the inception phase, which means we built the prototype with the fundations required for many of the user stories with the greastest interaction with the user such as login
+
+In terms of user stories, we implemented the following: [Iteration #1](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration1) 
+
+
+#### Second sprint
+
+&nbsp;The second iteration we project from the results of [Iteration #1](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration1) . We decide to implement a firebase backend, according the reasons stated here, that required to redefine the implementation of the user stories completed in the first iteration to work using a real time database as firebase. 
+
+Furthermore, we decide to move forward and implement in the following user stories: [Iteration #2](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration2) 
+
+
  ### Mockups
  
  The mockups for this project were developed in Figma and can be found [here](https://www.figma.com/file/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=0%3A1). 
@@ -127,13 +144,15 @@ User Stories | MoSCoW | Tshirt_Size | Acceptance Tests|
 
 
 ### MVC
-We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
+&nbsp; We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
 
 ### Backend
 
-An application as UpQuestion with the aim of manipulate multiple questions in different talks will generate a huge amount of data easily. Furthermore, for testing purposes, a local static database is a nonsense further than the prototyping phase. The effective test to evaluate the practicability of our design is made submitting plenty of questions, and, then, manipulate it simulating the role of user and speaker.
-For these reasons, we decided to move forward and integrate in our Flutter App an online backend software that could resolve the greatest number of user stories as possible. The decision made was integrate Firebase from Google(same producer of Flutter).
-Firebase is a backend API with support to Flutter that provide between plenty of services, two very interlinked with our goals, authentication services with email/password, but also with twitter (that we will yet explore), furthermore, it provides the capability to store data in a NoSQL structure.
+&nbsp; An application as UpQuestion with the aim of manipulate multiple questions in different talks will generate a huge amount of data easily. Furthermore, for testing purposes, a local static database is a nonsense further than the prototyping phase. The effective test to evaluate the practicability of our design is made submitting plenty of questions, and, then, manipulate it simulating the role of user and speaker.
+
+&nbsp; For these reasons, we decided to move forward and integrate in our Flutter App an online backend software that could resolve the greatest number of user stories as possible. The decision made was integrate Firebase from Google(same producer of Flutter).
+
+&nbsp; Firebase is a backend API with support to Flutter that provide between plenty of services, two very interlinked with our goals, authentication services with email/password, but also with twitter (that we will yet explore), furthermore, it provides the capability to store data in a NoSQL structure.
 
 
 #### Database Model
