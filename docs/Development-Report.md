@@ -136,10 +136,10 @@ For these reasons, we decided to move forward and integrate in our Flutter App a
 Firebase is a backend API with support to Flutter that provide between plenty of services, two very interlinked with our goals, authentication services with email/password, but also with twitter (that we will yet explore), furthermore, it provides the capability to store data in a NoSQL structure.
 
 
+#### Database Model
 
+![](https://i.imgur.com/eEO8QZK.png)
 
-
- 
 ## Tasks Management Tools
 To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
 
