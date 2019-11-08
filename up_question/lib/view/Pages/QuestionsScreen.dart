@@ -40,32 +40,24 @@ class _QuestionsPageState extends State<QuestionPageView> {
   List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
 
-  bool compareQuestions(int i) {
+  int compareQuestions(Question question1, Question question2) {
     switch(_selectedOption) {
       case 'Top':
-        return questions[i+1].votes > questions[i].votes;
+        return question2.votes - question1.votes;
       case 'New':
-        return questions[i+1].postedTime.isAfter(questions[i].postedTime);
+        if (question1.postedTime.isAfter(question2.postedTime))
+          return -1;
+        if (question1.postedTime.isBefore(question2.postedTime))
+          return 1;
+        return 0;
       case 'Old':
-        return questions[i+1].postedTime.isBefore(questions[i].postedTime);
+        if (question1.postedTime.isBefore(question2.postedTime))
+          return -1;
+        if (question1.postedTime.isAfter(question2.postedTime))
+          return 1;
+        return 0;
     }
-    return false;
-  }
-
-  sortQuestions() {
-    bool sorted = false;
-
-    while(!sorted) {
-      sorted = true;
-      for (int i = 0; i < questions.length-1; i++) {
-        if (compareQuestions(i)) {
-          Question tempQuestion = questions[i];
-          questions[i] = questions[i+1];
-          questions[i+1] = tempQuestion;
-          sorted = false;
-        }
-      }
-    }
+    return 0;
   }
 
   @override
@@ -83,7 +75,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                 setState(() {
                   _selectedOption = newValue;
                 });
-                sortQuestions();
+                questions.sort(compareQuestions);
               },
               elevation: 0,
               isDense: true,
