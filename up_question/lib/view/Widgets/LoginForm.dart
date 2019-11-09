@@ -136,7 +136,7 @@ class _LoginFormState extends State<LoginForm> {
                             form.save();
 
                             setState(() => loading = true );
-                            dynamic result = await _auth.signin(user.email, user.password);
+                            dynamic result = await _auth.signIn(user.email, user.password);
 
                             setState(() => loading = false );
 
