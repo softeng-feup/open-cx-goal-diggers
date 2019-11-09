@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Day.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
@@ -8,10 +9,31 @@ class DatabaseService {
   //TODO: CONSTRUTOR CHAMAR METODO INIT
   final dbReference = Firestore.instance;
 
+  final String uid;
+
+  DatabaseService({this.uid});
+
+
   Future<User> getUserByRef(DocumentReference userRef) async{
     var result = await userRef.get();
     User tempUser = User.fromData(result.data);
     return tempUser;
+  }
+
+  Future createUserData(String username) async {
+    return await dbReference.collection('users').document(uid).setData({'username': username});
+  }
+
+  Future retrieveUserData() async {
+    User user = LocalData.user;
+    user.userRef = dbReference.collection('users').document(uid);
+    DocumentSnapshot documentSnapshot = await user.userRef.get();
+
+    if (documentSnapshot.exists) {
+      user.username = documentSnapshot.data['username'];
+      user.uid = uid;
+    }
+
   }
 
   Future<List<Question>> retrieveQuestions(Talk talk) async {
@@ -52,7 +74,7 @@ class DatabaseService {
   }
 
   Future addQuestion(Question data) async{
-    var result  = await dbReference.collection('questions').add(data.toJson()) ;
+    var result = await dbReference.collection('questions').add(data.toJson()) ;
 
     return ;
 

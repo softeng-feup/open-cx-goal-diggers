@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/database.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
 
@@ -114,7 +115,7 @@ class _QuestionFormState extends State<QuestionForm> {
                                     form.save();
                                     _question.talkRef = talk.talkRef;
                                     // TODO: ver isto
-                                    _question.userRef = null;
+                                    _question.userRef = LocalData.user.userRef;
 
                                     await _db.addQuestion(_question);
                                     // TODO: ver isto

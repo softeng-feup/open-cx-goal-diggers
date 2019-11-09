@@ -4,6 +4,7 @@ import 'User.dart';
 
 class Database {
   List<User> users = List();
+
   static List<Talk> talks_1 = [
     Talk(
         title: 'Big Data1',

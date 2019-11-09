@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/SchedulePage',
+        initialRoute: '/HomePage',
         onGenerateRoute: Router.generateRoute,
       ),
     );
