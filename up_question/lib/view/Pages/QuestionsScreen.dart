@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
@@ -35,8 +37,92 @@ class _QuestionsPageState extends State<QuestionPageView> {
   List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
 
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Questions"),
+      ),
+      body: Column(
+        children: <Widget>[
+          TalkView(talk),
+          DropdownButton(
+            value: _selectedOption,
+            onChanged: (newValue) {
+              setState(() {
+                _selectedOption = newValue;
+                //questions.sort(compareQuestions);
+              });
+            },
+            elevation: 0,
+            isDense: true,
+            isExpanded: true,
+            items: _options.map((option) {
+              return DropdownMenuItem(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    SizedBox(width: 10),
+                    new Text(option),
+                  ],
+                ),
+                value: option,
+              );
+            }).toList(),
+          ),
+          StreamProvider<List<Question>>.value(
+              value: _db.getQuestionStream(talk),
+              //child: !snapshot.hasData ? Loading() : QuestionList();
+            child: QuestionList(selectedOption: _selectedOption,),
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return QuestionForm(talk: talk);
+              });
+        },
+        child: Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class QuestionList extends StatefulWidget {
+  final selectedOption;
+
+  const QuestionList({this.selectedOption});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _QuestionListState(newSelectedOption: selectedOption);
+  }
+}
+
+class _QuestionListState extends State<QuestionList> {
+  String newSelectedOption;
+  //String oldSelectedOption = "";
+  //List<Question> questions = new List();
+
+  _QuestionListState({this.newSelectedOption});
+
+  @override
+  void didUpdateWidget(QuestionList oldWidget) {
+    if (oldWidget.selectedOption != widget.selectedOption) {
+      //this.oldSelectedOption = this.newSelectedOption;
+      this.newSelectedOption = widget.selectedOption;
+      //questions = new List();
+      //if(questions.isNotEmpty)
+        //questions.sort(compareQuestions);
+    }
+  }
+
   int compareQuestions(Question question1, Question question2) {
-    switch(_selectedOption) {
+    switch(newSelectedOption) {
       case 'Top':
         return question2.votes - question1.votes;
       case 'New':
@@ -57,69 +143,26 @@ class _QuestionsPageState extends State<QuestionPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Questions"),
-      ),
-      body: Column(
-        children: <Widget>[
-          TalkView(talk),
-          DropdownButton(
-            value: _selectedOption,
-            onChanged: (newValue) {
-              setState(() {
-                _selectedOption = newValue;
-                questions.sort(compareQuestions);
-              });
-            },
-            elevation: 0,
-            isDense: true,
-            isExpanded: true,
-            items: _options.map((option) {
-              return DropdownMenuItem(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    SizedBox(width: 10),
-                    new Text(option),
-                  ],
-                ),
-                value: option,
-              );
-            }).toList(),
-          ),
-          FutureBuilder<List<Question>>(
-            future: _db.retrieveQuestions(talk),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Question>> snapshot) {
-              if (!snapshot.hasData) {
-                return Loading();
-              }
-              if (questions.isEmpty) {
-                questions = snapshot.data;
-                questions.sort(compareQuestions);
-              }
-              return new Expanded(
-                child: new ListView.builder(
-                    itemCount: questions.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return QuestionView(question: questions[index]);
-                    }),
-              );
-            },
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return QuestionForm(talk: talk);
-              });
-        },
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+
+    List<Question> questionsProvided = Provider.of<List<Question>>(context);
+
+    /*if ((this.newSelectedOption != this.oldSelectedOption) && (questionsProvided != null)) {
+      questionsProvided.sort(compareQuestions);
+      this.oldSelectedOption = this.newSelectedOption;
+    }*/
+
+    if(questionsProvided != null && questionsProvided.isNotEmpty)
+      questionsProvided.sort(compareQuestions);
+    return (questionsProvided == null) ?  Loading() :
+        new Expanded(
+          child: new ListView.builder(
+              itemCount: questionsProvided.length,
+              itemBuilder: (BuildContext context, int index) {
+                return QuestionView(question: questionsProvided[index]);
+              }),
+        );
   }
+
 }
+
+
