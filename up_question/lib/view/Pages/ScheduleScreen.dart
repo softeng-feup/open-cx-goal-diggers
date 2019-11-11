@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/Database.dart';
 import 'package:up_question/model/Day.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/view/DayView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 
@@ -86,7 +87,7 @@ class ScheduleWidget extends StatelessWidget{
                     Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: Text(
-                        'Default',
+                        LocalData.user.username ?? 'Default',
                         style: TextStyle(fontSize: 30, color: Colors.white),
                       ),
                     ),

@@ -17,11 +17,11 @@ class Question extends Comparable {
   Question({this.question, this.votes = 0});
 
   void upVoted(){
-    this.votes++;
+    questionRef.updateData({'nVotes': FieldValue.increment(1)});
   }
 
   void downVoted(){
-    this.votes--;
+    questionRef.updateData({'nVotes': FieldValue.increment(-1)});
   }
 
   @override

@@ -24,7 +24,7 @@ class QuestionPageView extends StatefulWidget {
 class _QuestionsPageState extends State<QuestionPageView> {
   DatabaseService _db;
   final Talk talk;
-  List<Question> questions = new List();
+  //List<Question> questions = new List();
 
   _QuestionsPageState(this.talk);
 

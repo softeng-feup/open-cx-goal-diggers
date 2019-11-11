@@ -7,8 +7,8 @@ import 'Widgets/Loading.dart';
 
 class QuestionView extends StatefulWidget {
   final Question question;
-  QuestionView({this.question});
 
+  QuestionView({this.question});
 
   @override
   State<StatefulWidget> createState() {
@@ -23,10 +23,17 @@ class QuestionViewState extends State<QuestionView> {
 
   DatabaseService _db = new DatabaseService();
 
+  List<bool> isSelected = [false, false];
+  upColor(){
+    return isSelected[0] ? Color(0xFF11DE00) : Color(0xFF353535);
+  }
+  downColor(){
+    return isSelected[1] ? Color(0xFFFF0B0B) : Color(0xFF353535);
+  }
+
   @override
   void didUpdateWidget(QuestionView oldWidget) {
-    if (oldWidget.question != widget.question)
-      this.question = widget.question;
+    if (oldWidget.question != widget.question) this.question = widget.question;
   }
 
   @override
@@ -55,7 +62,8 @@ class QuestionViewState extends State<QuestionView> {
                       return Loading();
                     } else {
                       final user = snapshot.data;
-                      return Text(question.anonimous ? "Anonimous" : user.username,
+                      return Text(
+                          question.anonimous ? "Anonimous" : user.username,
                           style: TextStyle(fontSize: 20));
                     }
                   },
@@ -76,14 +84,30 @@ class QuestionViewState extends State<QuestionView> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.arrow_upward, color: Color(0xFF353535)),
+                    icon: Icon(Icons.arrow_upward, color: upColor()),
                     iconSize: 20,
-                    onPressed: null,
+                    onPressed: () {
+                      if(isSelected[1]) question.upVoted();
+                      isSelected[0] ? question.downVoted() : question.upVoted();
+                      setState(() {
+                        isSelected[0] = !isSelected[0];
+                        isSelected[1] = false;
+                      });
+                    },
                   ),
+                  Text(question.votes.toString(),
+                      style: TextStyle(fontSize: 18)),
                   IconButton(
-                    icon: Icon(Icons.arrow_downward, color: Color(0xFF353535)),
+                    icon: Icon(Icons.arrow_downward, color: downColor()),
                     iconSize: 20,
-                    onPressed: null,
+                    onPressed: () {
+                      if(isSelected[0]) question.downVoted();
+                      isSelected[1] ? question.upVoted() : question.downVoted();
+                      setState(() {
+                        isSelected[1] = !isSelected[1];
+                        isSelected[0] = false;
+                      });
+                    },
                   ),
                   IconButton(
                     icon: Icon(Icons.insert_comment, color: Color(0xFF353535)),
