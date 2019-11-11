@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:up_question/model/User.dart';
-
-
+import 'package:up_question/controller/database.dart';
 
 class AuthService{
 
@@ -12,11 +10,12 @@ class AuthService{
   }
 
   //sign in with email
-  Future signin(String email, String password)async{
+  Future signIn(String email, String password)async{
     try{
-      AuthResult loginresult= await _auth.signInWithEmailAndPassword(email: email, password: password);
-      FirebaseUser userreturned=loginresult.user;
-      return userreturned;
+      AuthResult loginResult= await _auth.signInWithEmailAndPassword(email: email,password: password);
+      FirebaseUser userReturned=loginResult.user;
+      await DatabaseService(uid: userReturned.uid).retrieveUserData();
+      return userReturned;
     }
     catch(error){
       print("Login Error");
@@ -26,11 +25,12 @@ class AuthService{
   }
 
   //register with email & password
-  Future<FirebaseUser> register(String email,String password) async{
+  Future<FirebaseUser> register(String email, String username, String password) async{
     try{
       AuthResult result = await _auth.createUserWithEmailAndPassword(email:email,password: password);
       FirebaseUser user = result.user;
       await user.sendEmailVerification();
+      await DatabaseService(uid: user.uid).createUserData(username);
       return user;
     }catch(e){
       print("Register Error");

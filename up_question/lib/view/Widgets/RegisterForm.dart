@@ -179,7 +179,7 @@ class _RegisterFormState extends State<RegisterForm> {
                               // TODO: depois apagar isto
                               MyApp.database.users.add(user);
 
-                              dynamic result = await _auth.register(user.email, user.password);
+                              dynamic result = await _auth.register(user.email, user.username, user.password);
 
                               setState(() => loading = false);
 

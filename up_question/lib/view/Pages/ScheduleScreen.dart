@@ -26,9 +26,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return FutureBuilder<List<Day>>(
-      future: _db.retrevieSchedule(),
+      future: _db.retrieveSchedule(),
       builder: (BuildContext context, AsyncSnapshot<List<Day>> snapshot) {
         if (!snapshot.hasData) {
           return Loading();
@@ -50,6 +49,7 @@ class ScheduleWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('ScheduleScreen'),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Schedule'),

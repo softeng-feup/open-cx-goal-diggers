@@ -1,29 +1,32 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:up_question/controller/database.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
+import 'package:up_question/model/Talk.dart';
 
 class QuestionForm extends StatefulWidget {
-  // TODO: mudar para talk depois
-  List<Question> questionList;
+  final Talk talk;
 
-  QuestionForm({this.questionList});
+  QuestionForm({this.talk});
 
   @override
   _QuestionFormState createState() {
-    return _QuestionFormState(questionList: questionList);
+    return _QuestionFormState(talk: talk);
   }
 }
 
 class _QuestionFormState extends State<QuestionForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final _question = new Question();
-  List<Question> questionList;
+  Talk talk;
 
-  _QuestionFormState({this.questionList});
+  _QuestionFormState({this.talk});
 
   @override
   Widget build(BuildContext context) {
+    DatabaseService _db = new DatabaseService();
     OutlineInputBorder _questionOutlineBorder = OutlineInputBorder(
         borderRadius: BorderRadius.circular(0.0),
         borderSide: BorderSide(
@@ -106,11 +109,15 @@ class _QuestionFormState extends State<QuestionForm> {
                                 ),
                                 color: Color(0xFF353535), // TODO: por em const
                                 textColor: Colors.white,
-                                onPressed: () {
+                                onPressed: () async {
                                   final form = _formKey.currentState;
                                   if (form.validate()) {
                                     form.save();
-                                    questionList.add(_question);
+                                    _question.talkRef = talk.talkRef;
+                                    // TODO: ver isto
+                                    _question.userRef = LocalData.user.userRef;
+
+                                    await _db.addQuestion(_question);
                                     // TODO: ver isto
                                     //_showDialog(context);
                                     Navigator.pop(context);
