@@ -15,7 +15,7 @@ class UserIsLoggedIn extends GivenWithWorld<FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r"The user is logged in");
+  RegExp get pattern => RegExp(r"The user has logged in to the application");
 
 }
 

@@ -7,9 +7,9 @@ Feature: Anonymous question
     Then The user is logged in
 
   Scenario: User can ask a question anonymously
-    Given participant has logged on on the application
+    Given The user has logged in to the application
     And participant has selected the right conference
     And participant has written a question
-    When participant select the checkbox anonymous
-    And participant share the question
+    When participant checks the checkbox 'anonymous'
+    And participant presses the question share button
     Then the participant asked a question without revealing his identity

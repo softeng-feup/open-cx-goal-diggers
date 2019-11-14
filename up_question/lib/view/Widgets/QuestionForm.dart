@@ -64,6 +64,7 @@ class _QuestionFormState extends State<QuestionForm> {
                             ),
                           ),
                           TextFormField(
+                            key: Key('EnterQuestion'),
                             decoration: InputDecoration(
                               enabledBorder: _questionOutlineBorder,
                               focusedBorder: _questionOutlineBorder,
@@ -82,6 +83,7 @@ class _QuestionFormState extends State<QuestionForm> {
                           ),
                           // TODO: depois remover paddings
                           CheckboxListTile(
+                            key: Key('AnonymousCheckbox'),
                             title: const Text(
                               "Anonimous",
                               style: TextStyle(
@@ -101,6 +103,7 @@ class _QuestionFormState extends State<QuestionForm> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 24.0),
                             child: ButtonTheme(
+                              key: Key('Share'),
                               minWidth: double.infinity,
                               height: 44,
                               child: RaisedButton(
