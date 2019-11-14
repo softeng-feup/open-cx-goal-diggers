@@ -58,6 +58,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('QuestionsScreen'),
       appBar: AppBar(
         title: Text("Questions"),
       ),
@@ -111,6 +112,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        key: Key('AddQuestion'),
         onPressed: () {
           showDialog(
               context: context,

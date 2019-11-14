@@ -1,7 +1,6 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import'package:gherkin/gherkin.dart';
 import 'package:flutter_gherkin/flutter_gherkin.dart';
-//import 'package:test/test.dart';
 
 class InsertedEmail extends GivenWithWorld<FlutterWorld> {
   InsertedEmail()
@@ -11,7 +10,6 @@ class InsertedEmail extends GivenWithWorld<FlutterWorld> {
   Future<void> executeStep() async {
     FlutterDriverUtils.tap(world.driver, find.ancestor(of: find.text('Already have an account?'), matching: find.byType('ButtonTheme')));
     String input1 = "tiago.silva.99@hotmail.com";
-    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('inputKeyString'));
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('Email'), input1);
     return null;
   }
@@ -28,7 +26,6 @@ class InsertedPassword extends AndWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
     String input1 = "testpassword";
-    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('inputKeyString'));
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('Password'), input1);
     return null;
   }
