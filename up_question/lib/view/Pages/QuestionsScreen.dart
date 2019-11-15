@@ -37,6 +37,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
   List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -46,7 +47,27 @@ class _QuestionsPageState extends State<QuestionPageView> {
       ),
       body: Column(
         children: <Widget>[
-          TalkView(talk),
+          //Header
+          Container(
+            child: 
+          
+          Stack(
+            children: <Widget>[
+                Positioned(
+                  child:TalkView(talk)
+                ),
+                //Trick to place in the center. It should be half the value of 40
+                Positioned(
+                  right: 20,
+                  top: 20,
+                  bottom: 20,
+                  child:Icon(Icons.work, color: Colors.red,size: 40,),
+                  
+                ),
+            ],  
+          ), 
+          ),   
+        
           DropdownButton(
             value: _selectedOption,
             onChanged: (newValue) {
