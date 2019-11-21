@@ -28,7 +28,7 @@ class DayView extends StatelessWidget {
       children: <Widget>[
         Container(
           width:  MediaQuery.of(context).size.width,
-          color: Color.fromRGBO(53, 53, 53, 1),
+          color: Colors.black,
           padding: EdgeInsets.only(left: 4),
           child: Padding(
             padding: const EdgeInsets.all(4.0),
