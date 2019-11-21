@@ -24,6 +24,8 @@ class QuestionPageView extends StatefulWidget {
 class _QuestionsPageState extends State<QuestionPageView> {
   DatabaseService _db;
   final Talk talk;
+  bool _isvisibleIcon;
+  bool _isvisibleText;
   //List<Question> questions = new List();
 
   _QuestionsPageState(this.talk);
@@ -32,15 +34,22 @@ class _QuestionsPageState extends State<QuestionPageView> {
   void initState() {
     super.initState();
     _db = new DatabaseService();
+    _isvisibleIcon = true;
+    _isvisibleText = false;
+  }
+
+  void _changevisability() {
+    setState(() {
+      _isvisibleIcon = !_isvisibleIcon;
+      _isvisibleText = !_isvisibleText;
+    });
   }
 
   List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Questions"),
@@ -49,25 +58,48 @@ class _QuestionsPageState extends State<QuestionPageView> {
         children: <Widget>[
           //Header
           Container(
-            child: 
-          
-          Stack(
-            children: <Widget>[
-                Positioned(
-                  child:TalkView(talk)
-                ),
+            child: Stack(
+              children: <Widget>[
+                Positioned(child: TalkView(talk)),
                 //Trick to place in the center. It should be half the value of 40
                 Positioned(
-                  right: 20,
-                  top: 20,
-                  bottom: 20,
-                  child:Icon(Icons.work, color: Colors.red,size: 40,),
-                  
-                ),
-            ],  
-          ), 
-          ),   
-        
+                    right: 20,
+                    top: 20,
+                    bottom: 20,
+                    child: Visibility(
+                      visible: _isvisibleIcon,
+                      child: Container(
+                          child: Ink(
+                        decoration: BoxDecoration(color: Colors.blue),
+                        child: IconButton(
+                          icon: Icon(Icons.work),
+                          color: Colors.black,
+                          iconSize: 40,
+                          onPressed: () {
+                            _changevisability();
+                          },
+                        ),
+                      )),
+                    )),
+                Form(
+                    child: Container(
+                  width: 300,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 35, left: 100),
+                    child: Visibility(
+                      visible: _isvisibleText,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                            hintText: "Enter the Speaker Code"),
+                        autocorrect: false,
+                      ),
+                    ),
+                  ),
+                )),
+              ],
+            ),
+          ),
+
           DropdownButton(
             value: _selectedOption,
             onChanged: (newValue) {
@@ -93,9 +125,11 @@ class _QuestionsPageState extends State<QuestionPageView> {
             }).toList(),
           ),
           StreamProvider<List<Question>>.value(
-              value: _db.getQuestionStream(talk),
-              //child: !snapshot.hasData ? Loading() : QuestionList();
-            child: QuestionList(selectedOption: _selectedOption,),
+            value: _db.getQuestionStream(talk),
+            //child: !snapshot.hasData ? Loading() : QuestionList();
+            child: QuestionList(
+              selectedOption: _selectedOption,
+            ),
           )
         ],
       ),
@@ -138,25 +172,21 @@ class _QuestionListState extends State<QuestionList> {
       this.newSelectedOption = widget.selectedOption;
       //questions = new List();
       //if(questions.isNotEmpty)
-        //questions.sort(compareQuestions);
+      //questions.sort(compareQuestions);
     }
   }
 
   int compareQuestions(Question question1, Question question2) {
-    switch(newSelectedOption) {
+    switch (newSelectedOption) {
       case 'Top':
         return question2.votes - question1.votes;
       case 'New':
-        if (question1.postedTime.isAfter(question2.postedTime))
-          return -1;
-        if (question1.postedTime.isBefore(question2.postedTime))
-          return 1;
+        if (question1.postedTime.isAfter(question2.postedTime)) return -1;
+        if (question1.postedTime.isBefore(question2.postedTime)) return 1;
         return 0;
       case 'Old':
-        if (question1.postedTime.isBefore(question2.postedTime))
-          return -1;
-        if (question1.postedTime.isAfter(question2.postedTime))
-          return 1;
+        if (question1.postedTime.isBefore(question2.postedTime)) return -1;
+        if (question1.postedTime.isAfter(question2.postedTime)) return 1;
         return 0;
     }
     return 0;
@@ -164,7 +194,6 @@ class _QuestionListState extends State<QuestionList> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Question> questionsProvided = Provider.of<List<Question>>(context);
 
     /*if ((this.newSelectedOption != this.oldSelectedOption) && (questionsProvided != null)) {
@@ -172,18 +201,16 @@ class _QuestionListState extends State<QuestionList> {
       this.oldSelectedOption = this.newSelectedOption;
     }*/
 
-    if(questionsProvided != null && questionsProvided.isNotEmpty)
+    if (questionsProvided != null && questionsProvided.isNotEmpty)
       questionsProvided.sort(compareQuestions);
-    return (questionsProvided == null) ?  Loading() :
-        new Expanded(
-          child: new ListView.builder(
-              itemCount: questionsProvided.length,
-              itemBuilder: (BuildContext context, int index) {
-                return QuestionView(question: questionsProvided[index]);
-              }),
-        );
+    return (questionsProvided == null)
+        ? Loading()
+        : new Expanded(
+            child: new ListView.builder(
+                itemCount: questionsProvided.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return QuestionView(question: questionsProvided[index]);
+                }),
+          );
   }
-
 }
-
-
