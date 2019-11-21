@@ -107,12 +107,16 @@ class _QuestionsPageState extends State<QuestionPageView> {
                     children: <Widget>[
 
                   Container(
-                  width: MediaQuery.of(context).size.width*0.7,
+                  width: MediaQuery.of(context).size.width*0.65,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 35, left: 100),
+                    padding: EdgeInsets.only(top: 35, left: 85),
                     child: Visibility(
                       visible: _isvisibleText,
-                      child: TextFormField(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white
+                        ),
+                        child: TextFormField(
                         decoration: const InputDecoration(
                             hintText: "Enter the Speaker Code"),
                         autocorrect: false,
@@ -120,15 +124,17 @@ class _QuestionsPageState extends State<QuestionPageView> {
                           setState(() => _speaker_code_input = val);
                         }
                       ),
+                      )
                     ),
                   ),
                   ),
-                  
-                  ButtonTheme(
-                      buttonColor: Colors.red,
-                      child: Visibility(
+                  Visibility(
                       visible: _isvisibleText,
-                      child:RaisedButton(
+                      child:Padding(
+                      padding: EdgeInsets.only(top: 35, left: 5),
+                      child:RaisedButton.icon(
+                        icon: Icon(Icons.send,size: 11),
+                        label: Text("Login as speaker",style: TextStyle(fontSize: 10),),
                         onPressed: () {
                           final form=_formKey.currentState;
                           if(form.validate()){
@@ -142,8 +148,9 @@ class _QuestionsPageState extends State<QuestionPageView> {
                           }    
                         }
                       )
+                      )
                       ),
-                  )
+                  
                     ],
                 )),
               ],
