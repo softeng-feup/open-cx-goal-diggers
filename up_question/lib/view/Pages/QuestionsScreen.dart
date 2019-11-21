@@ -26,6 +26,9 @@ class _QuestionsPageState extends State<QuestionPageView> {
   final Talk talk;
   bool _isvisibleIcon;
   bool _isvisibleText;
+  String _speaker_code_input;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //List<Question> questions = new List();
 
   _QuestionsPageState(this.talk);
@@ -82,8 +85,12 @@ class _QuestionsPageState extends State<QuestionPageView> {
                       )),
                     )),
                 Form(
-                    child: Container(
-                  width: 300,
+                  key: this._formKey,
+                  child: Row(
+                    children: <Widget>[
+
+                  Container(
+                  width: MediaQuery.of(context).size.width*0.7,
                   child: Padding(
                     padding: EdgeInsets.only(top: 35, left: 100),
                     child: Visibility(
@@ -92,9 +99,35 @@ class _QuestionsPageState extends State<QuestionPageView> {
                         decoration: const InputDecoration(
                             hintText: "Enter the Speaker Code"),
                         autocorrect: false,
+                        onSaved: (val){
+                          setState(() => _speaker_code_input = val);
+                        }
                       ),
                     ),
                   ),
+                  ),
+                  
+                  ButtonTheme(
+                      buttonColor: Colors.red,
+                      child: Visibility(
+                      visible: _isvisibleText,
+                      child:RaisedButton(
+                        onPressed: () {
+                          final form=_formKey.currentState;
+                          if(form.validate()){
+                            form.save();
+                            if(_speaker_code_input==talk.speakerCode){
+                              print("SPEAKER");
+                            }
+                          }
+
+                         
+                        }
+
+                      )
+                      ),
+                  )
+                    ],
                 )),
               ],
             ),
