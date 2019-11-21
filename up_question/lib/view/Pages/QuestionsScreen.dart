@@ -26,6 +26,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
   final Talk talk;
   bool _isvisibleIcon;
   bool _isvisibleText;
+  bool _speakerLogged=false;
   String _speaker_code_input;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -118,6 +119,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                             form.save();
                             if(_speaker_code_input==talk.speakerCode){
                               print("SPEAKER");
+                              _speakerLogged=true;
                             }
                           }
 
