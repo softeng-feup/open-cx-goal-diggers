@@ -26,6 +26,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
   final Talk talk;
   bool _isvisibleIcon;
   bool _isvisibleText;
+  bool _isSpeakerNameVisible;
   bool _speakerLogged=false;
   String _speaker_code_input;
 
@@ -40,6 +41,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
     _db = new DatabaseService();
     _isvisibleIcon = true;
     _isvisibleText = false;
+    _isSpeakerNameVisible=false;
   }
 
   void _changevisability() {
@@ -73,18 +75,32 @@ class _QuestionsPageState extends State<QuestionPageView> {
                     child: Visibility(
                       visible: _isvisibleIcon,
                       child: Container(
-                          child: Ink(
+                        child: Ink(
                         decoration: BoxDecoration(color: Colors.blue),
                         child: IconButton(
                           icon: Icon(Icons.work),
                           color: Colors.black,
                           iconSize: 40,
-                          onPressed: () {
-                            _changevisability();
-                          },
+                          onPressed: _isvisibleIcon==false? null: _changevisability,
                         ),
                       )),
                     )),
+                
+                Positioned(
+                  right: 20,
+                  top: 30,
+                  bottom: 20,
+
+                  child: Visibility(
+                    visible: _isSpeakerNameVisible,
+                    child: Text(
+                    "Hello "+talk.speaker,
+                    style: TextStyle(fontSize: 20),
+                    
+                    ),
+
+                  ),
+                ),
                 Form(
                   key: this._formKey,
                   child: Row(
@@ -118,14 +134,13 @@ class _QuestionsPageState extends State<QuestionPageView> {
                           if(form.validate()){
                             form.save();
                             if(_speaker_code_input==talk.speakerCode){
-                              print("SPEAKER");
                               _speakerLogged=true;
+                              _isvisibleText=false;
+                              _isvisibleIcon=false;
+                              _isSpeakerNameVisible=true;
                             }
-                          }
-
-                         
+                          }    
                         }
-
                       )
                       ),
                   )
