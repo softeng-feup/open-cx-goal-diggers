@@ -79,7 +79,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                         decoration: BoxDecoration(color: Colors.blue),
                         child: IconButton(
                           icon: Icon(Icons.work),
-                          color: Colors.black,
+                          color: Colors.white,
                           iconSize: 40,
                           onPressed: _isvisibleIcon==false? null: _changevisability,
                         ),
@@ -88,14 +88,14 @@ class _QuestionsPageState extends State<QuestionPageView> {
                 
                 Positioned(
                   right: 20,
-                  top: 30,
-                  bottom: 20,
-
+                  top: 25,
+              
+              
                   child: Visibility(
                     visible: _isSpeakerNameVisible,
                     child: Text(
                     "Hello "+talk.speaker,
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),
                     
                     ),
 
@@ -109,7 +109,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                   Container(
                   width: MediaQuery.of(context).size.width*0.65,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 35, left: 85),
+                    padding: EdgeInsets.only(top: 35, left: 90),
                     child: Visibility(
                       visible: _isvisibleText,
                       child: Container(
