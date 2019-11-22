@@ -28,9 +28,10 @@ class _QuestionsPageState extends State<QuestionPageView> {
   final Talk talk;
   bool _isvisibleIcon;
   bool _isSpeakerNameVisible;
-  bool _speakerLogged=false;
+  bool _speakerLogged = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   //List<Question> questions = new List();
 
   _QuestionsPageState(this.talk);
@@ -55,10 +56,9 @@ class _QuestionsPageState extends State<QuestionPageView> {
         });
 
     if (returnVal == 'sucess') {
-      _speakerLogged= true;
-      _isSpeakerNameVisible=true;
-    } 
-    else if (returnVal == null) {
+      _speakerLogged = true;
+      _isSpeakerNameVisible = true;
+    } else if (returnVal == null) {
       setState(() {
         _isvisibleIcon = !_isvisibleIcon;
       });
@@ -97,7 +97,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                             iconSize: 40,
                             onPressed: _isvisibleIcon == false
                                 ? null
-                                :  _changevisability),
+                                : _changevisability),
                       )),
                     )),
 
@@ -119,30 +119,50 @@ class _QuestionsPageState extends State<QuestionPageView> {
             ),
           ),
 
-          DropdownButton(
-            value: _selectedOption,
-            onChanged: (newValue) {
-              setState(() {
-                _selectedOption = newValue;
-                //questions.sort(compareQuestions);
-              });
-            },
-            elevation: 0,
-            isDense: true,
-            isExpanded: true,
-            items: _options.map((option) {
-              return DropdownMenuItem(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Container(
+              color: Color(0xFF353535),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    SizedBox(width: 10),
-                    new Text(option),
-                  ],
-                ),
-                value: option,
-              );
-            }).toList(),
-          ),
+                    ButtonTheme(
+                      alignedDropdown: true,
+                      child: Container(
+                        //color: Colors.white,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                width: 2.0, color: Color(0XFF353535))),
+                        child: DropdownButton(
+                          value: _selectedOption,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedOption = newValue;
+                              //questions.sort(compareQuestions);
+                            });
+                          },
+                          elevation: 8,
+                          isDense: true,
+                          style: TextStyle(
+                            fontSize: 17,
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                          items: _options.map((option) {
+                            return DropdownMenuItem(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10.0, right: 10.0),
+                                child: new Text(option),
+                              ),
+                              value: option,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    )
+                  ])),
+
           StreamProvider<List<Question>>.value(
             value: _db.getQuestionStream(talk),
             //child: !snapshot.hasData ? Loading() : QuestionList();
@@ -184,10 +204,12 @@ class QuestionList extends StatefulWidget {
 class _QuestionListState extends State<QuestionList> {
   String newSelectedOption;
   DatabaseService _db;
+
   //String oldSelectedOption = "";
   //List<Question> questions = new List();
 
   _QuestionListState({this.newSelectedOption});
+
   @override
   void initState() {
     super.initState();
