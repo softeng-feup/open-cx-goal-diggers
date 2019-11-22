@@ -11,6 +11,7 @@ import 'package:up_question/model/Vote.dart';
 import 'package:up_question/view/QuestionView.dart';
 import 'package:up_question/view/ReplyView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
+import 'package:up_question/view/Widgets/ReplyForm.dart';
 
 class QuestionScreen extends StatefulWidget {
   final Question question;
@@ -58,7 +59,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
           StreamProvider<List<Reply>>.value(
               value: _db.getReplyStream(question),
               child: ReplyList()
-          )
+          ),
+          /*if (LocalData.speakerLogged) new ReplyForm(question: question)*/
         ],
       ),
     );

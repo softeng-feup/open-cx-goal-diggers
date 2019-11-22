@@ -14,7 +14,7 @@ class Reply {
   * Dislike dislike;
   * */
 
-  Reply(this.reply);
+  Reply({this.reply});
 
   Reply.fromMap(DocumentReference reference, DocumentReference questionReference, Map data)
       : replyReference = reference ?? '',
