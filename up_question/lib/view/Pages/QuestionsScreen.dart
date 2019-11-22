@@ -9,7 +9,6 @@ import 'package:up_question/model/Vote.dart';
 import 'package:up_question/view/QuestionView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/QuestionForm.dart';
-
 import '../TalkView.dart';
 
 class QuestionPageView extends StatefulWidget {
@@ -180,5 +179,4 @@ class _QuestionListState extends State<QuestionList> {
   }
 
 }
-
 
