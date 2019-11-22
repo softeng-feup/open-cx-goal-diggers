@@ -119,14 +119,14 @@ class DatabaseService {
     await questionRef.collection('dislikes').document(data.voteRef.documentID).delete();
   }
 
-  void removeQuestion(Question data) async{
-    await dbReference.collection('questions').document(data.questionRef.documentID).delete();
-    await data.questionRef.collection('dislikes').getDocuments().then((snapshot) {
+  void removeQuestion(Question data) {
+    dbReference.collection('questions').document(data.questionRef.documentID).delete();
+    data.questionRef.collection('dislikes').getDocuments().then((snapshot) {
       for (DocumentSnapshot ds in snapshot.documents){
         ds.reference.delete();
       }
     });
-    await data.questionRef.collection('likes').getDocuments().then((snapshot) {
+    data.questionRef.collection('likes').getDocuments().then((snapshot) {
       for (DocumentSnapshot ds in snapshot.documents){
         ds.reference.delete();
       }

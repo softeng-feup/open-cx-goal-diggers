@@ -245,14 +245,12 @@ class _QuestionListState extends State<QuestionList> {
     return 0;
   }
 
-  questionWithDismiss(Question question) {
+  questionWithDismiss(Question question)  {
     if (LocalData.user.userRef == question.userRef) {
       return Dismissible(
         key: Key(question.question),
-        onDismissed: (direction) {
-          setState(() {
-            _db.removeQuestion(question);
-          });
+        onDismissed: (direction) async {
+            await _db.removeQuestion(question);
           Scaffold.of(context).showSnackBar(SnackBar(content: Text("Question removed")));
         },
         background: Container(
