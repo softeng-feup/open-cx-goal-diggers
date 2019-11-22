@@ -5,14 +5,14 @@ import 'package:up_question/controller/database.dart';
 
 class TalkView extends StatelessWidget {
   final Talk localtalk;
+  final bool button;
 
-  TalkView(this.localtalk);
+  TalkView(this.localtalk, this.button);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        // TODO: passar a lecture certa
-        onTap: () => Navigator.pushNamed(context, '/QuestionsPage', arguments: localtalk),
+        onTap: () => this.button ? Navigator.pushNamed(context, '/QuestionsPage', arguments: localtalk) : null,
         child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(

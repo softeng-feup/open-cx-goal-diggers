@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:up_question/controller/database.dart';
@@ -80,7 +81,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
           Container(
             child: Stack(
               children: <Widget>[
-                Positioned(child: TalkView(talk)),
+                Positioned(child: TalkView(talk, false)),
                 //Trick to place in the center. It should be half the value of 40
                 Positioned(
                     right: 20,
@@ -92,7 +93,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                           child: Ink(
                         decoration: BoxDecoration(color: Colors.blue),
                         child: IconButton(
-                            icon: Icon(Icons.work),
+                            icon: Icon(EvaIcons.twitter),
                             color: Colors.white,
                             iconSize: 40,
                             onPressed: _isvisibleIcon == false
