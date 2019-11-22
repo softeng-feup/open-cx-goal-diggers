@@ -16,17 +16,16 @@ class Reply {
 
   Reply(this.reply);
 
-  Reply.fromMap(DocumentReference reference, Map data)
+  Reply.fromMap(DocumentReference reference, DocumentReference questionReference, Map data)
       : replyReference = reference ?? '',
+        questionReference = questionReference ?? '',
         userReference = data['idUser'] ?? '',
-        questionReference = data['idQuestion'] ?? '',
         reply = data['reply'] ?? '';
 
   toJson(){
     return {
-      "idReply": replyReference,
+      //"idReply": replyReference,
       "idUser": userReference,
-      "idQuestion": questionReference,
       "reply": reply,
       "postedTime": Timestamp.now()
     };

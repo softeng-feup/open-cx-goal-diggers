@@ -25,6 +25,7 @@ class TalkScreen extends StatefulWidget {
 class _TalkScreenState extends State<TalkScreen> {
   DatabaseService _db;
   final Talk talk;
+
   //List<Question> questions = new List();
 
   _TalkScreenState(this.talk);
@@ -40,7 +41,6 @@ class _TalkScreenState extends State<TalkScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Questions"),
@@ -73,9 +73,11 @@ class _TalkScreenState extends State<TalkScreen> {
             }).toList(),
           ),
           StreamProvider<List<Question>>.value(
-              value: _db.getQuestionStream(talk),
-              //child: !snapshot.hasData ? Loading() : QuestionList();
-            child: QuestionList(selectedOption: _selectedOption,),
+            value: _db.getQuestionStream(talk),
+            //child: !snapshot.hasData ? Loading() : QuestionList();
+            child: QuestionList(
+              selectedOption: _selectedOption,
+            ),
           )
         ],
       ),
@@ -107,10 +109,12 @@ class QuestionList extends StatefulWidget {
 class _QuestionListState extends State<QuestionList> {
   String newSelectedOption;
   DatabaseService _db;
+
   //String oldSelectedOption = "";
   //List<Question> questions = new List();
 
   _QuestionListState({this.newSelectedOption});
+
   @override
   void initState() {
     super.initState();
@@ -124,25 +128,21 @@ class _QuestionListState extends State<QuestionList> {
       this.newSelectedOption = widget.selectedOption;
       //questions = new List();
       //if(questions.isNotEmpty)
-        //questions.sort(compareQuestions);
+      //questions.sort(compareQuestions);
     }
   }
 
   int compareQuestions(Question question1, Question question2) {
-    switch(newSelectedOption) {
+    switch (newSelectedOption) {
       case 'Top':
         return question2.votes - question1.votes;
       case 'New':
-        if (question1.postedTime.isAfter(question2.postedTime))
-          return -1;
-        if (question1.postedTime.isBefore(question2.postedTime))
-          return 1;
+        if (question1.postedTime.isAfter(question2.postedTime)) return -1;
+        if (question1.postedTime.isBefore(question2.postedTime)) return 1;
         return 0;
       case 'Old':
-        if (question1.postedTime.isBefore(question2.postedTime))
-          return -1;
-        if (question1.postedTime.isAfter(question2.postedTime))
-          return 1;
+        if (question1.postedTime.isBefore(question2.postedTime)) return -1;
+        if (question1.postedTime.isAfter(question2.postedTime)) return 1;
         return 0;
     }
     return 0;
@@ -150,7 +150,6 @@ class _QuestionListState extends State<QuestionList> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Question> questionsProvided = Provider.of<List<Question>>(context);
 
     /*if ((this.newSelectedOption != this.oldSelectedOption) && (questionsProvided != null)) {
@@ -158,25 +157,29 @@ class _QuestionListState extends State<QuestionList> {
       this.oldSelectedOption = this.newSelectedOption;
     }*/
 
-    if(questionsProvided != null && questionsProvided.isNotEmpty)
+    if (questionsProvided != null && questionsProvided.isNotEmpty)
       questionsProvided.sort(compareQuestions);
-    return (questionsProvided == null) ?  Loading() :
-        new Expanded(
-          child: new ListView.builder(
-              itemCount: questionsProvided.length,
-              itemBuilder: (BuildContext context, int index) {
-                return MultiProvider(
-                  providers: [
-                    StreamProvider<List<Like>>.value(value: _db.getLike(questionsProvided[index].questionRef, LocalData.user.userRef)),
-                    StreamProvider<List<Dislike>>.value(value: _db.getDislke(questionsProvided[index].questionRef, LocalData.user.userRef)),
-                  ],
-                  //child: !snapshot.hasData ? Loading() : QuestionList();
-                  child: QuestionView(question: questionsProvided[index]),
-                );
-                  
-              }),
-        );
+    return (questionsProvided == null)
+        ? Loading()
+        : new Expanded(
+            child: new ListView.builder(
+                itemCount: questionsProvided.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return MultiProvider(
+                    providers: [
+                      StreamProvider<List<Like>>.value(
+                          value: _db.getLike(
+                              questionsProvided[index].questionRef,
+                              LocalData.user.userRef)),
+                      StreamProvider<List<Dislike>>.value(
+                          value: _db.getDislke(
+                              questionsProvided[index].questionRef,
+                              LocalData.user.userRef)),
+                    ],
+                    //child: !snapshot.hasData ? Loading() : QuestionList();
+                    child: QuestionView(question: questionsProvided[index]),
+                  );
+                }),
+          );
   }
-
 }
-
