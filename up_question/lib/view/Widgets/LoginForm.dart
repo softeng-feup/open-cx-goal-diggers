@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/auth.dart';
+import 'package:up_question/controller/validation.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/PasswordForm.dart';
@@ -94,10 +95,7 @@ class _LoginFormState extends State<LoginForm> {
                                           Color.fromRGBO(255, 255, 255, 0.7)),
                                   helperText: ' ',
                                 ),
-                                validator: (value) {
-                                  if (value.isEmpty)
-                                    return 'Please enter your email';
-                                },
+                                validator: validateEmail,        
                                 // TODO: mudar depois
                                 onSaved: (val) =>
                                     setState(() => user.email = val),
@@ -122,10 +120,7 @@ class _LoginFormState extends State<LoginForm> {
                                           Color.fromRGBO(255, 255, 255, 0.7)),
                                   helperText: ' ',
                                 ),
-                                validator: (value) {
-                                  if (value.isEmpty)
-                                    return 'Please enter your Password';
-                                },
+                                validator: validatePassword,
                                 onSaved: (val) =>
                                     setState(() => user.password = val),
                                 style: new TextStyle(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:up_question/controller/auth.dart';
+import 'package:up_question/controller/validation.dart';
 import 'package:up_question/main.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
@@ -85,9 +86,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                 color: Color.fromRGBO(255, 255, 255, 0.7)),
                             helperText: ' ',
                           ),
-                          validator: (value) {
-                            if (value.isEmpty) return 'Please enter your email';
-                          },
+                          validator: validateEmail,
                           onSaved: (val) => setState(() => user.email = val),
                           style: new TextStyle(
                             fontSize: 20.0,
@@ -108,10 +107,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                 color: Color.fromRGBO(255, 255, 255, 0.7)),
                             helperText: ' ',
                           ),
-                          validator: (value) {
-                            if (value.isEmpty)
-                              return 'Please enter your username';
-                          },
+                          validator: validateUsername,
                           onSaved: (val) => setState(() => user.username = val),
                           style: new TextStyle(
                             fontSize: 20.0,
@@ -134,10 +130,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                 color: Color.fromRGBO(255, 255, 255, 0.7)),
                             helperText: ' ',
                           ),
-                          validator: (value) {
-                            if (value.isEmpty)
-                              return 'Please enter your Password';
-                          },
+                          validator: validatePassword,
                           onSaved: (val) => setState(() => user.password = val),
                           style: new TextStyle(
                             fontSize: 20.0,
@@ -164,6 +157,8 @@ class _RegisterFormState extends State<RegisterForm> {
                               return 'Please confirm your Password';
                             if (value != _passController.text)
                               return 'Passwords do not match';
+                              //To silence warning
+                            return null;
                           },
                           //onSaved: (val) => setState(() => user.password = val),
                           style: new TextStyle(
