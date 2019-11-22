@@ -25,6 +25,13 @@ class QuestionPageView extends StatefulWidget {
 class _QuestionsPageState extends State<QuestionPageView> {
   DatabaseService _db;
   final Talk talk;
+  bool _isvisibleIcon;
+  bool _isvisibleText;
+  bool _isSpeakerNameVisible;
+  bool _speakerLogged=false;
+  String _speaker_code_input;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //List<Question> questions = new List();
 
   _QuestionsPageState(this.talk);
@@ -33,6 +40,16 @@ class _QuestionsPageState extends State<QuestionPageView> {
   void initState() {
     super.initState();
     _db = new DatabaseService();
+    _isvisibleIcon = true;
+    _isvisibleText = false;
+    _isSpeakerNameVisible=false;
+  }
+
+  void _changevisability() {
+    setState(() {
+      _isvisibleIcon = !_isvisibleIcon;
+      _isvisibleText = !_isvisibleText;
+    });
   }
 
   List<String> _options = ['Top', 'New', 'Old'];
@@ -40,14 +57,107 @@ class _QuestionsPageState extends State<QuestionPageView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Questions"),
       ),
       body: Column(
         children: <Widget>[
-          TalkView(talk),
+          //Header
+          Container(
+            child: Stack(
+              children: <Widget>[
+                Positioned(child: TalkView(talk)),
+                //Trick to place in the center. It should be half the value of 40
+                Positioned(
+                    right: 20,
+                    top: 20,
+                    bottom: 20,
+                    child: Visibility(
+                      visible: _isvisibleIcon,
+                      child: Container(
+                        child: Ink(
+                        decoration: BoxDecoration(color: Colors.blue),
+                        child: IconButton(
+                          icon: Icon(Icons.work),
+                          color: Colors.white,
+                          iconSize: 40,
+                          onPressed: _isvisibleIcon==false? null: _changevisability,
+                        ),
+                      )),
+                    )),
+                
+                Positioned(
+                  right: 20,
+                  top: 25,
+              
+              
+                  child: Visibility(
+                    visible: _isSpeakerNameVisible,
+                    child: Text(
+                    "Hello "+talk.speaker,
+                    style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),
+                    
+                    ),
+
+                  ),
+                ),
+                Form(
+                  key: this._formKey,
+                  child: Row(
+                    children: <Widget>[
+
+                  Container(
+                  width: MediaQuery.of(context).size.width*0.65,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 35, left: 90),
+                    child: Visibility(
+                      visible: _isvisibleText,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white
+                        ),
+                        child: TextFormField(
+                        decoration: const InputDecoration(
+                            hintText: "Enter the Speaker Code"),
+                        autocorrect: false,
+                        onSaved: (val){
+                          setState(() => _speaker_code_input = val);
+                        }
+                      ),
+                      )
+                    ),
+                  ),
+                  ),
+                  Visibility(
+                      visible: _isvisibleText,
+                      child:Padding(
+                      padding: EdgeInsets.only(top: 35, left: 5),
+                      child:RaisedButton.icon(
+                        icon: Icon(Icons.send,size: 11),
+                        label: Text("Login as speaker",style: TextStyle(fontSize: 10),),
+                        onPressed: () {
+                          final form=_formKey.currentState;
+                          if(form.validate()){
+                            form.save();
+                            if(_speaker_code_input==talk.speakerCode){
+                              _speakerLogged=true;
+                              _isvisibleText=false;
+                              _isvisibleIcon=false;
+                              _isSpeakerNameVisible=true;
+                            }
+                          }    
+                        }
+                      )
+                      )
+                      ),
+                  
+                    ],
+                )),
+              ],
+            ),
+          ),
+
           DropdownButton(
             value: _selectedOption,
             onChanged: (newValue) {
@@ -73,9 +183,11 @@ class _QuestionsPageState extends State<QuestionPageView> {
             }).toList(),
           ),
           StreamProvider<List<Question>>.value(
-              value: _db.getQuestionStream(talk),
-              //child: !snapshot.hasData ? Loading() : QuestionList();
-            child: QuestionList(selectedOption: _selectedOption,),
+            value: _db.getQuestionStream(talk),
+            //child: !snapshot.hasData ? Loading() : QuestionList();
+            child: QuestionList(
+              selectedOption: _selectedOption,
+            ),
           )
         ],
       ),
@@ -124,25 +236,21 @@ class _QuestionListState extends State<QuestionList> {
       this.newSelectedOption = widget.selectedOption;
       //questions = new List();
       //if(questions.isNotEmpty)
-        //questions.sort(compareQuestions);
+      //questions.sort(compareQuestions);
     }
   }
 
   int compareQuestions(Question question1, Question question2) {
-    switch(newSelectedOption) {
+    switch (newSelectedOption) {
       case 'Top':
         return question2.votes - question1.votes;
       case 'New':
-        if (question1.postedTime.isAfter(question2.postedTime))
-          return -1;
-        if (question1.postedTime.isBefore(question2.postedTime))
-          return 1;
+        if (question1.postedTime.isAfter(question2.postedTime)) return -1;
+        if (question1.postedTime.isBefore(question2.postedTime)) return 1;
         return 0;
       case 'Old':
-        if (question1.postedTime.isBefore(question2.postedTime))
-          return -1;
-        if (question1.postedTime.isAfter(question2.postedTime))
-          return 1;
+        if (question1.postedTime.isBefore(question2.postedTime)) return -1;
+        if (question1.postedTime.isAfter(question2.postedTime)) return 1;
         return 0;
     }
     return 0;
@@ -150,7 +258,6 @@ class _QuestionListState extends State<QuestionList> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Question> questionsProvided = Provider.of<List<Question>>(context);
 
     /*if ((this.newSelectedOption != this.oldSelectedOption) && (questionsProvided != null)) {
@@ -158,7 +265,7 @@ class _QuestionListState extends State<QuestionList> {
       this.oldSelectedOption = this.newSelectedOption;
     }*/
 
-    if(questionsProvided != null && questionsProvided.isNotEmpty)
+    if (questionsProvided != null && questionsProvided.isNotEmpty)
       questionsProvided.sort(compareQuestions);
     return (questionsProvided == null) ?  Loading() :
         new Expanded(
@@ -177,6 +284,4 @@ class _QuestionListState extends State<QuestionList> {
               }),
         );
   }
-
 }
-
