@@ -9,6 +9,7 @@ import 'package:up_question/model/Vote.dart';
 import 'package:up_question/view/QuestionView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/QuestionForm.dart';
+import 'package:up_question/view/Widgets/SpeakerAuthForm.dart';
 import '../TalkView.dart';
 
 class QuestionPageView extends StatefulWidget {
@@ -26,10 +27,8 @@ class _QuestionsPageState extends State<QuestionPageView> {
   DatabaseService _db;
   final Talk talk;
   bool _isvisibleIcon;
-  bool _isvisibleText;
   bool _isSpeakerNameVisible;
   bool _speakerLogged=false;
-  String _speaker_code_input;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //List<Question> questions = new List();
@@ -41,15 +40,29 @@ class _QuestionsPageState extends State<QuestionPageView> {
     super.initState();
     _db = new DatabaseService();
     _isvisibleIcon = true;
-    _isvisibleText = false;
-    _isSpeakerNameVisible=false;
+    _isSpeakerNameVisible = false;
   }
 
-  void _changevisability() {
+  Future _changevisability() async {
     setState(() {
       _isvisibleIcon = !_isvisibleIcon;
-      _isvisibleText = !_isvisibleText;
     });
+
+    String returnVal = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SpeakerAuthForm(talk);
+        });
+
+    if (returnVal == 'sucess') {
+      _speakerLogged= true;
+      _isSpeakerNameVisible=true;
+    } 
+    else if (returnVal == null) {
+      setState(() {
+        _isvisibleIcon = !_isvisibleIcon;
+      });
+    }
   }
 
   List<String> _options = ['Top', 'New', 'Old'];
@@ -76,84 +89,32 @@ class _QuestionsPageState extends State<QuestionPageView> {
                     child: Visibility(
                       visible: _isvisibleIcon,
                       child: Container(
-                        child: Ink(
+                          child: Ink(
                         decoration: BoxDecoration(color: Colors.blue),
                         child: IconButton(
-                          icon: Icon(Icons.work),
-                          color: Colors.white,
-                          iconSize: 40,
-                          onPressed: _isvisibleIcon==false? null: _changevisability,
-                        ),
+                            icon: Icon(Icons.work),
+                            color: Colors.white,
+                            iconSize: 40,
+                            onPressed: _isvisibleIcon == false
+                                ? null
+                                :  _changevisability),
                       )),
                     )),
-                
+
                 Positioned(
                   right: 20,
                   top: 25,
-              
-              
                   child: Visibility(
                     visible: _isSpeakerNameVisible,
                     child: Text(
-                    "Hello "+talk.speaker,
-                    style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),
-                    
+                      "Hello " + talk.speaker,
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
-
                   ),
                 ),
-                Form(
-                  key: this._formKey,
-                  child: Row(
-                    children: <Widget>[
-
-                  Container(
-                  width: MediaQuery.of(context).size.width*0.65,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 35, left: 90),
-                    child: Visibility(
-                      visible: _isvisibleText,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white
-                        ),
-                        child: TextFormField(
-                        decoration: const InputDecoration(
-                            hintText: "Enter the Speaker Code"),
-                        autocorrect: false,
-                        onSaved: (val){
-                          setState(() => _speaker_code_input = val);
-                        }
-                      ),
-                      )
-                    ),
-                  ),
-                  ),
-                  Visibility(
-                      visible: _isvisibleText,
-                      child:Padding(
-                      padding: EdgeInsets.only(top: 35, left: 5),
-                      child:RaisedButton.icon(
-                        icon: Icon(Icons.send,size: 11),
-                        label: Text("Login as speaker",style: TextStyle(fontSize: 10),),
-                        onPressed: () {
-                          final form=_formKey.currentState;
-                          if(form.validate()){
-                            form.save();
-                            if(_speaker_code_input==talk.speakerCode){
-                              _speakerLogged=true;
-                              _isvisibleText=false;
-                              _isvisibleIcon=false;
-                              _isSpeakerNameVisible=true;
-                            }
-                          }    
-                        }
-                      )
-                      )
-                      ),
-                  
-                    ],
-                )),
               ],
             ),
           ),
@@ -203,6 +164,10 @@ class _QuestionsPageState extends State<QuestionPageView> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class SpeakerLoginState {
+  bool speakerLogged = false;
 }
 
 class QuestionList extends StatefulWidget {
@@ -267,21 +232,27 @@ class _QuestionListState extends State<QuestionList> {
 
     if (questionsProvided != null && questionsProvided.isNotEmpty)
       questionsProvided.sort(compareQuestions);
-    return (questionsProvided == null) ?  Loading() :
-        new Expanded(
-          child: new ListView.builder(
-              itemCount: questionsProvided.length,
-              itemBuilder: (BuildContext context, int index) {
-                return MultiProvider(
-                  providers: [
-                    StreamProvider<List<Like>>.value(value: _db.getLike(questionsProvided[index].questionRef, LocalData.user.userRef)),
-                    StreamProvider<List<Dislike>>.value(value: _db.getDislke(questionsProvided[index].questionRef, LocalData.user.userRef)),
-                  ],
-                  //child: !snapshot.hasData ? Loading() : QuestionList();
-                  child: QuestionView(question: questionsProvided[index]),
-                );
-                  
-              }),
-        );
+    return (questionsProvided == null)
+        ? Loading()
+        : new Expanded(
+            child: new ListView.builder(
+                itemCount: questionsProvided.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return MultiProvider(
+                    providers: [
+                      StreamProvider<List<Like>>.value(
+                          value: _db.getLike(
+                              questionsProvided[index].questionRef,
+                              LocalData.user.userRef)),
+                      StreamProvider<List<Dislike>>.value(
+                          value: _db.getDislke(
+                              questionsProvided[index].questionRef,
+                              LocalData.user.userRef)),
+                    ],
+                    //child: !snapshot.hasData ? Loading() : QuestionList();
+                    child: QuestionView(question: questionsProvided[index]),
+                  );
+                }),
+          );
   }
 }
