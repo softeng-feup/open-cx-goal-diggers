@@ -52,12 +52,13 @@ class QuestionViewState extends State<QuestionView> {
 
 
     return Dismissible(
-      key: Key(question.question),
-      /*onDismissed: (direction) {
+      key: Key(this.question.question),
+      onDismissed: (direction) {
         setState(() {
+          _db.removeQuestion(this.question);
         });
         Scaffold.of(context).showSnackBar(SnackBar(content: Text("Question removed")));
-      },*/
+      },
       background: Container(
           alignment: Alignment.centerRight,
           padding: EdgeInsets.fromLTRB(0, 0, 40, 0),
