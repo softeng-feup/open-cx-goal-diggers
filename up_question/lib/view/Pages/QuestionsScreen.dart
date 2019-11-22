@@ -256,6 +256,34 @@ class _QuestionListState extends State<QuestionList> {
     return 0;
   }
 
+  questionWithDismiss(Question question) {
+    if (LocalData.user.userRef == question.userRef) {
+      return Dismissible(
+        key: Key(question.question),
+        onDismissed: (direction) {
+          setState(() {
+            _db.removeQuestion(question);
+          });
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Question removed")));
+        },
+        background: Container(
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.fromLTRB(0, 0, 40, 0),
+          color: Colors.red,
+          child: IconButton(
+            icon: Icon(Icons.delete),
+            iconSize: 40,
+          ),
+        ),
+        direction: DismissDirection.endToStart,
+        child: QuestionView(question: question),
+      );
+    }
+    else {
+      return QuestionView(question: question);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Question> questionsProvided = Provider.of<List<Question>>(context);
@@ -278,7 +306,7 @@ class _QuestionListState extends State<QuestionList> {
                     StreamProvider<List<Dislike>>.value(value: _db.getDislke(questionsProvided[index].questionRef, LocalData.user.userRef)),
                   ],
                   //child: !snapshot.hasData ? Loading() : QuestionList();
-                  child: QuestionView(question: questionsProvided[index]),
+                  child: questionWithDismiss(questionsProvided[index]),
                 );
                   
               }),

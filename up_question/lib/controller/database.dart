@@ -121,5 +121,15 @@ class DatabaseService {
 
   void removeQuestion(Question data) async{
     await dbReference.collection('questions').document(data.questionRef.documentID).delete();
+    await data.questionRef.collection('dislikes').getDocuments().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents){
+        ds.reference.delete();
+      }
+    });
+    await data.questionRef.collection('likes').getDocuments().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents){
+        ds.reference.delete();
+      }
+    });
   }
 }

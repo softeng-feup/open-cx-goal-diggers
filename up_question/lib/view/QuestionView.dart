@@ -51,25 +51,7 @@ class QuestionViewState extends State<QuestionView> {
     isSelected[1] = dislike.isNotEmpty;
 
 
-    return Dismissible(
-      key: Key(this.question.question),
-      onDismissed: (direction) {
-        setState(() {
-          _db.removeQuestion(this.question);
-        });
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Question removed")));
-      },
-      background: Container(
-          alignment: Alignment.centerRight,
-          padding: EdgeInsets.fromLTRB(0, 0, 40, 0),
-          color: Colors.red,
-          child: IconButton(
-            icon: Icon(Icons.delete),
-            iconSize: 40,
-          ),
-      ),
-      direction: DismissDirection.endToStart,
-      child: Container(
+    return Container(
         height: 150,
         // TODO: relative size
         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -144,6 +126,6 @@ class QuestionViewState extends State<QuestionView> {
                   )
                 ],
               ))
-        ])));
+        ]));
   }
 }
