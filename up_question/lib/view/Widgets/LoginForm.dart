@@ -95,7 +95,10 @@ class _LoginFormState extends State<LoginForm> {
                                           Color.fromRGBO(255, 255, 255, 0.7)),
                                   helperText: ' ',
                                 ),
-                                validator: validateEmail,        
+                                validator: (value) {
+                                  if (value.isEmpty)
+                                    return 'Please enter your Email';
+                                },        
                                 // TODO: mudar depois
                                 onSaved: (val) =>
                                     setState(() => user.email = val),
@@ -120,7 +123,10 @@ class _LoginFormState extends State<LoginForm> {
                                           Color.fromRGBO(255, 255, 255, 0.7)),
                                   helperText: ' ',
                                 ),
-                                validator: validatePassword,
+                                validator: (value) {
+                                  if (value.isEmpty)
+                                    return 'Please enter your Password';
+                                },
                                 onSaved: (val) =>
                                     setState(() => user.password = val),
                                 style: new TextStyle(
