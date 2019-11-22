@@ -60,7 +60,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
               value: _db.getReplyStream(question),
               child: ReplyList()
           ),
-          /*if (LocalData.speakerLogged) new ReplyForm(question: question)*/
+          if (LocalData.speakerLogged) new ReplyForm(question: question)
         ],
       ),
     );
