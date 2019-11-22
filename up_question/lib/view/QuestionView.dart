@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/User.dart';
@@ -38,7 +39,24 @@ class QuestionViewState extends State<QuestionView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Dismissible(
+      key: Key(question.question),
+      /*onDismissed: (direction) {
+        setState(() {
+        });
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Question removed")));
+      },*/
+      background: Container(
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.fromLTRB(0, 0, 40, 0),
+          color: Colors.red,
+          child: IconButton(
+            icon: Icon(Icons.delete),
+            iconSize: 40,
+          ),
+      ),
+      direction: DismissDirection.endToStart,
+      child: Container(
         height: 150,
         // TODO: relative size
         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -121,6 +139,6 @@ class QuestionViewState extends State<QuestionView> {
                   )
                 ],
               ))
-        ]));
+        ])));
   }
 }

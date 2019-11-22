@@ -7,8 +7,6 @@ import 'package:up_question/model/Talk.dart';
 import 'package:up_question/view/QuestionView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/QuestionForm.dart';
-import 'package:up_question/model/LocalData.dart';
-
 import '../TalkView.dart';
 
 class QuestionPageView extends StatefulWidget {
@@ -159,20 +157,6 @@ class _QuestionListState extends State<QuestionList> {
           child: new ListView.builder(
               itemCount: questionsProvided.length,
               itemBuilder: (BuildContext context, int index) {
-                final question = questionsProvided[index];
-
-                if(question.userRef == LocalData.user.userRef) {
-                  return Dismissible(
-                    key: Key(question.question),
-                    onDismissed: (direction) {
-                      setState(() {
-                        questionsProvided.removeAt(index);
-                      });
-                      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Question removed")));
-                    },
-                    background: Container(color: Colors.red),
-                  );
-                }
                 return QuestionView(question: questionsProvided[index]);
               }),
         );
