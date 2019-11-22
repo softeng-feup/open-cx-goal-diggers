@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:up_question/controller/database.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
+import 'package:up_question/model/Vote.dart';
 import 'package:up_question/view/QuestionView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/QuestionForm.dart';
@@ -105,10 +107,16 @@ class QuestionList extends StatefulWidget {
 
 class _QuestionListState extends State<QuestionList> {
   String newSelectedOption;
+  DatabaseService _db;
   //String oldSelectedOption = "";
   //List<Question> questions = new List();
 
   _QuestionListState({this.newSelectedOption});
+  @override
+  void initState() {
+    super.initState();
+    _db = new DatabaseService();
+  }
 
   @override
   void didUpdateWidget(QuestionList oldWidget) {
@@ -158,7 +166,15 @@ class _QuestionListState extends State<QuestionList> {
           child: new ListView.builder(
               itemCount: questionsProvided.length,
               itemBuilder: (BuildContext context, int index) {
-                return QuestionView(question: questionsProvided[index]);
+                return MultiProvider(
+                  providers: [
+                    StreamProvider<List<Like>>.value(value: _db.getLike(questionsProvided[index].questionRef, LocalData.user.userRef)),
+                    StreamProvider<List<Dislike>>.value(value: _db.getDislke(questionsProvided[index].questionRef, LocalData.user.userRef)),
+                  ],
+                  //child: !snapshot.hasData ? Loading() : QuestionList();
+                  child: QuestionView(question: questionsProvided[index]),
+                );
+                  
               }),
         );
   }

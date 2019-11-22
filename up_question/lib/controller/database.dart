@@ -4,6 +4,7 @@ import 'package:up_question/model/Day.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
 import 'package:up_question/model/User.dart';
+import 'package:up_question/model/Vote.dart';
 
 class DatabaseService {
   //TODO: CONSTRUTOR CHAMAR METODO INIT
@@ -57,6 +58,22 @@ class DatabaseService {
     //return dbReference.collection('questions').where('idTalk', isEqualTo: talk.talkRef).snapshots();
   }
 
+  Stream<List<Like>> getLike(DocumentReference questionRef, DocumentReference userRef){
+    Stream <QuerySnapshot> stream = questionRef.collection('likes').where('user', isEqualTo: userRef).snapshots();
+    return stream
+        .map((snapshot) => snapshot.documents
+        .map((doc) => Like.fromMap(doc.reference, doc.data, questionRef))
+        .toList());
+  }
+
+  Stream<List<Dislike>> getDislke(DocumentReference questionRef, DocumentReference userRef){
+    Stream <QuerySnapshot> stream = questionRef.collection('dislikes').where('user', isEqualTo: userRef).snapshots();
+    return stream
+        .map((snapshot) => snapshot.documents
+        .map((doc) => Dislike.fromMap(doc.reference, doc.data, questionRef))
+        .toList());
+  }
+
   Future<List<Talk>> retrieveTalkAtDay(Day day)  async {
     var talkReference = dbReference.collection('talks').where('idDay', isEqualTo: day.dayRef);
     List<Talk> tempTalkList = List();
@@ -84,5 +101,21 @@ class DatabaseService {
 
   Future addQuestion(Question data) async{
     return await dbReference.collection('questions').add(data.toJson());
+  }
+
+  void addLike(DocumentReference questionRef, Like data) async{
+    await questionRef.collection('likes').add(data.toJson());
+  }
+
+  void addDislike(DocumentReference questionRef, Dislike data) async{
+    await questionRef.collection('dislikes').add(data.toJson());
+  }
+
+  void removeLike(DocumentReference questionRef, Like data) async{
+    await questionRef.collection('likes').document(data.voteRef.documentID).delete();
+  }
+
+  void removeDislike(DocumentReference questionRef, Dislike data) async{
+    await questionRef.collection('dislikes').document(data.voteRef.documentID).delete();
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:up_question/controller/database.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/User.dart';
+import 'package:up_question/model/Vote.dart';
 
 import 'Widgets/Loading.dart';
 
@@ -38,6 +41,14 @@ class QuestionViewState extends State<QuestionView> {
 
   @override
   Widget build(BuildContext context) {
+    List<Like> like = Provider.of<List<Like>>(context);
+    List<Dislike> dislike = Provider.of<List<Dislike>>(context);
+
+    if (like == null || dislike == null) return Loading();
+
+    isSelected[0] = like.isNotEmpty;
+    isSelected[1] = dislike.isNotEmpty;
+
     return Container(
         height: 150,
         // TODO: relative size
@@ -87,12 +98,8 @@ class QuestionViewState extends State<QuestionView> {
                     icon: Icon(Icons.arrow_upward, color: upColor()),
                     iconSize: 20,
                     onPressed: () {
-                      if(isSelected[1]) question.upVoted();
-                      isSelected[0] ? question.downVoted() : question.upVoted();
-                      setState(() {
-                        isSelected[0] = !isSelected[0];
-                        isSelected[1] = false;
-                      });
+                      if(isSelected[1]) question.removeDislike(dislike[0]);
+                      isSelected[0] ? question.removeLike(like[0]) : question.addLike(Like(LocalData.user.userRef));
                     },
                   ),
                   Text(question.votes.toString(),
@@ -101,12 +108,8 @@ class QuestionViewState extends State<QuestionView> {
                     icon: Icon(Icons.arrow_downward, color: downColor()),
                     iconSize: 20,
                     onPressed: () {
-                      if(isSelected[0]) question.downVoted();
-                      isSelected[1] ? question.upVoted() : question.downVoted();
-                      setState(() {
-                        isSelected[1] = !isSelected[1];
-                        isSelected[0] = false;
-                      });
+                      if(isSelected[0]) question.removeLike(like[0]);
+                      isSelected[1] ? question.removeDislike(dislike[0]) : question.addDislike(Dislike(LocalData.user.userRef));
                     },
                   ),
                   IconButton(
