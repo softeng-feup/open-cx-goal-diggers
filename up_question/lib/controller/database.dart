@@ -76,7 +76,7 @@ class DatabaseService {
         .toList());
   }
 
-  Stream<List<Dislike>> getDislke(DocumentReference questionRef, DocumentReference userRef){
+  Stream<List<Dislike>> getDislike(DocumentReference questionRef, DocumentReference userRef){
     Stream <QuerySnapshot> stream = questionRef.collection('dislikes').where('user', isEqualTo: userRef).snapshots();
     return stream
         .map((snapshot) => snapshot.documents

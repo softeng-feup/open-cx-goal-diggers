@@ -9,6 +9,7 @@ import 'package:up_question/model/Vote.dart';
 import 'package:up_question/view/QuestionView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/QuestionForm.dart';
+import 'package:up_question/view/Widgets/SpeakerAuthForm.dart';
 import '../TalkView.dart';
 
 class TalkScreen extends StatefulWidget {
@@ -25,15 +26,42 @@ class TalkScreen extends StatefulWidget {
 class _TalkScreenState extends State<TalkScreen> {
   DatabaseService _db;
   final Talk talk;
+  bool _isvisibleIcon;
+  bool _isSpeakerNameVisible;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   //List<Question> questions = new List();
-
   _TalkScreenState(this.talk);
 
   @override
   void initState() {
     super.initState();
     _db = new DatabaseService();
+    _isvisibleIcon = true;
+    _isSpeakerNameVisible = false;
+  }
+
+  Future _changevisability() async {
+    setState(() {
+      _isvisibleIcon = !_isvisibleIcon;
+    });
+
+    String returnVal = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SpeakerAuthForm(talk);
+        });
+
+    if (returnVal == 'sucess') {
+      LocalData.speakerLogged= true;
+      _isSpeakerNameVisible=true;
+    } 
+    else if (returnVal == null) {
+      setState(() {
+        _isvisibleIcon = !_isvisibleIcon;
+      });
+    }
   }
 
   List<String> _options = ['Top', 'New', 'Old'];
@@ -47,7 +75,49 @@ class _TalkScreenState extends State<TalkScreen> {
       ),
       body: Column(
         children: <Widget>[
-          TalkView(talk),
+          //Header
+          Container(
+            child: Stack(
+              children: <Widget>[
+                Positioned(child: TalkView(talk)),
+                //Trick to place in the center. It should be half the value of 40
+                Positioned(
+                    right: 20,
+                    top: 20,
+                    bottom: 20,
+                    child: Visibility(
+                      visible: _isvisibleIcon,
+                      child: Container(
+                          child: Ink(
+                        decoration: BoxDecoration(color: Colors.blue),
+                        child: IconButton(
+                            icon: Icon(Icons.work),
+                            color: Colors.white,
+                            iconSize: 40,
+                            onPressed: _isvisibleIcon == false
+                                ? null
+                                :  _changevisability),
+                      )),
+                    )),
+
+                Positioned(
+                  right: 20,
+                  top: 25,
+                  child: Visibility(
+                    visible: _isSpeakerNameVisible,
+                    child: Text(
+                      "Hello " + talk.speaker,
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           DropdownButton(
             value: _selectedOption,
             onChanged: (newValue) {
@@ -93,6 +163,10 @@ class _TalkScreenState extends State<TalkScreen> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class SpeakerLoginState {
+  bool speakerLogged = false;
 }
 
 class QuestionList extends StatefulWidget {
@@ -172,7 +246,7 @@ class _QuestionListState extends State<QuestionList> {
                               questionsProvided[index].questionRef,
                               LocalData.user.userRef)),
                       StreamProvider<List<Dislike>>.value(
-                          value: _db.getDislke(
+                          value: _db.getDislike(
                               questionsProvided[index].questionRef,
                               LocalData.user.userRef)),
                     ],

@@ -49,7 +49,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   value: _db.getLike(
                       question.questionRef, LocalData.user.userRef)),
               StreamProvider<List<Dislike>>.value(
-                  value: _db.getDislke(
+                  value: _db.getDislike(
                       question.questionRef, LocalData.user.userRef)),
             ],
             //child: !snapshot.hasData ? Loading() : QuestionList();

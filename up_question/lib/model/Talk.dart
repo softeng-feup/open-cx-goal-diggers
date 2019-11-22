@@ -10,6 +10,7 @@ class Talk extends Comparable {
   DateTime endTime;
   String location;
   String backgroundImagePath;
+  String speakerCode;
   List<Question> questionList = new List();
 
   Talk(
@@ -18,7 +19,8 @@ class Talk extends Comparable {
       this.startTime,
       this.endTime,
       this.location,
-      this.backgroundImagePath});
+      this.backgroundImagePath,
+      this.speakerCode});
 
   @override
   int compareTo(other) {
@@ -30,6 +32,7 @@ class Talk extends Comparable {
         title = snapshot['title'] ?? '',
         speaker = snapshot['speaker'] ?? '',
         location = snapshot['room'] ?? '',
+        speakerCode=snapshot['speaker_code']??'',
         backgroundImagePath = 'assets/images/big_data_back.png' ?? '' {
     DateTime date = snapshot['start_time'].toDate();
 
