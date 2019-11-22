@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
 import 'package:up_question/view/Pages/HomePage.dart';
-import 'package:up_question/view/Pages/QuestionsScreen.dart';
+import 'package:up_question/view/Pages/QuestionScreen.dart';
+import 'package:up_question/view/Pages/TalkScreen.dart';
 import 'package:up_question/view/Pages/ScheduleScreen.dart';
 
 class Router {
@@ -15,7 +17,10 @@ class Router {
         return MaterialPageRoute(builder: (_) => ScheduleScreen()); // TODO: fazer agenda e passar agenda
       case '/QuestionsPage':
         Talk talk = settings.arguments;
-        return MaterialPageRoute(builder: (_) => QuestionPageView(talk)); // TODO: passar argumentos corretos
+        return MaterialPageRoute(builder: (_) => QuestionScreen(talk)); // TODO: passar argumentos corretos
+      case '/QuestionPage':
+        Question question = settings.arguments;
+        return MaterialPageRoute(builder: (_) => QuestionScreen(question));
       default:
         return _errorRoute();
     }

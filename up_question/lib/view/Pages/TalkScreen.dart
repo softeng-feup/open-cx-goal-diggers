@@ -11,23 +11,23 @@ import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/QuestionForm.dart';
 import '../TalkView.dart';
 
-class QuestionPageView extends StatefulWidget {
+class TalkScreen extends StatefulWidget {
   final Talk talk;
 
-  const QuestionPageView(this.talk);
+  const TalkScreen(this.talk);
 
   @override
-  _QuestionsPageState createState() {
-    return _QuestionsPageState(talk);
+  _TalkScreenState createState() {
+    return _TalkScreenState(talk);
   }
 }
 
-class _QuestionsPageState extends State<QuestionPageView> {
+class _TalkScreenState extends State<TalkScreen> {
   DatabaseService _db;
   final Talk talk;
   //List<Question> questions = new List();
 
-  _QuestionsPageState(this.talk);
+  _TalkScreenState(this.talk);
 
   @override
   void initState() {

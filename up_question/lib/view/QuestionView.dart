@@ -75,74 +75,77 @@ class QuestionViewState extends State<QuestionView> {
         decoration: BoxDecoration(
             border:
                 Border(bottom: BorderSide(color: Color(0xFF353535), width: 3))),
-        child: Stack(children: <Widget>[
-          Container(
-            alignment: Alignment.topLeft,
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.face),
-                  iconSize: 30,
-                ),
-                FutureBuilder<User>(
-                  future: _db.getUserByRef(question.userRef),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<User> snapshot) {
-                    if (!snapshot.hasData) {
-                      return Loading();
-                    } else {
-                      final user = snapshot.data;
-                      return Text(
-                          question.anonimous ? "Anonimous" : user.username,
-                          style: TextStyle(fontSize: 20));
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
-          Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                question.question,
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 18),
-              )),
-          Container(
-              alignment: Alignment.bottomRight,
+        child: InkWell(
+          onTap: ()=> Navigator.pushNamed(context, '/QuestionPage', arguments: question),
+          child: Stack(children: <Widget>[
+            Container(
+              alignment: Alignment.topLeft,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.arrow_upward, color: upColor()),
-                    iconSize: 20,
-                    onPressed: () {
-                      if(isSelected[1]) question.removeDislike(dislike[0]);
-                      isSelected[0] ? question.removeLike(like[0]) : question.addLike(Like(LocalData.user.userRef));
+                    icon: Icon(Icons.face),
+                    iconSize: 30,
+                  ),
+                  FutureBuilder<User>(
+                    future: _db.getUserByRef(question.userRef),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<User> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Loading();
+                      } else {
+                        final user = snapshot.data;
+                        return Text(
+                            question.anonimous ? "Anonimous" : user.username,
+                            style: TextStyle(fontSize: 20));
+                      }
                     },
                   ),
-                  Text(question.votes.toString(),
-                      style: TextStyle(fontSize: 18)),
-                  IconButton(
-                    icon: Icon(Icons.arrow_downward, color: downColor()),
-                    iconSize: 20,
-                    onPressed: () {
-                      if(isSelected[0]) question.removeLike(like[0]);
-                      isSelected[1] ? question.removeDislike(dislike[0]) : question.addDislike(Dislike(LocalData.user.userRef));
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.insert_comment, color: Color(0xFF353535)),
-                    iconSize: 20,
-                    onPressed: null,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.share, color: Color(0xFF353535)),
-                    iconSize: 20,
-                    onPressed: null,
-                  )
                 ],
-              ))
-        ])));
+              ),
+            ),
+            Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  question.question,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 18),
+                )),
+            Container(
+                alignment: Alignment.bottomRight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.arrow_upward, color: upColor()),
+                      iconSize: 20,
+                      onPressed: () {
+                        if(isSelected[1]) question.removeDislike(dislike[0]);
+                        isSelected[0] ? question.removeLike(like[0]) : question.addLike(Like(LocalData.user.userRef));
+                      },
+                    ),
+                    Text(question.votes.toString(),
+                        style: TextStyle(fontSize: 18)),
+                    IconButton(
+                      icon: Icon(Icons.arrow_downward, color: downColor()),
+                      iconSize: 20,
+                      onPressed: () {
+                        if(isSelected[0]) question.removeLike(like[0]);
+                        isSelected[1] ? question.removeDislike(dislike[0]) : question.addDislike(Dislike(LocalData.user.userRef));
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.insert_comment, color: Color(0xFF353535)),
+                      iconSize: 20,
+                      onPressed: null,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.share, color: Color(0xFF353535)),
+                      iconSize: 20,
+                      onPressed: null,
+                    )
+                  ],
+                ))
+          ]),
+        )));
   }
 }

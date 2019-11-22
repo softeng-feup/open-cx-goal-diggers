@@ -15,6 +15,7 @@ class Question extends Comparable {
   Like like;
   Dislike dislike;
   DateTime postedTime;
+
   // TODO: ver depois isto
   DocumentReference userRef;
   bool anonimous = false;
@@ -23,12 +24,12 @@ class Question extends Comparable {
 
   Question({this.question, this.votes = 0});
 
-  void addLike(Like data){
+  void addLike(Like data) {
     questionRef.updateData({'nVotes': FieldValue.increment(1)});
     _db.addLike(questionRef, data);
   }
 
-  void addDislike(Dislike data){
+  void addDislike(Dislike data) {
     questionRef.updateData({'nVotes': FieldValue.increment(-1)});
     _db.addDislike(questionRef, data);
   }
@@ -45,7 +46,7 @@ class Question extends Comparable {
 
   @override
   int compareTo(other) {
-    if(this.votes == other.votes)
+    if (this.votes == other.votes)
       return this.postedTime.compareTo(other.postedTime);
     return this.votes.compareTo(other.votes);
   }
@@ -56,10 +57,11 @@ class Question extends Comparable {
         anonimous = data['anonimous'] ?? '',
         talkRef = data['idTalk'] ?? '',
         userRef = data['user'] ?? '',
-        votes = data['nVotes'] ?? ''{
+        votes = data['nVotes'] ?? '' {
     DateTime date = data['postedTime'].toDate();
-    postedTime = DateTime(
-        startTime.year, startTime.month, startTime.day, date.hour, date.minute) ?? '';
+    postedTime = DateTime(startTime.year, startTime.month, startTime.day,
+            date.hour, date.minute) ??
+        '';
     ;
   }
 
@@ -70,8 +72,7 @@ class Question extends Comparable {
       "nVotes": 0,
       "postedTime": Timestamp.now(),
       "question": question,
-      "user" : userRef
+      "user": userRef
     };
   }
-
 }
