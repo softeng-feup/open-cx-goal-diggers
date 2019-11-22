@@ -12,7 +12,7 @@ class TalkView extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         // TODO: passar a lecture certa
-        onTap: () => Navigator.pushNamed(context, '/QuestionsPage', arguments: localtalk),
+        onTap: () => Navigator.pushNamed(context, '/TalkPage', arguments: localtalk),
         child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
