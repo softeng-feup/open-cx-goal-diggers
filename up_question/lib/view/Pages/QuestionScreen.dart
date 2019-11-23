@@ -38,32 +38,54 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Replies"),
-      ),
-      body: Column(
-        children: <Widget>[
-          MultiProvider(
-            providers: [
-              StreamProvider<List<Like>>.value(
-                  value: _db.getLike(
-                      question.questionRef, LocalData.user.userRef)),
-              StreamProvider<List<Dislike>>.value(
-                  value: _db.getDislike(
-                      question.questionRef, LocalData.user.userRef)),
+    if (LocalData.speakerLogged) {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text("Replies"),
+          ),
+          body: Column(
+            children: <Widget>[
+              MultiProvider(
+                providers: [
+                  StreamProvider<List<Like>>.value(
+                      value: _db.getLike(
+                          question.questionRef, LocalData.user.userRef)),
+                  StreamProvider<List<Dislike>>.value(
+                      value: _db.getDislike(
+                          question.questionRef, LocalData.user.userRef)),
+                ],
+                //child: !snapshot.hasData ? Loading() : QuestionList();
+                child: QuestionView(question: question, lightVersion: true),
+              ),
+              StreamProvider<List<Reply>>.value(
+                  value: _db.getReplyStream(question), child: ReplyList()),
             ],
-            //child: !snapshot.hasData ? Loading() : QuestionList();
-            child: QuestionView(question: question),
           ),
-          StreamProvider<List<Reply>>.value(
-              value: _db.getReplyStream(question),
-              child: ReplyList()
+          bottomNavigationBar: ReplyForm(question: question));
+    } else {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text("Replies"),
           ),
-          if (LocalData.speakerLogged) new ReplyForm(question: question)
-        ],
-      ),
-    );
+          body: Column(
+            children: <Widget>[
+              MultiProvider(
+                providers: [
+                  StreamProvider<List<Like>>.value(
+                      value: _db.getLike(
+                          question.questionRef, LocalData.user.userRef)),
+                  StreamProvider<List<Dislike>>.value(
+                      value: _db.getDislike(
+                          question.questionRef, LocalData.user.userRef)),
+                ],
+                //child: !snapshot.hasData ? Loading() : QuestionList();
+                child: QuestionView(question: question, lightVersion: true),
+              ),
+              StreamProvider<List<Reply>>.value(
+                  value: _db.getReplyStream(question), child: ReplyList()),
+            ],
+          ));
+    }
   }
 }
 
@@ -78,10 +100,9 @@ class ReplyListState extends State<ReplyList> {
   @override
   Widget build(BuildContext context) {
     List<Reply> replies = Provider.of<List<Reply>>(context);
-    if (replies == null){
+    if (replies == null) {
       return Loading();
-    }
-    else {
+    } else {
       if (replies.length == 0) {
         return Expanded(
           child: Container(
@@ -96,18 +117,16 @@ class ReplyListState extends State<ReplyList> {
         color: Colors.black54,
         //padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
         child: */
-          new Expanded(
-            child: Container(
-              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-              child: new ListView.builder(
-                  itemCount: replies.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ReplyView(replies[index]);
-                  }),
-            ),
-          );
-        /*);
-      ;*/
+            new Expanded(
+          child: Container(
+            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+            child: new ListView.builder(
+                itemCount: replies.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ReplyView(replies[index]);
+                }),
+          ),
+        );
       }
     }
   }

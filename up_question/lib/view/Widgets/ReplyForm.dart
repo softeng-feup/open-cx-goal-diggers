@@ -19,6 +19,7 @@ class ReplyFormState extends State<ReplyForm> {
   final Question question;
   Reply reply = new Reply();
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+
   //DatabaseService _db;
 
   ReplyFormState(this.question);
@@ -39,49 +40,46 @@ class ReplyFormState extends State<ReplyForm> {
         padding: EdgeInsets.all(5),
         height: 90,
         child: Form(
-              key: this._formKey,
-                child: Row(
-                  children: <Widget>[
-                    Padding(padding: EdgeInsets.all(1)),
-                    Flexible(
-                      child: TextFormField(
-                          decoration: InputDecoration(
-                            hintText: 'Insert your reply here...',
-                            fillColor: Colors.white,
-                            border: new OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(15.0),
-                              borderSide: new BorderSide(color: Colors.black26, width: 3)
-                            )
-                          ),
-                          maxLines: 2,
-                          keyboardType: TextInputType.multiline,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please insert your reply';
-                            }
-                          },
-                          onSaved: (val) => setState(() => reply.reply = val),
-                        ),
-                    ),
-                    ButtonTheme(
-                        child: IconButton(
-                          icon: Icon(Icons.navigation),
-                          iconSize: 30,
-                          onPressed: () async {
-                            final form = _formKey.currentState;
-                            if (form.validate()) {
-                              form.save();
-                              reply.questionReference = question.questionRef;
-                              reply.userReference = LocalData.user.userRef;
-                              _db.addReply(question.questionRef, reply);
-                            }
-                          },
-                        ),
-                      ),
-
-                  ],
+          key: this._formKey,
+          child: Row(
+            children: <Widget>[
+              Padding(padding: EdgeInsets.all(1)),
+              Flexible(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      hintText: 'Insert your reply here...',
+                      fillColor: Colors.white,
+                      border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(15.0),
+                          borderSide:
+                              new BorderSide(color: Colors.black26, width: 3))),
+                  maxLines: 2,
+                  keyboardType: TextInputType.multiline,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please insert your reply';
+                    }
+                  },
+                  onSaved: (val) => setState(() => reply.reply = val),
                 ),
-
+              ),
+              ButtonTheme(
+                child: IconButton(
+                  icon: Icon(Icons.navigation),
+                  iconSize: 30,
+                  onPressed: () async {
+                    final form = _formKey.currentState;
+                    if (form.validate()) {
+                      form.save();
+                      reply.questionReference = question.questionRef;
+                      reply.userReference = LocalData.user.userRef;
+                      _db.addReply(question.questionRef, reply);
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
