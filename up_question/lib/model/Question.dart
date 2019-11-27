@@ -25,21 +25,25 @@ class Question extends Comparable {
   Question({this.question, this.votes = 0});
 
   void addLike(Like data) {
+    votes++;
     questionRef.updateData({'nVotes': FieldValue.increment(1)});
     _db.addLike(questionRef, data);
   }
 
   void addDislike(Dislike data) {
+    votes--;
     questionRef.updateData({'nVotes': FieldValue.increment(-1)});
     _db.addDislike(questionRef, data);
   }
 
   void removeLike(Like data) {
+    votes--;
     questionRef.updateData({'nVotes': FieldValue.increment(-1)});
     _db.removeLike(questionRef, data);
   }
 
   void removeDislike(Dislike data) {
+    votes++;
     questionRef.updateData({'nVotes': FieldValue.increment(1)});
     _db.removeDislike(questionRef, data);
   }

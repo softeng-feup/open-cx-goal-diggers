@@ -20,7 +20,8 @@ class Reply {
       : replyReference = reference ?? '',
         questionReference = questionReference ?? '',
         userReference = data['idUser'] ?? '',
-        reply = data['reply'] ?? '';
+        reply = data['reply'] ?? '',
+        postedTime = data['postedTime'].toDate();
 
   toJson(){
     return {

@@ -74,6 +74,7 @@ class ReplyFormState extends State<ReplyForm> {
                       reply.questionReference = question.questionRef;
                       reply.userReference = LocalData.user.userRef;
                       _db.addReply(question.questionRef, reply);
+                      form.reset();
                     }
                   },
                 ),

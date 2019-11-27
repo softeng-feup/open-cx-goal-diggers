@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -55,13 +56,42 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           question.questionRef, LocalData.user.userRef)),
                 ],
                 //child: !snapshot.hasData ? Loading() : QuestionList();
-                child: QuestionView(question: question, lightVersion: true),
+                child: QuestionView(question: question),
               ),
               StreamProvider<List<Reply>>.value(
                   value: _db.getReplyStream(question), child: ReplyList()),
             ],
           ),
-          bottomNavigationBar: ReplyForm(question: question));
+          bottomNavigationBar: ExpandableNotifier(
+              initialExpanded: true,
+              child: Expandable(
+                  collapsed: ExpandableButton(
+                      child: Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.add_comment,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          height: 40,
+                          color: Colors.black87)),
+                  expanded: ExpandableButton(
+                    child: Container(
+                      height: 110,
+                        color: Colors.black12,
+                        child: Stack(
+                      children: <Widget>[
+                        Container(
+                            padding: EdgeInsets.fromLTRB(0, 5, 15, 0),
+                            alignment: Alignment.centerRight,
+                            child: Icon(Icons.close,
+                                size: 30, color: Colors.black),
+                            height: 30),
+                        Align(alignment: Alignment.bottomCenter, child: ReplyForm(question: question))
+                      ],
+                    )),
+                  )))); //ReplyForm(question: question)
     } else {
       return Scaffold(
           appBar: AppBar(
@@ -79,7 +109,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           question.questionRef, LocalData.user.userRef)),
                 ],
                 //child: !snapshot.hasData ? Loading() : QuestionList();
-                child: QuestionView(question: question, lightVersion: true),
+                child: QuestionView(question: question),
               ),
               StreamProvider<List<Reply>>.value(
                   value: _db.getReplyStream(question), child: ReplyList()),
@@ -98,6 +128,28 @@ class ReplyList extends StatefulWidget {
 
 class ReplyListState extends State<ReplyList> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  /*@override
+  void didUpdateWidget(ReplyList oldWidget) {
+    if (oldWidget.selectedOption != widget.selectedOption) {
+      //this.oldSelectedOption = this.newSelectedOption;
+      this.newSelectedOption = widget.selectedOption;
+      //questions = new List();
+      //if(questions.isNotEmpty)
+      //questions.sort(compareQuestions);
+    }
+  }*/
+
+  int compareReplies(Reply reply1, Reply reply2) {
+    if (reply1.postedTime.isBefore(reply2.postedTime)) return -1;
+    if (reply1.postedTime.isAfter(reply2.postedTime)) return 1;
+    return 0;
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<Reply> replies = Provider.of<List<Reply>>(context);
     if (replies == null) {
@@ -113,6 +165,7 @@ class ReplyListState extends State<ReplyList> {
           ),
         );
       } else {
+        replies.sort(compareReplies);
         return /*Container(
         color: Colors.black54,
         //padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
