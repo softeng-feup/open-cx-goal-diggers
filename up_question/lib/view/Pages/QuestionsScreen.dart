@@ -30,12 +30,31 @@ class _QuestionsPageState extends State<QuestionPageView> {
   bool _isvisibleIcon;
   bool _isSpeakerNameVisible;
   bool _speakerLogged = false;
+  String _speakerSignature="";
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   //List<Question> questions = new List();
 
   _QuestionsPageState(this.talk);
+
+  String getSpeakerSignature(Talk talk){
+    
+    String ret;
+    String _firstLetter;
+    String _lastNameFirstLetter;
+    int _lastIndexSpace=-1;
+
+    _firstLetter=talk.speaker[0];
+    //Find last Space
+    _lastIndexSpace=talk.speaker.lastIndexOf(' ');
+    //Get the next letter
+    _lastIndexSpace++;
+    _lastNameFirstLetter=talk.speaker[_lastIndexSpace];
+    
+    ret=_firstLetter+_lastNameFirstLetter;
+    return ret;
+  }
 
   @override
   void initState() {
@@ -58,6 +77,8 @@ class _QuestionsPageState extends State<QuestionPageView> {
 
     if (returnVal == 'sucess') {
       _speakerLogged = true;
+      //Get the initials of that talk speaker
+      this._speakerSignature=getSpeakerSignature(talk);
       _isSpeakerNameVisible = true;
     } else if (returnVal == null) {
       setState(() {
@@ -89,34 +110,54 @@ class _QuestionsPageState extends State<QuestionPageView> {
                     bottom: 20,
                     child: Visibility(
                       visible: _isvisibleIcon,
-                      child: Container(
-                          child: Ink(
-                        decoration: BoxDecoration(color: Colors.blue),
-                        child: IconButton(
-                          // TODO: change icon
-                            icon: Icon(Icons.settings_input_antenna),
-                            color: Colors.white,
-                            iconSize: 40,
-                            onPressed: _isvisibleIcon == false
-                                ? null
-                                : _changevisability),
-                      )),
-                    )),
+                      child: ClipOval(
+                          child: Material(
+                            color: Colors.red,
+                            child: InkWell(
+                                // TODO: change icon
+                                splashColor: Colors.green,
+                                child: SizedBox(
+                                  width: 45.0,
+                                  height: 100.0,
+                                  child: Icon(
+                                    Icons.event_note,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                ),
+                                onTap: _isvisibleIcon == false
+                                    ? null
+                                    : _changevisability),
+                          )),
+                        )),
 
                 Positioned(
                   right: 20,
-                  top: 25,
+                  top: 20,
+                  bottom: 20,
                   child: Visibility(
                     visible: _isSpeakerNameVisible,
-                    child: Text(
-                      "Hello " + talk.speaker,
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
+                    child: ClipOval(
+                        child: Material(
+                      color: Colors.green,
+                      child: SizedBox(
+                        width: 45,
+                        height: 90,
+                        child: Center(
+                          child: Text(
+                          _speakerSignature,
+                          textAlign:TextAlign.center,
+                          style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  ),
+                        )
+                        )
+                        ),
+                      ),
+                    )),
                   ),
-                ),
               ],
             ),
           ),
@@ -245,13 +286,14 @@ class _QuestionListState extends State<QuestionList> {
     return 0;
   }
 
-  questionWithDismiss(Question question)  {
+  questionWithDismiss(Question question) {
     if (LocalData.user.userRef == question.userRef) {
       return Dismissible(
         key: Key(question.question),
         onDismissed: (direction) async {
-            await _db.removeQuestion(question);
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Question removed")));
+          await _db.removeQuestion(question);
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text("Question removed")));
         },
         background: Container(
           alignment: Alignment.centerRight,
@@ -265,8 +307,7 @@ class _QuestionListState extends State<QuestionList> {
         direction: DismissDirection.endToStart,
         child: QuestionView(question: question),
       );
-    }
-    else {
+    } else {
       return QuestionView(question: question);
     }
   }
