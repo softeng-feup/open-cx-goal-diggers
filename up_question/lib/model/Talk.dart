@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 
 class Talk extends Comparable {
@@ -11,6 +12,7 @@ class Talk extends Comparable {
   String location;
   String backgroundImagePath;
   String speakerCode;
+  bool mutex=true;
   List<Question> questionList = new List();
 
   Talk(
@@ -44,5 +46,9 @@ class Talk extends Comparable {
     endTime = DateTime(dayTime.year, dayTime.month, dayTime.day, date2.hour,
             date2.minute) ??
         '';
+    if(LocalData.setLoaded==false){
+      LocalData.arrayLogged.add(this.title);
+    }
+  
   }
 }

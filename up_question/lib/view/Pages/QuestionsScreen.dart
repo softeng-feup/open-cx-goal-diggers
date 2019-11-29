@@ -15,6 +15,8 @@ import '../TalkView.dart';
 
 class QuestionPageView extends StatefulWidget {
   final Talk talk;
+  
+  
 
   const QuestionPageView(this.talk);
 
@@ -31,6 +33,9 @@ class _QuestionsPageState extends State<QuestionPageView> {
   bool _isSpeakerNameVisible;
   bool _speakerLogged = false;
   String _speakerSignature="";
+  
+
+ 
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -60,10 +65,18 @@ class _QuestionsPageState extends State<QuestionPageView> {
   void initState() {
     super.initState();
     _db = new DatabaseService();
-    _isvisibleIcon = true;
-    _isSpeakerNameVisible = false;
-  }
+    
+    if(LocalData.arrayLogged.contains(talk.title)==false){
+      this._speakerSignature=getSpeakerSignature(talk);
+      _isvisibleIcon = false;
+      _isSpeakerNameVisible = true;
 
+    }else{
+      _isvisibleIcon = true;
+      _isSpeakerNameVisible = false;
+    }
+
+  }
   Future _changevisability() async {
     setState(() {
       _isvisibleIcon = !_isvisibleIcon;
@@ -79,7 +92,13 @@ class _QuestionsPageState extends State<QuestionPageView> {
       _speakerLogged = true;
       //Get the initials of that talk speaker
       this._speakerSignature=getSpeakerSignature(talk);
+      if(LocalData.arrayLogged.contains(talk.title)==true){
+        LocalData.arrayLogged.remove(talk.title);
+      }else{
+        print("PANIC");
+      }
       _isSpeakerNameVisible = true;
+
     } else if (returnVal == null) {
       setState(() {
         _isvisibleIcon = !_isvisibleIcon;
@@ -89,6 +108,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
 
   List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
+  
 
   @override
   Widget build(BuildContext context) {
