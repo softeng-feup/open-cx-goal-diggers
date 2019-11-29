@@ -28,6 +28,7 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   DatabaseService _db;
   final Question question;
+  ExpandableController _expandableController;
 
   _QuestionScreenState(this.question);
 
@@ -35,6 +36,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   void initState() {
     super.initState();
     _db = new DatabaseService();
+    _expandableController = new ExpandableController(initialExpanded: false);
   }
 
   @override
@@ -63,9 +65,16 @@ class _QuestionScreenState extends State<QuestionScreen> {
             ],
           ),
           bottomNavigationBar: ExpandableNotifier(
-              initialExpanded: true,
+              //initialExpanded: false,
+              controller: _expandableController,
               child: Expandable(
-                  collapsed: ExpandableButton(
+                  collapsed: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: InkWell(
+                      onTap: () {
+                        _expandableController.toggle();
+                      },
                       child: Container(
                           padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
                           alignment: Alignment.centerRight,
@@ -75,22 +84,41 @@ class _QuestionScreenState extends State<QuestionScreen> {
                             color: Colors.white,
                           ),
                           height: 40,
-                          color: Colors.black87)),
-                  expanded: ExpandableButton(
+                          color: Colors.black87),
+                    ),
+                  ),
+                  expanded: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
                     child: Container(
-                      height: 110,
-                        color: Colors.black12,
-                        child: Stack(
-                      children: <Widget>[
-                        Container(
-                            padding: EdgeInsets.fromLTRB(0, 5, 15, 0),
-                            alignment: Alignment.centerRight,
-                            child: Icon(Icons.close,
-                                size: 30, color: Colors.black),
-                            height: 30),
-                        Align(alignment: Alignment.bottomCenter, child: ReplyForm(question: question))
-                      ],
-                    )),
+                      height: 120,
+                      color: Colors.white70,
+                      child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: <Widget>[
+                          Container(
+                            child: InkWell(
+                              onTap: () {
+                                _expandableController.toggle();
+                                FocusScope.of(context).unfocus();
+                              },
+                              child: Container(
+                                  padding: EdgeInsets.fromLTRB(0, 5, 15, 0),
+                                  alignment: Alignment.centerRight,
+                                  child: Icon(Icons.close,
+                                      size: 30, color: Colors.black),
+                                  height: 30),
+                            ),
+                          ),
+                          Container(
+                            child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: ReplyForm(question: question)),
+                          ),
+                        ],
+                      ),
+                      //)
+                    ),
                   )))); //ReplyForm(question: question)
     } else {
       return Scaffold(
