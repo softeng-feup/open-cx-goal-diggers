@@ -1,8 +1,6 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/auth.dart';
-import 'package:up_question/controller/validation.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/PasswordForm.dart';
@@ -37,7 +35,7 @@ class _LoginFormState extends State<LoginForm> {
         MediaQuery.of(context).size.height * 0.09;
   }
 
-  final double MAX_HEIGHT = 315;
+  final double MAX_HEIGHT = 230;
 
   double height_fun() {
     if (MediaQuery.of(context).viewInsets.bottom == 0) return MAX_HEIGHT;
@@ -98,7 +96,7 @@ class _LoginFormState extends State<LoginForm> {
                                 validator: (value) {
                                   if (value.isEmpty)
                                     return 'Please enter your Email';
-                                },        
+                                },
                                 // TODO: mudar depois
                                 onSaved: (val) =>
                                     setState(() => user.email = val),
@@ -184,62 +182,25 @@ class _LoginFormState extends State<LoginForm> {
                                   ),
                                 ),
                               ),
-                              //Button of twitter login
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: ButtonTheme(
-                                  minWidth: double.infinity,
-                                  height: 44,
-                                  child: RaisedButton.icon(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                    color: Color(0xFF2DAAE1),
-                                    // TODO: por em const
-                                    textColor: Colors.white,
-                                    onPressed: () {
-                                      final form = _formKey.currentState;
-                                      if (form.validate()) {
-                                        form.save();
-                                        //_question.save();
-                                        _showDialog(context,
-                                            "TODO: Logged with Twitter");
-                                      }
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      widget.toggleForm();
                                     },
-                                    icon: Icon(EvaIcons.twitter),
-                                    label: Text(
-                                      'Login with Twitter',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 0.5,
-                                        fontSize: 22,
-                                      ),
-                                    ),
+                                    child: Text('No account yet? Create one',
+                                        style: TextStyle(color: Colors.white)),
                                   ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 12.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        widget.toggleForm();
-                                      },
-                                      child: Text('No account yet? Create one',
-                                          style: TextStyle(color: Colors.white)),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        togglePasswordForm();
-                                      },
-                                      child: Text('Forgot password?',
-                                          style: TextStyle(color: Colors.white)),
-                                    ),
-                                  ],
-                                ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      togglePasswordForm();
+                                    },
+                                    child: Text('Forgot password?',
+                                        style: TextStyle(color: Colors.white)),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

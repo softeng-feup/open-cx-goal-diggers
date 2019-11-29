@@ -44,10 +44,10 @@ class _QuestionFormState extends State<QuestionForm> {
           child: new Container(
             alignment: Alignment.topCenter,
             padding: new EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.05),
+                top: MediaQuery.of(context).size.height * 0.1),
             child: new Container(
               width: 330, // TODO: mudar para em função de ecrã
-              height: 540, // TODO: mudar para em função de ecrã
+              height: 470, // TODO: mudar para em função de ecrã
               // height: MediaQuery.of(context).size.height * 0.75,
               //width: MediaQuery.of(context).size.width * 0.85,
               child: new Card(
@@ -138,33 +138,6 @@ class _QuestionFormState extends State<QuestionForm> {
                             ),
                           ),
                         ),
-                        ButtonTheme(
-                          minWidth: double.infinity,
-                          height: 44,
-                          child: RaisedButton.icon(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            color: Color(0xFF2DAAE1),
-                            // TODO: por em const
-                            textColor: Colors.white,
-                            onPressed: () {
-                              final form = _formKey.currentState;
-                              if (form.validate()) {
-                                form.save();
-                                //_question.save();
-                                _showDialog(context);
-                              }
-                            },
-                            icon: Icon(EvaIcons.twitter),
-                            label: Text(
-                              'Share with Twitter',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        )
                       ],
                     ),
                   )),

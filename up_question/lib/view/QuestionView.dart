@@ -126,14 +126,6 @@ class QuestionViewState extends State<QuestionView> {
                         iconSize: 20,
                         onPressed: null,
                       ),
-                      IconButton(
-                        icon: Icon(Icons.share,
-                            color: (LocalData.user.userRef == question.userRef)
-                                ? Color(0xFF353535)
-                                : Colors.grey[500]),
-                        iconSize: 20,
-                        onPressed: null,
-                      )
                     ],
                   ))
             ]));
