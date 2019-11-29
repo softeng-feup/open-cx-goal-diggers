@@ -91,6 +91,13 @@ class ScheduleWidget extends StatelessWidget{
                         style: TextStyle(fontSize: 30, color: Colors.white),
                       ),
                     ),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                        icon: Icon(Icons.exit_to_app),
+                        iconSize: 40,
+                      ),
+                    )
                   ],
                 ),
               ),
