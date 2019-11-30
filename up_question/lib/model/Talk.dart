@@ -35,7 +35,7 @@ class Talk extends Comparable {
         speaker = snapshot['speaker'] ?? '',
         location = snapshot['room'] ?? '',
         speakerCode=snapshot['speaker_code']??'',
-        backgroundImagePath = 'assets/images/big_data_back.png' ?? '' {
+        backgroundImagePath = 'assets/images/' + reference.documentID +'.jpg' ?? '' {
     DateTime date = snapshot['start_time'].toDate();
 
     startTime = DateTime(
