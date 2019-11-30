@@ -6,7 +6,6 @@ import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/model/Vote.dart';
-
 import 'Widgets/Loading.dart';
 
 class QuestionView extends StatefulWidget {
@@ -39,6 +38,7 @@ class QuestionViewState extends State<QuestionView> {
 
   @override
   void didUpdateWidget(QuestionView oldWidget) {
+    super.didUpdateWidget(oldWidget);
     if (oldWidget.question != widget.question) this.question = widget.question;
   }
 
@@ -124,7 +124,10 @@ class QuestionViewState extends State<QuestionView> {
                         icon: Icon(Icons.insert_comment,
                             color: Color(0xFF353535)),
                         iconSize: 20,
-                        onPressed: null,
+                        onPressed: () {
+                        Navigator.pushNamed(context, '/QuestionPage',
+                            arguments: question);
+                      },
                       ),
                     ],
                   ))
