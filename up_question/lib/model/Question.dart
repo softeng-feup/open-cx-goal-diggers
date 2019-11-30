@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:up_question/controller/database.dart';
+import 'package:up_question/model/Database.dart';
 
 import 'Talk.dart';
 import 'User.dart';
+import 'Vote.dart';
 
 class Question extends Comparable {
   DocumentReference questionRef;
@@ -9,19 +12,35 @@ class Question extends Comparable {
   Talk talk;
   String question;
   int votes;
+  Like like;
+  Dislike dislike;
   DateTime postedTime;
   // TODO: ver depois isto
   DocumentReference userRef;
   bool anonimous = false;
 
+  DatabaseService _db = new DatabaseService();
+
   Question({this.question, this.votes = 0});
 
-  void upVoted(){
-    this.votes++;
+  void addLike(Like data){
+    questionRef.updateData({'nVotes': FieldValue.increment(1)});
+    _db.addLike(questionRef, data);
   }
 
-  void downVoted(){
-    this.votes--;
+  void addDislike(Dislike data){
+    questionRef.updateData({'nVotes': FieldValue.increment(-1)});
+    _db.addDislike(questionRef, data);
+  }
+
+  void removeLike(Like data) {
+    questionRef.updateData({'nVotes': FieldValue.increment(-1)});
+    _db.removeLike(questionRef, data);
+  }
+
+  void removeDislike(Dislike data) {
+    questionRef.updateData({'nVotes': FieldValue.increment(1)});
+    _db.removeDislike(questionRef, data);
   }
 
   @override
@@ -39,9 +58,9 @@ class Question extends Comparable {
         userRef = data['user'] ?? '',
         votes = data['nVotes'] ?? ''{
     DateTime date = data['postedTime'].toDate();
-
     postedTime = DateTime(
         startTime.year, startTime.month, startTime.day, date.hour, date.minute) ?? '';
+    ;
   }
 
   toJson() {

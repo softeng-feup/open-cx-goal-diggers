@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/database.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/User.dart';
+import 'package:up_question/model/Vote.dart';
 
 import 'Widgets/Loading.dart';
 
 class QuestionView extends StatefulWidget {
   final Question question;
-  QuestionView({this.question});
 
+  QuestionView({this.question});
 
   @override
   State<StatefulWidget> createState() {
@@ -23,15 +27,48 @@ class QuestionViewState extends State<QuestionView> {
 
   DatabaseService _db = new DatabaseService();
 
+  List<bool> isSelected = [false, false];
+  upColor(){
+    return isSelected[0] ? Color(0xFF11DE00) : Color(0xFF353535);
+  }
+  downColor(){
+    return isSelected[1] ? Color(0xFFFF0B0B) : Color(0xFF353535);
+  }
+
   @override
   void didUpdateWidget(QuestionView oldWidget) {
-    if (oldWidget.question != widget.question)
-      this.question = widget.question;
+    if (oldWidget.question != widget.question) this.question = widget.question;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    List<Like> like = Provider.of<List<Like>>(context);
+    List<Dislike> dislike = Provider.of<List<Dislike>>(context);
+
+    if (like == null || dislike == null) return Loading();
+
+    isSelected[0] = like.isNotEmpty;
+    isSelected[1] = dislike.isNotEmpty;
+
+
+    return Dismissible(
+      key: Key(question.question),
+      /*onDismissed: (direction) {
+        setState(() {
+        });
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Question removed")));
+      },*/
+      background: Container(
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.fromLTRB(0, 0, 40, 0),
+          color: Colors.red,
+          child: IconButton(
+            icon: Icon(Icons.delete),
+            iconSize: 40,
+          ),
+      ),
+      direction: DismissDirection.endToStart,
+      child: Container(
         height: 150,
         // TODO: relative size
         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -55,7 +92,8 @@ class QuestionViewState extends State<QuestionView> {
                       return Loading();
                     } else {
                       final user = snapshot.data;
-                      return Text(question.anonimous ? "Anonimous" : user.username,
+                      return Text(
+                          question.anonimous ? "Anonimous" : user.username,
                           style: TextStyle(fontSize: 20));
                     }
                   },
@@ -76,14 +114,22 @@ class QuestionViewState extends State<QuestionView> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.arrow_upward, color: Color(0xFF353535)),
+                    icon: Icon(Icons.arrow_upward, color: upColor()),
                     iconSize: 20,
-                    onPressed: null,
+                    onPressed: () {
+                      if(isSelected[1]) question.removeDislike(dislike[0]);
+                      isSelected[0] ? question.removeLike(like[0]) : question.addLike(Like(LocalData.user.userRef));
+                    },
                   ),
+                  Text(question.votes.toString(),
+                      style: TextStyle(fontSize: 18)),
                   IconButton(
-                    icon: Icon(Icons.arrow_downward, color: Color(0xFF353535)),
+                    icon: Icon(Icons.arrow_downward, color: downColor()),
                     iconSize: 20,
-                    onPressed: null,
+                    onPressed: () {
+                      if(isSelected[0]) question.removeLike(like[0]);
+                      isSelected[1] ? question.removeDislike(dislike[0]) : question.addDislike(Dislike(LocalData.user.userRef));
+                    },
                   ),
                   IconButton(
                     icon: Icon(Icons.insert_comment, color: Color(0xFF353535)),
@@ -97,6 +143,6 @@ class QuestionViewState extends State<QuestionView> {
                   )
                 ],
               ))
-        ]));
+        ])));
   }
 }

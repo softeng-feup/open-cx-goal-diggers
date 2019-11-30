@@ -92,53 +92,52 @@ class _PasswordFormState extends State<PasswordForm> {
                           ),
                         ),
                         //Login button
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
-                          child: ButtonTheme(
-                            minWidth: double.infinity,
-                            height: 44,
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              color: Color(0xFF353535),
-                              textColor: Colors.white,
-                              onPressed: () async {
-                                final form = _formKey.currentState;
+                        ButtonTheme(
+                          minWidth: double.infinity,
+                          height: 44,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            color: Color(0xFF353535),
+                            textColor: Colors.white,
+                            onPressed: () async {
+                              final form = _formKey.currentState;
 
-                                if (form.validate()) {
-                                  form.save();
+                              if (form.validate()) {
+                                form.save();
 
-                                  setState(() => loading = true);
-                                  dynamic result =
-                                      await _auth.resetPassword(user.email);
+                                setState(() => loading = true);
+                                dynamic result =
+                                    await _auth.resetPassword(user.email);
 
-                                  setState(() => loading = false);
+                                setState(() => loading = false);
 
-                                  _showDialog(context, 'Email Sent to Reset Password');
-                                  widget.toggleForm();
-                                }
-                              },
-                              child: Text(
-                                'Reset Password',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 0.5,
-                                  fontSize: 22,
-                                ),
+                                _showDialog(
+                                    context, 'Email Sent to Reset Password');
+                                widget.toggleForm();
+                              }
+                            },
+                            child: Text(
+                              'Reset Password',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5,
+                                fontSize: 22,
                               ),
                             ),
                           ),
                         ),
                         //Button of twitter login
-                        ButtonTheme(
-                          height: 0,
-                          child: RaisedButton(
-                            color: Color(0x00353535),
-                            textColor: Colors.white,
-                            onPressed: () {
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: GestureDetector(
+                            onTap: () {
                               widget.toggleForm();
                             },
-                            child: Text('Login with Account'),
+                            child: Text(
+                              'Login with Account',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ],

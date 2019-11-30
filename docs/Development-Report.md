@@ -131,7 +131,12 @@ In terms of user stories, we implemented the following: [Iteration #1](https://t
 
 &nbsp;The second iteration we project from the results of [Iteration #1](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration1) . We decide to implement a firebase backend, according the reasons stated here, that required to redefine the implementation of the user stories completed in the first iteration to work using a real time database as firebase. 
 
-Furthermore, we decide to move forward and implement in the following user stories: [Iteration #2](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration2) 
+Furthermore, we decide to move forward and implement in the following user stories: [Iteration #2](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration2)
+
+#### Third sprint
+Plan for the third sprint
+![](https://i.imgur.com/6gFfXjL.png)
+
 
 
  ### Mockups
