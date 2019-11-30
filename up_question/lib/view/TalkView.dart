@@ -16,7 +16,7 @@ class TalkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () => this.button ? Navigator.pushNamed(context, '/QuestionsPage', arguments: localtalk) : null,
+        onTap: () => this.button ? Navigator.pushNamed(context, '/TalkPage', arguments: localtalk) : null,
         child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
