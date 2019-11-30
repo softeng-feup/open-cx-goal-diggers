@@ -17,40 +17,6 @@ class SubmittedQuestions extends GivenWithWorld<FlutterWorld> {
 
 }
 
-class AndSelectedConference extends AndWithWorld<FlutterWorld> {
-  AndSelectedConference()
-      : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 10));
-
-  @override
-  Future<void> executeStep() async {
-    final SerializableFinder questionScreen = find.byValueKey('ScheduleScreen');
-    await FlutterDriverUtils.isPresent(questionScreen, world.driver);
-    return null;
-  }
-
-  @override
-  RegExp get pattern => RegExp(r"speaker has logged in to the application");
-
-}
-
-class EnterQuestion extends AndWithWorld<FlutterWorld> {
-  EnterQuestion()
-      : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 10));
-
-  @override
-  Future<void> executeStep() async {
-    String conference = 'Data Science';
-    await FlutterDriverUtils.tap(world.driver, find.byValueKey(conference));
-    final SerializableFinder questionScreen = find.byValueKey('QuestionsScreen');
-    await FlutterDriverUtils.isPresent(questionScreen, world.driver);
-    return null;
-  }
-
-  @override
-  RegExp get pattern => RegExp(r"speaker has selected the right conference");
-
-}
-
 class AnswerQuestion extends ThenWithWorld<FlutterWorld> {
   AnswerQuestion()
       : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 20));

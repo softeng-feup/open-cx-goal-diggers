@@ -3,12 +3,12 @@ import'package:gherkin/gherkin.dart';
 import 'package:flutter_gherkin/flutter_gherkin.dart';
 
 
-class AndSelectedConference extends And1WithWorld<String, FlutterWorld> {
+class AndSelectedConference extends AndWithWorld<FlutterWorld> {
   AndSelectedConference()
       : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 10));
 
   @override
-  Future<void> executeStep(String talkTitle) async {
+  Future<void> executeStep() async {
     String conference = 'Data Science';
     await FlutterDriverUtils.tap(world.driver, find.byValueKey(conference));
     final SerializableFinder questionScreen = find.byValueKey('QuestionsScreen');
@@ -27,6 +27,7 @@ class EnterQuestion extends AndWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
     String input1 = "TestQuestion";
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
     return null;
@@ -37,12 +38,12 @@ class EnterQuestion extends AndWithWorld<FlutterWorld> {
 
 }
 
-class TappedAnonymousCheckbox extends When1WithWorld<String, FlutterWorld> {
+class TappedAnonymousCheckbox extends WhenWithWorld<FlutterWorld> {
   TappedAnonymousCheckbox()
       : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 10));
 
   @override
-  Future<void> executeStep(String talkTitle) async {
+  Future<void> executeStep() async {
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('AnonymousCheckbox'));
     return null;
   }
@@ -63,7 +64,7 @@ class TappedShareButton extends AndWithWorld<FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r"participant has written a question");
+  RegExp get pattern => RegExp(r"participant presses the question share button");
 
 }
 

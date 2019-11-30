@@ -23,9 +23,9 @@ class Authenticated extends WhenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
     FlutterDriverUtils.tap(world.driver, find.ancestor(of: find.text('Already have an account?'), matching: find.byType('ButtonTheme')));
-    String email = "upquestion@gmail.com";
+    String email = "manuel.monge.coutinho@gmail.com";
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('Email'), email);
-    String password = "upquestion123";
+    String password = "123456123";
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('Password'), password);
     await FlutterDriverUtils.tap(world.driver, find.ancestor(of: find.text('Login'), matching: find.byType('RaisedButton')));
     final SerializableFinder scheduleScreen = find.byValueKey('ScheduleScreen');

@@ -9,7 +9,7 @@ class InsertedEmail extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
     FlutterDriverUtils.tap(world.driver, find.ancestor(of: find.text('Already have an account?'), matching: find.byType('ButtonTheme')));
-    String input1 = "upquestion@gmail.com";
+    String input1 = "manuel.monge.coutinho@gmail.com";
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('Email'), input1);
     return null;
   }
@@ -25,7 +25,7 @@ class InsertedPassword extends AndWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    String input1 = "upquestion123";
+    String input1 = "123456123";
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('Password'), input1);
     return null;
   }
