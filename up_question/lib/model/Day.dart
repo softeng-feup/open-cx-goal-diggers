@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:up_question/model/Talk.dart';
+import 'package:up_question/model/LocalData.dart';
 
 class Day extends Comparable{
   DocumentReference dayRef;
@@ -17,5 +18,7 @@ class Day extends Comparable{
   int compareTo(other) {
     return this.day.compareTo(other.day);
   }
+
+  
 
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:up_question/controller/database.dart';
@@ -14,6 +15,8 @@ import '../TalkView.dart';
 
 class QuestionPageView extends StatefulWidget {
   final Talk talk;
+  
+  
 
   const QuestionPageView(this.talk);
 
@@ -28,21 +31,52 @@ class _QuestionsPageState extends State<QuestionPageView> {
   final Talk talk;
   bool _isvisibleIcon;
   bool _isSpeakerNameVisible;
-  bool _speakerLogged=false;
+  bool _speakerLogged = false;
+  String _speakerSignature="";
+  
+
+ 
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   //List<Question> questions = new List();
 
   _QuestionsPageState(this.talk);
+
+  String getSpeakerSignature(Talk talk){
+    
+    String ret;
+    String _firstLetter;
+    String _lastNameFirstLetter;
+    int _lastIndexSpace=-1;
+
+    _firstLetter=talk.speaker[0];
+    //Find last Space
+    _lastIndexSpace=talk.speaker.lastIndexOf(' ');
+    //Get the next letter
+    _lastIndexSpace++;
+    _lastNameFirstLetter=talk.speaker[_lastIndexSpace];
+    
+    ret=_firstLetter+_lastNameFirstLetter;
+    return ret;
+  }
 
   @override
   void initState() {
     super.initState();
     _db = new DatabaseService();
-    _isvisibleIcon = true;
-    _isSpeakerNameVisible = false;
-  }
+    
+    if(LocalData.arrayLogged.contains(talk.title)==false){
+      this._speakerSignature=getSpeakerSignature(talk);
+      _isvisibleIcon = false;
+      _isSpeakerNameVisible = true;
 
+    }else{
+      _isvisibleIcon = true;
+      _isSpeakerNameVisible = false;
+    }
+
+  }
   Future _changevisability() async {
     setState(() {
       _isvisibleIcon = !_isvisibleIcon;
@@ -55,10 +89,17 @@ class _QuestionsPageState extends State<QuestionPageView> {
         });
 
     if (returnVal == 'sucess') {
-      _speakerLogged= true;
-      _isSpeakerNameVisible=true;
-    } 
-    else if (returnVal == null) {
+      _speakerLogged = true;
+      //Get the initials of that talk speaker
+      this._speakerSignature=getSpeakerSignature(talk);
+      if(LocalData.arrayLogged.contains(talk.title)==true){
+        LocalData.arrayLogged.remove(talk.title);
+      }else{
+        print("PANIC");
+      }
+      _isSpeakerNameVisible = true;
+
+    } else if (returnVal == null) {
       setState(() {
         _isvisibleIcon = !_isvisibleIcon;
       });
@@ -67,6 +108,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
 
   List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
+  
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +123,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
           Container(
             child: Stack(
               children: <Widget>[
-                Positioned(child: TalkView(talk)),
+                Positioned(child: TalkView(talk, false)),
                 //Trick to place in the center. It should be half the value of 40
                 Positioned(
                     right: 20,
@@ -89,61 +131,102 @@ class _QuestionsPageState extends State<QuestionPageView> {
                     bottom: 20,
                     child: Visibility(
                       visible: _isvisibleIcon,
-                      child: Container(
-                          child: Ink(
-                        decoration: BoxDecoration(color: Colors.blue),
-                        child: IconButton(
-                            icon: Icon(Icons.work),
-                            color: Colors.white,
-                            iconSize: 40,
-                            onPressed: _isvisibleIcon == false
-                                ? null
-                                :  _changevisability),
-                      )),
-                    )),
+                      child: ClipOval(
+                          child: Material(
+                            color: Colors.red,
+                            child: InkWell(
+                                // TODO: change icon
+                                splashColor: Colors.green,
+                                child: SizedBox(
+                                  width: 45.0,
+                                  height: 100.0,
+                                  child: Icon(
+                                    Icons.event_note,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                ),
+                                onTap: _isvisibleIcon == false
+                                    ? null
+                                    : _changevisability),
+                          )),
+                        )),
 
                 Positioned(
                   right: 20,
-                  top: 25,
+                  top: 20,
+                  bottom: 20,
                   child: Visibility(
                     visible: _isSpeakerNameVisible,
-                    child: Text(
-                      "Hello " + talk.speaker,
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
+                    child: ClipOval(
+                        child: Material(
+                      color: Colors.green,
+                      child: SizedBox(
+                        width: 45,
+                        height: 90,
+                        child: Center(
+                          child: Text(
+                          _speakerSignature,
+                          textAlign:TextAlign.center,
+                          style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  ),
+                        )
+                        )
+                        ),
+                      ),
+                    )),
                   ),
-                ),
               ],
             ),
           ),
 
-          DropdownButton(
-            value: _selectedOption,
-            onChanged: (newValue) {
-              setState(() {
-                _selectedOption = newValue;
-                //questions.sort(compareQuestions);
-              });
-            },
-            elevation: 0,
-            isDense: true,
-            isExpanded: true,
-            items: _options.map((option) {
-              return DropdownMenuItem(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Container(
+              color: Color(0xFF353535),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    SizedBox(width: 10),
-                    new Text(option),
-                  ],
-                ),
-                value: option,
-              );
-            }).toList(),
-          ),
+                    ButtonTheme(
+                      alignedDropdown: true,
+                      child: Container(
+                        //color: Colors.white,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                width: 2.0, color: Color(0XFF353535))),
+                        child: DropdownButton(
+                          value: _selectedOption,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedOption = newValue;
+                              //questions.sort(compareQuestions);
+                            });
+                          },
+                          elevation: 8,
+                          isDense: true,
+                          style: TextStyle(
+                            fontSize: 17,
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                          items: _options.map((option) {
+                            return DropdownMenuItem(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10.0, right: 10.0),
+                                child: new Text(option),
+                              ),
+                              value: option,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    )
+                  ])),
+
           StreamProvider<List<Question>>.value(
             value: _db.getQuestionStream(talk),
             //child: !snapshot.hasData ? Loading() : QuestionList();
@@ -186,10 +269,12 @@ class QuestionList extends StatefulWidget {
 class _QuestionListState extends State<QuestionList> {
   String newSelectedOption;
   DatabaseService _db;
+
   //String oldSelectedOption = "";
   //List<Question> questions = new List();
 
   _QuestionListState({this.newSelectedOption});
+
   @override
   void initState() {
     super.initState();
@@ -223,6 +308,32 @@ class _QuestionListState extends State<QuestionList> {
     return 0;
   }
 
+  questionWithDismiss(Question question) {
+    if (LocalData.user.userRef == question.userRef) {
+      return Dismissible(
+        key: Key(question.question),
+        onDismissed: (direction) async {
+          await _db.removeQuestion(question);
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text("Question removed")));
+        },
+        background: Container(
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.fromLTRB(0, 0, 40, 0),
+          color: Colors.red,
+          child: IconButton(
+            icon: Icon(Icons.delete),
+            iconSize: 40,
+          ),
+        ),
+        direction: DismissDirection.endToStart,
+        child: QuestionView(question: question),
+      );
+    } else {
+      return QuestionView(question: question);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Question> questionsProvided = Provider.of<List<Question>>(context);
@@ -252,7 +363,7 @@ class _QuestionListState extends State<QuestionList> {
                               LocalData.user.userRef)),
                     ],
                     //child: !snapshot.hasData ? Loading() : QuestionList();
-                    child: QuestionView(question: questionsProvided[index]),
+                    child: questionWithDismiss(questionsProvided[index]),
                   );
                 }),
           );

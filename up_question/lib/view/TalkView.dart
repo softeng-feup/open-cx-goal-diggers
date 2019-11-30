@@ -1,13 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Talk.dart';
 import 'package:up_question/controller/database.dart';
-import 'dart:ui';
+import 'package:up_question/model/LocalData.dart';
 
 class TalkView extends StatelessWidget {
   final Talk localtalk;
+  final bool button;
 
-  TalkView(this.localtalk);
+  TalkView(this.localtalk, this.button){
+    LocalData.setLoaded=true;
+  }
 
   @override
   Widget build(BuildContext context) {

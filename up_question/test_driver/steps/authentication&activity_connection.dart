@@ -22,7 +22,7 @@ class Authenticated extends WhenWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    FlutterDriverUtils.tap(world.driver, find.ancestor(of: find.text('Already have an account?'), matching: find.byType('ButtonTheme')));
+    FlutterDriverUtils.tap(world.driver, find.byValueKey('AlreadyHasAccount'));
     String email = "manuel.monge.coutinho@gmail.com";
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('Email'), email);
     String password = "123456123";

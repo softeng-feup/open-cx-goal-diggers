@@ -1,7 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:up_question/view/Widgets/RegisterForm.dart';
 
 import '../Widgets/LoginForm.dart';
@@ -29,10 +26,8 @@ class _HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('Homepage'),
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text( 'UpQuestion' ),
-      ),
       body: GestureDetector(
         onTap: () {FocusScope.of(context).requestFocus(new FocusNode());},
         child: Container(

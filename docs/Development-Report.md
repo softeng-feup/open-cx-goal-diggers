@@ -22,6 +22,8 @@ You can find here detailed information about the project, from a high-level prod
     * [MVC](#Architectural-Structure)
     * [Backend](#Backend)
          * [Firebase](#Backend)
+         * Twitter API
+    
  
 * #### Tasks Management Tool
 
@@ -134,9 +136,19 @@ In terms of user stories, we implemented the following: [Iteration #1](https://t
 Furthermore, we decide to move forward and implement in the following user stories: [Iteration #2](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration2)
 
 #### Third sprint
-Plan for the third sprint
+&nbsp;The third iteration focused on the development of the reply capability to any question previously made, the integration of the twitter’s related capabilities and also the the implementation of constrains to the register form. 
+
+&nbsp;In UpQuestion at the time of the third iteration, only the speaker has the capability to reply to questions. Furthermore, that capability is constrained to talks where he responsible for. In order to increment this feature, it was necessary to include the capability to distinguish a simple user from a speaker. In order to achieve that objective, a special speaker-login system based on a code stored in the database was designed.
+
+
+&nbsp;The implementation of restrictions to the register form parameters (username, password and email) was also achieved supported in the REGEX embedded libraries offered by flutter. 
+About the twitter’s subject, we were unable to achieve any progress on that, since the Twitter API key wasn´t released in time by the Twitter team. We look forward to implementing them as soon as the mention key would be released.
+
+##### The original plan is represented in the following Trello schedule:
+
 ![](https://i.imgur.com/6gFfXjL.png)
 
+Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Sprint%203%20-%2022%20de%20novembro).
 
 
  ### Mockups
