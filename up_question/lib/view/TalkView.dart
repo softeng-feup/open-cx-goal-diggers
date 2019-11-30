@@ -2,23 +2,25 @@ import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Talk.dart';
-import 'package:up_question/controller/database.dart';
-import 'package:up_question/model/LocalData.dart';
 
 class TalkView extends StatelessWidget {
   final Talk localtalk;
   final bool button;
 
-  TalkView(this.localtalk, this.button){
-    LocalData.setLoaded=true;
+  TalkView(this.localtalk, this.button) {
+    LocalData.setLoaded = true;
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () => this.button ? Navigator.pushNamed(context, '/QuestionsPage', arguments: localtalk) : null,
+        onTap: () => this.button
+            ? Navigator.pushNamed(context, '/QuestionsPage',
+                arguments: localtalk)
+            : null,
         child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
@@ -31,7 +33,8 @@ class TalkView extends StatelessWidget {
               child: BackdropFilter(
                 filter: new ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
                 child: Container(
-                  decoration: BoxDecoration(color: Colors.black.withOpacity(0.0)),
+                  decoration:
+                      BoxDecoration(color: Colors.black.withOpacity(0.0)),
                   padding: EdgeInsets.all(8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -46,23 +49,20 @@ class TalkView extends StatelessWidget {
                         ),
                       ),
                       //Conference Room
-                      Text(
-                        localtalk.location,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Text(
+                          localtalk.location,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                      //Hour and Minutes as INTEGERS
-                      //TODO:ESTA A IMPRIMIR NO CABECALHO UM INTEIRO. QUE E WEEKDAY. FAZER UMA FUNCAO PARA CONVERTER O WEEKDAY PARA PT. EXITIRA EMBEBIDA???
                       Text(
-                        localtalk.startTime.hour.toString() +
-                            ':' +
-                            localtalk.startTime.minute.toString() +
+                            DateFormat('kk:mm').format(localtalk.startTime) +
                             '-' +
-                            localtalk.endTime.hour.toString() +
-                            ':' +
-                            localtalk.endTime.minute.toString(),
+                            DateFormat('kk:mm').format(localtalk.endTime),
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.white,
