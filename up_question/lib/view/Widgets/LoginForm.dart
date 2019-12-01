@@ -136,6 +136,7 @@ class _LoginFormState extends State<LoginForm> {
                               ),
                               //Login button
                               Padding(
+                                key: Key('LOGIN'),
                                 padding: const EdgeInsets.only(bottom: 20),
                                 child: ButtonTheme(
                                   minWidth: double.infinity,

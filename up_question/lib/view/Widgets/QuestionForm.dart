@@ -106,12 +106,12 @@ class _QuestionFormState extends State<QuestionForm> {
                           activeColor: Color(0xff353535), // TODO: por em const
                         ),
                         Padding(
+                          key: Key('Share'),
                           padding: const EdgeInsets.only(bottom: 24.0),
                           child: ButtonTheme(
                             minWidth: double.infinity,
                             height: 44,
                             child: RaisedButton(
-                              key: Key('Share'),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                               color: Color(0xFF353535),

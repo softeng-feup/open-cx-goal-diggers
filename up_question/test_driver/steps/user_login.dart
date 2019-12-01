@@ -42,7 +42,8 @@ class TapedLoginButton extends WhenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
     // TODO: implement executeStep
-    await FlutterDriverUtils.tap(world.driver, find.ancestor(of: find.text('Login'), matching: find.byType('RaisedButton')));
+    //await FlutterDriverUtils.tap(world.driver, find.ancestor(of: find.text('Login'), matching: find.byType('RaisedButton')));
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('LOGIN'));
     return null;
   }
 

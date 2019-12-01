@@ -126,6 +126,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                 Positioned(child: TalkView(talk, false)),
                 //Trick to place in the center. It should be half the value of 40
                 Positioned(
+                    key: Key('LogSpeakerIcon'),
                     right: 20,
                     top: 20,
                     bottom: 20,

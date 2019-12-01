@@ -59,7 +59,7 @@ class TappedShareButton extends AndWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
     return null;
   }
 
@@ -73,7 +73,9 @@ class AskedAnonymousQuestion extends ThenWithWorld<FlutterWorld> {
       : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 20));
   @override
   Future<void> executeStep() async {
-    // TODO: Try to check if qustion was asked anonymously
+    await FlutterDriverUtils.waitForFlutter(world.driver);
+    final SerializableFinder questionScreen = find.byValueKey('QuestionsScreen');
+    await FlutterDriverUtils.isPresent(questionScreen, world.driver);
     return null;
   }
 
