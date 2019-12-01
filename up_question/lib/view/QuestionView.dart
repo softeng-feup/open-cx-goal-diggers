@@ -53,13 +53,12 @@ class QuestionViewState extends State<QuestionView> {
     isSelected[1] = dislike.isNotEmpty;
 
     return Container(
-            height: 150,
             // TODO: relative size
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(color: Color(0xFF353535), width: 3))),
-            child: Stack(children: <Widget>[
+            child: Column(children: <Widget>[
               Container(
                 alignment: Alignment.topLeft,
                 child: Row(
@@ -86,6 +85,7 @@ class QuestionViewState extends State<QuestionView> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.all(5),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     question.question,
