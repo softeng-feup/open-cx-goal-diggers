@@ -19,7 +19,7 @@ Future<void> main() {
       UserIsLoggedIn(), SelectedConference(), CanAskQuestion(), // steps/ask_question.dart
       AndSelectedConference(), EnterQuestion(), TappedAnonymousCheckbox(), TappedShareButton(), AskedAnonymousQuestion(), // steps/ask_anonymous_question.dart
       LaunchedApplication(), Authenticated(), ConnectedToActivity(), // steps/authentication&activity_connection.dart
-      SubmittedQuestion(), SpeakerLogIn(), SpeakerSelectTalk(), SpeakerSeesQuestionsAsked(), AnswerQuestion() // steps/consult_and_reply.dart
+      SpeakerIsLoggedIn(), SpeakerSelectTalk(), SubmittedQuestion(), SpeakerSeesQuestionsAsked(), AnswerQuestion() // steps/consult_and_reply.dart
       ]
 
     ..reporters = [ProgressReporter(), TestRunSummaryReporter()]

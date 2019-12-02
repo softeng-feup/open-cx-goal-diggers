@@ -38,6 +38,7 @@ class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
             child: Wrap(
               children: <Widget>[
                 TextFormField(
+                    key: Key('AutenticatioCODE'),
                     decoration: InputDecoration(
                         enabledBorder: _questionOutlineBorder,
                         focusedBorder: _questionOutlineBorder,
@@ -52,6 +53,7 @@ class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
                       setState(() => speakerCodeInput = val);
                     }),
                 ButtonTheme(
+                    key: Key('LogInAsSpeaker'),
                     minWidth: double.infinity,
                     height: 44,
                     child: RaisedButton.icon(
