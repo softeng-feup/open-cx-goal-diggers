@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/database.dart';
-import 'package:up_question/model/Database.dart';
+import 'package:up_question/controller/auth.dart';
 import 'package:up_question/model/Day.dart';
 import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/view/DayView.dart';
@@ -44,6 +44,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 class ScheduleWidget extends StatelessWidget{
   // TODO: mudar depois para lista
   final List<Day> days;
+
+  final AuthService _auth = AuthService();
 
   ScheduleWidget({this.days});
 
@@ -91,13 +93,16 @@ class ScheduleWidget extends StatelessWidget{
                         style: TextStyle(fontSize: 30, color: Colors.white),
                       ),
                     ),
-                    Container(
+                    Spacer(),
+                    IconButton(
                       alignment: Alignment.centerRight,
-                      child: IconButton(
-                        icon: Icon(Icons.exit_to_app),
-                        iconSize: 40,
-                      ),
-                    )
+                      icon: Icon(Icons.exit_to_app, color: Colors.red),
+                      iconSize: 30,
+                        onPressed: () {
+                          _auth.signOut();
+                          Navigator.of(context).pushNamedAndRemoveUntil('/HomePage', (Route<dynamic> route) => false);
+                        }
+                    ),
                   ],
                 ),
               ),
