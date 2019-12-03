@@ -229,6 +229,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                   ])),
 
           StreamProvider<List<Question>>.value(
+            key: Key(_selectedOption),
             value: _db.getQuestionStream(talk),
             //child: !snapshot.hasData ? Loading() : QuestionList();
             child: QuestionList(
