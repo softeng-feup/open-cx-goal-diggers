@@ -190,6 +190,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     ButtonTheme(
+                      key: Key('Order'),
                       alignedDropdown: true,
                       child: Container(
                         //color: Colors.white,
@@ -215,6 +216,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
                           ),
                           items: _options.map((option) {
                             return DropdownMenuItem(
+                              key: Key(option),
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 10.0, right: 10.0),
@@ -229,7 +231,6 @@ class _QuestionsPageState extends State<QuestionPageView> {
                   ])),
 
           StreamProvider<List<Question>>.value(
-            key: Key(_selectedOption),
             value: _db.getQuestionStream(talk),
             //child: !snapshot.hasData ? Loading() : QuestionList();
             child: QuestionList(

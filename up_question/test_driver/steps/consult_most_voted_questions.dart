@@ -42,10 +42,10 @@ class UserSubmittedQuestion extends GivenWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
-    String input1 = "TestQuestion";
-    await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
-    await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
+    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
+    //String input1 = "TestQuestion";
+    //await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
+    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
     return null;
   }
 
@@ -60,6 +60,7 @@ class SeeMostVotedQuestion extends GivenWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('Order'));
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('Top'));
     return null;
   }
@@ -92,7 +93,7 @@ class AnswerMostVotedQuestion extends ThenWithWorld<FlutterWorld> {
     await FlutterDriverUtils.waitForFlutter(world.driver);
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('LogSpeakerIcon'));
     String input2 = "aaa";
-    await FlutterDriverUtils.enterText(world.driver, find.byValueKey('AutenticatioCODE'), input2);
+    await FlutterDriverUtils.enterText(world.driver, find.byValueKey('AutenticationCODE'), input2);
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('LogInAsSpeaker'));
     final SerializableFinder questionScreen = find.byValueKey('QuestionsScreen');
     await FlutterDriverUtils.isPresent(questionScreen, world.driver);

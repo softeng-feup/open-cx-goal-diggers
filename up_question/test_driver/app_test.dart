@@ -9,6 +9,7 @@ import 'steps/user_login.dart';
 import 'steps/authentication&activity_connection.dart';
 import 'steps/consult_and_reply_question.dart';
 import 'steps/consult_most_voted_questions.dart';
+import 'steps/vote_asked_questions.dart';
 
 
 Future<void> main() {
@@ -21,7 +22,8 @@ Future<void> main() {
       AndSelectedConference(), EnterQuestion(), TappedAnonymousCheckbox(), TappedShareButton(), AskedAnonymousQuestion(), // steps/ask_anonymous_question.dart
       LaunchedApplication(), Authenticated(), ConnectedToActivity(), // steps/authentication&activity_connection.dart
       SpeakerIsLoggedIn(), SpeakerSelectTalk(), SubmittedQuestion(), SpeakerSeesQuestionsAsked(), AnswerQuestion(), // steps/consult_and_reply.dart
-      SpeakerLogIn(), SpeakerSelectConference(), UserSubmittedQuestion(), SeeMostVotedQuestion(), SpeakerSeesQuestionsAskedByParticipants(), AnswerMostVotedQuestion()//steps/consult_most_voted_questions.dart
+      SpeakerLogIn(), SpeakerSelectConference(), UserSubmittedQuestion(), SeeMostVotedQuestion(), SpeakerSeesQuestionsAskedByParticipants(), AnswerMostVotedQuestion(), // steps/consult_most_voted_questions.dart
+      ParticipantLogIn(), ParticipantSelectTalk(), ParticipantSeesQuestion(), ParticipantVotesQuestion() // steps/vote_asked_questions.dart
       ]
 
     ..reporters = [ProgressReporter(), TestRunSummaryReporter()]
