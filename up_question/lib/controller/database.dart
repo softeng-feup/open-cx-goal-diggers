@@ -44,7 +44,7 @@ class DatabaseService {
 
     var result = await questionReference.getDocuments();
     tempQuestionList = result.documents
-        .map((doc) => Question.fromMap(doc.reference, doc.data, talk.startTime))
+        .map((doc) => Question.fromMap(doc.reference, doc.data))
         .toList();
 
     return tempQuestionList;
@@ -54,7 +54,7 @@ class DatabaseService {
     Stream<QuerySnapshot> stream = dbReference.collection('questions').where('idTalk', isEqualTo: talk.talkRef).snapshots();
     return stream
         .map((snapshot) => snapshot.documents
-        .map((doc) => Question.fromMap(doc.reference, doc.data, talk.startTime))
+        .map((doc) => Question.fromMap(doc.reference, doc.data))
         .toList());
     //return dbReference.collection('questions').where('idTalk', isEqualTo: talk.talkRef).snapshots();
   }

@@ -52,7 +52,7 @@ class Question extends Comparable {
     return this.votes.compareTo(other.votes);
   }
 
-  Question.fromMap(DocumentReference reference, Map data, DateTime startTime)
+  Question.fromMap(DocumentReference reference, Map data)
       : questionRef = reference ?? '',
         question = data['question'] ?? '',
         anonymous = data['anonimous'] ?? '',
@@ -60,8 +60,8 @@ class Question extends Comparable {
         userRef = data['user'] ?? '',
         votes = data['nVotes'] ?? '' {
     DateTime date = data['postedTime'].toDate();
-    postedTime = DateTime(startTime.year, startTime.month, startTime.day,
-            date.hour, date.minute) ??
+    postedTime = DateTime(date.year, date.month, date.day,
+            date.hour, date.minute, date.second) ??
         '';
   }
 
