@@ -6,7 +6,7 @@ import 'package:up_question/view/Widgets/Loading.dart';
 
 
 class ReplyView extends StatefulWidget {
-  Reply reply;
+  final Reply reply;
 
   ReplyView(this.reply);
 
@@ -25,13 +25,11 @@ class ReplyViewState extends State<ReplyView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
-      // TODO: relative size
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+      padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
       decoration: BoxDecoration(
           border:
           Border(bottom: BorderSide(color: Color(0xFF353535), width: 3))),
-      child: Stack(children: <Widget>[
+      child: Column(children: <Widget>[
         Container(
           alignment: Alignment.topLeft,
           child: Row(
@@ -47,7 +45,7 @@ class ReplyViewState extends State<ReplyView> {
                     return Loading();
                   } else {
                     final user = snapshot.data;
-                    return Text(user.username + " replied", style: TextStyle(fontSize: 20));
+                    return Text(user.username + " replied", style: TextStyle(fontSize: 20)); // TODO: adapt username size to space available (1line)
                   }
                 },
               ),
@@ -55,6 +53,7 @@ class ReplyViewState extends State<ReplyView> {
           ),
         ),
         Container(
+          padding: EdgeInsets.all(10),
             alignment: Alignment.centerLeft,
             child: Text(
               reply.reply,

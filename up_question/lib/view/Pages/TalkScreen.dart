@@ -333,11 +333,6 @@ class _QuestionListState extends State<QuestionList> {
   Widget build(BuildContext context) {
     List<Question> questionsProvided = Provider.of<List<Question>>(context);
 
-    /*if ((this.newSelectedOption != this.oldSelectedOption) && (questionsProvided != null)) {
-      questionsProvided.sort(compareQuestions);
-      this.oldSelectedOption = this.newSelectedOption;
-    }*/
-
     if (questionsProvided != null && questionsProvided.isNotEmpty)
       questionsProvided.sort(compareQuestions);
     return (questionsProvided == null)

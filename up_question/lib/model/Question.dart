@@ -1,24 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:up_question/controller/database.dart';
-import 'package:up_question/model/Database.dart';
 
 import 'Talk.dart';
-import 'User.dart';
 import 'Vote.dart';
 
 class Question extends Comparable {
+  DocumentReference userRef;
+  bool anonymous = false;
+
   DocumentReference questionRef;
   DocumentReference talkRef;
-  Talk talk;
+  Talk talk; /// Needed?!
   String question;
   int votes;
   Like like;
   Dislike dislike;
   DateTime postedTime;
-
-  // TODO: ver depois isto
-  DocumentReference userRef;
-  bool anonimous = false;
 
   DatabaseService _db = new DatabaseService();
 
@@ -58,7 +55,7 @@ class Question extends Comparable {
   Question.fromMap(DocumentReference reference, Map data, DateTime startTime)
       : questionRef = reference ?? '',
         question = data['question'] ?? '',
-        anonimous = data['anonimous'] ?? '',
+        anonymous = data['anonimous'] ?? '',
         talkRef = data['idTalk'] ?? '',
         userRef = data['user'] ?? '',
         votes = data['nVotes'] ?? '' {
@@ -66,12 +63,11 @@ class Question extends Comparable {
     postedTime = DateTime(startTime.year, startTime.month, startTime.day,
             date.hour, date.minute) ??
         '';
-    ;
   }
 
   toJson() {
     return {
-      "anonimous": anonimous,
+      "anonimous": anonymous,
       "idTalk": talkRef,
       "nVotes": 0,
       "postedTime": Timestamp.now(),

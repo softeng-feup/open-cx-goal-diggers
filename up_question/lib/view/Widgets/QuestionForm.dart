@@ -95,10 +95,10 @@ class _QuestionFormState extends State<QuestionForm> {
                               fontSize: 18,
                             ),
                           ),
-                          value: _question.anonimous,
+                          value: _question.anonymous,
                           // TODO: mudar depois
                           onChanged: (val) {
-                            setState(() => _question.anonimous = val);
+                            setState(() => _question.anonymous = val);
                           },
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Color(0xff353535), // TODO: por em const
