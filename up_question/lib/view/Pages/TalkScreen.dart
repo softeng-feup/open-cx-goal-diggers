@@ -292,13 +292,9 @@ class _QuestionListState extends State<QuestionList> {
       case 'Top':
         return question2.votes - question1.votes;
       case 'New':
-        if (question1.postedTime.isAfter(question2.postedTime)) return -1;
-        if (question1.postedTime.isBefore(question2.postedTime)) return 1;
-        return 0;
+        return question2.postedTime.millisecondsSinceEpoch - question1.postedTime.millisecondsSinceEpoch;
       case 'Old':
-        if (question1.postedTime.isBefore(question2.postedTime)) return -1;
-        if (question1.postedTime.isAfter(question2.postedTime)) return 1;
-        return 0;
+        return question1.postedTime.millisecondsSinceEpoch - question2.postedTime.millisecondsSinceEpoch;
     }
     return 0;
   }
