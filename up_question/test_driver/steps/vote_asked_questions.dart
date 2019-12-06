@@ -64,7 +64,7 @@ class ParticipantVotesQuestion extends ThenWithWorld<FlutterWorld> {
   Future<void> executeStep() async {
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('Order'));
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('New'));
-    await FlutterDriverUtils.tap(world.driver, find.byValueKey("TÁS TOLO"));
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('TÁS TOLO'));
     return null;
   }
 
