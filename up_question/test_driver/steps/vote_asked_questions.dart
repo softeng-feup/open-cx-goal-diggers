@@ -62,9 +62,13 @@ class ParticipantVotesQuestion extends ThenWithWorld<FlutterWorld> {
       : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 20));
   @override
   Future<void> executeStep() async {
+    String input1 = "TÁS TOLO";
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('Order'));
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('New'));
-    await FlutterDriverUtils.tap(world.driver, find.byValueKey('TÁS TOLO'));
+
+    //SerializableFinder column=find.ancestor(of: find.text(input1), matching: find.byType('Column'));
+    //SerializableFinder buttons=find.descendant(of: column, matching: find.byValueKey('Buttons'));
+    //await FlutterDriverUtils.tap(world.driver, find.descendant(of: buttons, matching: find.byValueKey('upVote')));
     return null;
   }
 

@@ -92,12 +92,13 @@ class QuestionViewState extends State<QuestionView> {
                     style: TextStyle(fontSize: 18),
                   )),
               Container(
+                  key: Key('Buttons'),
                   alignment: Alignment.bottomRight,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       IconButton(
-                        key: Key(question.question),
+                        key: Key('upVote'),
                         icon: Icon(Icons.arrow_upward, color: upColor()),
                         iconSize: 20,
                         onPressed: () {
@@ -110,6 +111,7 @@ class QuestionViewState extends State<QuestionView> {
                       Text(question.votes.toString(),
                           style: TextStyle(fontSize: 18)),
                       IconButton(
+                        key: Key('downVote'),
                         icon: Icon(Icons.arrow_downward, color: downColor()),
                         iconSize: 20,
                         onPressed: () {
@@ -121,6 +123,7 @@ class QuestionViewState extends State<QuestionView> {
                         },
                       ),
                       IconButton(
+                        //key: Key('upVote'),
                         icon: Icon(Icons.insert_comment,
                             color: Color(0xFF353535)),
                         iconSize: 20,
