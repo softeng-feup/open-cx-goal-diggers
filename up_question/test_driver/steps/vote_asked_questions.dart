@@ -42,12 +42,12 @@ class ParticipantSeesQuestion extends GivenWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
-    //String input1 = "TestQuestion";
-    //await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
-    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
-    //final SerializableFinder questionScreen = find.byValueKey('QuestionsScreen');
-    //await FlutterDriverUtils.isPresent(questionScreen, world.driver);
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
+    String input1 = "TÁS TOLO";
+    await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
+    final SerializableFinder questionScreen = find.byValueKey('QuestionsScreen');
+    await FlutterDriverUtils.isPresent(questionScreen, world.driver);
     return null;
   }
 
@@ -64,6 +64,7 @@ class ParticipantVotesQuestion extends ThenWithWorld<FlutterWorld> {
   Future<void> executeStep() async {
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('Order'));
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('New'));
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey("TÁS TOLO"));
     return null;
   }
 

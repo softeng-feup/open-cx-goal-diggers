@@ -98,6 +98,7 @@ class QuestionViewState extends State<QuestionView> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       IconButton(
+                        key: Key(question.question),
                         icon: Icon(Icons.arrow_upward, color: upColor()),
                         iconSize: 20,
                         onPressed: () {
