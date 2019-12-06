@@ -53,7 +53,6 @@ class QuestionViewState extends State<QuestionView> {
     isSelected[1] = dislike.isNotEmpty;
 
     return Container(
-            // TODO: relative size
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             decoration: BoxDecoration(
                 border: Border(
@@ -75,8 +74,8 @@ class QuestionViewState extends State<QuestionView> {
                           return Loading();
                         } else {
                           final user = snapshot.data;
-                          return Text(
-                              question.anonimous ? "Anonimous" : user.username,
+                          return Text( // TODO: adapt username size to space available (1line)
+                              question.anonymous ? "Anonimous" : user.username,
                               style: TextStyle(fontSize: 20));
                         }
                       },

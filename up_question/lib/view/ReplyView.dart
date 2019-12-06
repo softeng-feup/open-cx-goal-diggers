@@ -6,7 +6,7 @@ import 'package:up_question/view/Widgets/Loading.dart';
 
 
 class ReplyView extends StatefulWidget {
-  Reply reply;
+  final Reply reply;
 
   ReplyView(this.reply);
 
@@ -25,7 +25,6 @@ class ReplyViewState extends State<ReplyView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // TODO: relative size
       padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
       decoration: BoxDecoration(
           border:
@@ -46,7 +45,7 @@ class ReplyViewState extends State<ReplyView> {
                     return Loading();
                   } else {
                     final user = snapshot.data;
-                    return Text(user.username + " replied", style: TextStyle(fontSize: 20));
+                    return Text(user.username + " replied", style: TextStyle(fontSize: 20)); // TODO: adapt username size to space available (1line)
                   }
                 },
               ),

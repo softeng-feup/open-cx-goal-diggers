@@ -8,12 +8,6 @@ class Reply {
   String reply;
   DateTime postedTime;
 
-  /*
-  * int votes
-  * Like like;
-  * Dislike dislike;
-  * */
-
   Reply({this.reply});
 
   Reply.fromMap(DocumentReference reference, DocumentReference questionReference, Map data)
@@ -25,7 +19,6 @@ class Reply {
 
   toJson(){
     return {
-      //"idReply": replyReference,
       "idUser": userReference,
       "reply": reply,
       "postedTime": Timestamp.now()
