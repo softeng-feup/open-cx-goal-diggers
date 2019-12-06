@@ -36,6 +36,7 @@ class ReplyFormState extends State<ReplyForm> {
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Container(
+        key: Key('ReplyForm'),
         alignment: Alignment.bottomCenter,
         padding: EdgeInsets.all(5),
         height: 90,
@@ -46,6 +47,7 @@ class ReplyFormState extends State<ReplyForm> {
               Padding(padding: EdgeInsets.all(1)),
               Flexible(
                 child: TextFormField(
+                  key: Key('InsertReply'),
                   decoration: InputDecoration(
                       hintText: 'Insert your reply here...',
                       fillColor: Colors.white,

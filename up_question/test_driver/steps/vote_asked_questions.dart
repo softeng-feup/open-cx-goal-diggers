@@ -42,10 +42,6 @@ class ParticipantSeesQuestion extends GivenWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
-    String input1 = "TÁS TOLO";
-    await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
-    await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
     final SerializableFinder questionScreen = find.byValueKey('QuestionsScreen');
     await FlutterDriverUtils.isPresent(questionScreen, world.driver);
     return null;
@@ -59,16 +55,12 @@ class ParticipantSeesQuestion extends GivenWithWorld<FlutterWorld> {
 
 class ParticipantVotesQuestion extends ThenWithWorld<FlutterWorld> {
   ParticipantVotesQuestion()
-      : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 20));
+      : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 5));
   @override
   Future<void> executeStep() async {
-    String input1 = "TÁS TOLO";
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('Order'));
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('New'));
-
-    //SerializableFinder column=find.ancestor(of: find.text(input1), matching: find.byType('Column'));
-    //SerializableFinder buttons=find.descendant(of: column, matching: find.byValueKey('Buttons'));
-    //await FlutterDriverUtils.tap(world.driver, find.descendant(of: buttons, matching: find.byValueKey('upVote')));
+    await FlutterDriverUtils.tap(world.driver, find.descendant(of: find.byValueKey('TestQuestion'), matching: find.byValueKey('upvote'), matchRoot: true));
     return null;
   }
 

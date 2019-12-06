@@ -53,11 +53,13 @@ class QuestionViewState extends State<QuestionView> {
     isSelected[1] = dislike.isNotEmpty;
 
     return Container(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Color(0xFF353535), width: 3))),
-            child: Column(children: <Widget>[
+        key: Key(question.question),
+        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        decoration: BoxDecoration(
+            border: Border(
+                bottom: BorderSide(color: Color(0xFF353535), width: 3))),
+        child: Column(
+            children: <Widget>[
               Container(
                 alignment: Alignment.topLeft,
                 child: Row(
@@ -84,7 +86,7 @@ class QuestionViewState extends State<QuestionView> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(5),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     question.question,
@@ -98,7 +100,7 @@ class QuestionViewState extends State<QuestionView> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       IconButton(
-                        key: Key('upVote'),
+                        key: Key('upvote'),
                         icon: Icon(Icons.arrow_upward, color: upColor()),
                         iconSize: 20,
                         onPressed: () {
@@ -111,7 +113,7 @@ class QuestionViewState extends State<QuestionView> {
                       Text(question.votes.toString(),
                           style: TextStyle(fontSize: 18)),
                       IconButton(
-                        key: Key('downVote'),
+                        key: Key('downvote'),
                         icon: Icon(Icons.arrow_downward, color: downColor()),
                         iconSize: 20,
                         onPressed: () {
@@ -119,18 +121,18 @@ class QuestionViewState extends State<QuestionView> {
                           isSelected[1]
                               ? question.removeDislike(dislike[0])
                               : question
-                                  .addDislike(Dislike(LocalData.user.userRef));
+                              .addDislike(Dislike(LocalData.user.userRef));
                         },
                       ),
                       IconButton(
-                        //key: Key('upVote'),
+                        key: Key('reply'),
                         icon: Icon(Icons.insert_comment,
                             color: Color(0xFF353535)),
                         iconSize: 20,
                         onPressed: () {
-                        Navigator.pushNamed(context, '/QuestionPage',
-                            arguments: question);
-                      },
+                          Navigator.pushNamed(context, '/QuestionPage',
+                              arguments: question);
+                        },
                       ),
                     ],
                   ))

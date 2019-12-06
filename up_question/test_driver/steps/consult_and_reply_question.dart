@@ -42,10 +42,10 @@ class SubmittedQuestion extends GivenWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
-    String input1 = "TestQuestion";
-    await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
-    await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
+    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
+    //String input1 = "TestQuestion";
+    //await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
+    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
     return null;
   }
 
@@ -73,7 +73,7 @@ class SpeakerSeesQuestionsAsked extends ThenWithWorld<FlutterWorld> {
 
 class AnswerQuestion extends ThenWithWorld<FlutterWorld> {
   AnswerQuestion()
-      : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 20));
+      : super(StepDefinitionConfiguration()..timeout = Duration(seconds: 30));
   @override
   Future<void> executeStep() async {
     // TODO: Select a specific question
@@ -82,11 +82,20 @@ class AnswerQuestion extends ThenWithWorld<FlutterWorld> {
     String input2 = "aaa";
     await FlutterDriverUtils.enterText(world.driver, find.byValueKey('AutenticationCODE'), input2);
     await FlutterDriverUtils.tap(world.driver, find.byValueKey('LogInAsSpeaker'));
-    final SerializableFinder questionScreen = find.byValueKey('QuestionsScreen');
+    final SerializableFinder talkScreen = find.byValueKey('QuestionsScreen');
+    await FlutterDriverUtils.isPresent(talkScreen, world.driver);
+
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('Order'));
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('New'));
+
+    await FlutterDriverUtils.tap(world.driver, find.descendant(of: find.byValueKey('TestQuestion'), matching: find.byValueKey('reply'), matchRoot: true));
+
+
+    final SerializableFinder questionScreen = find.byValueKey('QuestionScreen');
     await FlutterDriverUtils.isPresent(questionScreen, world.driver);
-    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('ReplyButton'));
-    //final SerializableFinder questionScreen = find.byValueKey('Reply');
-    //await FlutterDriverUtils.isPresent(questionScreen, world.driver);
+
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('replyOpen'));
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('InsertReply'));
     return null;
   }
 

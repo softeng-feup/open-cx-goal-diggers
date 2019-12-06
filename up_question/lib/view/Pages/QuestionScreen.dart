@@ -42,6 +42,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   Widget build(BuildContext context) {
     if (LocalData.speakerLogged) {
       return Scaffold(
+        key: Key('QuestionScreen'),
           appBar: AppBar(
             title: Text("Replies"),
           ),
@@ -71,6 +72,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                     padding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     child: InkWell(
+                      key: Key('replyOpen'),
                       onTap: () {
                         _expandableController.toggle();
                       },
@@ -97,6 +99,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                         children: <Widget>[
                           Container(
                             child: InkWell(
+                              key: Key('replyClose'),
                               onTap: () {
                                 _expandableController.toggle();
                                 FocusScope.of(context).unfocus();
