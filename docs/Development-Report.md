@@ -9,6 +9,7 @@ You can find here detailed information about the project, from a high-level prod
     *  [Product Vision](#Product-Vision)
 
     *  [Elevator Pitch](#Elevator-Pitch)
+    *  [Public Demo](#Public-Demo)
 
 * #### Requirements
 
@@ -18,7 +19,7 @@ You can find here detailed information about the project, from a high-level prod
 
     * [Mockups](#Mockups)
 
-* #### Architectural Structure
+* #### Architectural Structure & Design
     * [MVC](#Architectural-Structure)
     * [Backend](#Backend)
          * [Firebase](#Backend)
@@ -54,6 +55,7 @@ To make great questions heard (by the speaker)
 
 Tired of the long awkward silences when speaker asks "Any questions??"; Tired of hearing the front line old lady telling her life story taking up your question space? Don't worry!! Send us your questions and upvote your favorites. Make your voice heard without the hassle of waiting for a mic.
 
+## [Public Demo](https://www.youtube.com/watch?v=5Jtdu8VDQec&feature=youtu.be&fbclid=IwAR1-Mc5Pf7NjWfPYQs7GwKFiovtZ_Y6ICs5jEF5wPnnWPZnVumXX50vyZtQ)
 
 ## Requirements
 
@@ -144,11 +146,34 @@ Furthermore, we decide to move forward and implement in the following user stori
 &nbsp;The implementation of restrictions to the register form parameters (username, password and email) was also achieved supported in the REGEX embedded libraries offered by flutter. 
 About the twitter’s subject, we were unable to achieve any progress on that, since the Twitter API key wasn´t released in time by the Twitter team. We look forward to implementing them as soon as the mention key would be released.
 
+
 ##### The original plan is represented in the following Trello schedule:
 
 ![](https://i.imgur.com/6gFfXjL.png)
 
 Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Sprint%203%20-%2022%20de%20novembro).
+
+#### Fourth sprint
+&nbsp;The fourth iteration was the stabilizing iteration. The main goal was to sharp every feature implemented during the previous iterations, in order to make the app in a 1.0 version ready to share to the openCX open project.  
+
+##### Stabilizing things included:
+
+* Remove the graphical foundation of the Twitter feature that we initial thought we could implement in our project. [Explained here].
+* Improve the UI experience.
+* Refactoring the code to a more fashion way, 
+* In terms of addictions to the project:
+* Now its possible to remove questions previously done.
+* A stable version of the speaker authentication has been added, now his login-state is preserved between navigation in the page. There is no need to authenticate each time he acess the page no more.
+* A final version of the reply form, now it’s possible to see, with an improved UI experience, what the speaker is replying.
+
+##### The original plan is represented in the following Trello schedule:
+![](https://i.imgur.com/IBMbTAn.png)
+
+
+
+##### The final status of plan to this iteration can be seen in the following trello [link](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Sprint%204%20-%206%20de%20dezembro)
+
+&nbsp;Furthermore, in this iteration we design the oficial demo for our app. You can check it [here](#Public-Demo) on the Public-Demo section.
 
 
  ### Mockups
@@ -157,7 +182,7 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
  <br> (or, as an alternative, in the folder [mockups](https://github.com/softeng-feup/open-cx-goal-diggers/tree/master/docs/mockups) of this directory)
 
  
-## Architectural Structure
+## Architectural Structure & Design
 
 
 ### MVC
