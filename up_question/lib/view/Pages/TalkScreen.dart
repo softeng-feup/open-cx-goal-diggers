@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/LocalData.dart';
@@ -32,6 +33,7 @@ class _TalkScreenState extends State<TalkScreen> {
   bool _isvisibleIcon;
   bool _isSpeakerNameVisible;
   String _speakerSignature="";
+  bool showButton = true;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -58,6 +60,7 @@ class _TalkScreenState extends State<TalkScreen> {
     return ret;
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -72,8 +75,9 @@ class _TalkScreenState extends State<TalkScreen> {
       _isvisibleIcon = true;
       _isSpeakerNameVisible = false;
     }
-
   }
+
+
   Future _changevisability() async {
     setState(() {
       _isvisibleIcon = !_isvisibleIcon;
@@ -105,7 +109,12 @@ class _TalkScreenState extends State<TalkScreen> {
 
   List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
-  
+
+  _toggleShow(bool value){
+    setState(() {
+      showButton = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -232,20 +241,24 @@ class _TalkScreenState extends State<TalkScreen> {
             //child: !snapshot.hasData ? Loading() : QuestionList();
             child: QuestionList(
               selectedOption: _selectedOption,
+              parentAction: _toggleShow,
             ),
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        key: Key('AddQuestion'),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return QuestionForm(talk: talk);
-              });
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: Visibility(
+        visible: showButton,
+        child: FloatingActionButton(
+          key: Key('AddQuestion'),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return QuestionForm(talk: talk);
+                });
+          },
+          child: Icon(Icons.add),
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
@@ -257,8 +270,10 @@ class SpeakerLoginState {
 
 class QuestionList extends StatefulWidget {
   final selectedOption;
+  final void Function(bool value) parentAction;
 
-  const QuestionList({this.selectedOption});
+  const QuestionList({this.selectedOption, this.parentAction});
+
 
   @override
   State<StatefulWidget> createState() {
@@ -269,6 +284,7 @@ class QuestionList extends StatefulWidget {
 class _QuestionListState extends State<QuestionList> {
   String newSelectedOption;
   DatabaseService _db;
+  ScrollController controller;
 
   //String oldSelectedOption = "";
   //List<Question> questions = new List();
@@ -279,6 +295,16 @@ class _QuestionListState extends State<QuestionList> {
   void initState() {
     super.initState();
     _db = new DatabaseService();
+
+    controller = new ScrollController();
+    controller.addListener((){
+      if(controller.position.userScrollDirection == ScrollDirection.reverse){
+        widget.parentAction(false);
+      } else {
+        if(controller.position.userScrollDirection == ScrollDirection.forward){
+          widget.parentAction(true);
+        }
+      }});
   }
 
   @override
@@ -340,6 +366,7 @@ class _QuestionListState extends State<QuestionList> {
         ? Loading()
         : new Expanded(
             child: new ListView.builder(
+                controller: controller,
                 itemCount: questionsProvided.length,
                 itemBuilder: (BuildContext context, int index) {
                   return MultiProvider(

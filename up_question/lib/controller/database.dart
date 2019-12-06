@@ -145,5 +145,10 @@ class DatabaseService {
         ds.reference.delete();
       }
     });
+    data.questionRef.collection('replies').getDocuments().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents){
+        ds.reference.delete();
+      }
+    });
   }
 }
