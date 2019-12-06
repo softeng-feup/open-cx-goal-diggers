@@ -166,7 +166,7 @@ class _LoginFormState extends State<LoginForm> {
                                           else {
                                             _showDialog(
                                                 context, 'Login Successfull');
-                                            Navigator.pushNamed(
+                                            Navigator.pushReplacementNamed(
                                                 context, '/SchedulePage');
                                           }
                                         } else {

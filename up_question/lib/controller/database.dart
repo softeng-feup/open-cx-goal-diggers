@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Day.dart';
 import 'package:up_question/model/Question.dart';
+import 'package:up_question/model/Reply.dart';
 import 'package:up_question/model/Talk.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/model/Vote.dart';
@@ -58,6 +59,15 @@ class DatabaseService {
     //return dbReference.collection('questions').where('idTalk', isEqualTo: talk.talkRef).snapshots();
   }
 
+  Stream<List<Reply>> getReplyStream(Question question) {
+    DocumentReference questionRef = question.questionRef;
+    Stream<QuerySnapshot> stream = questionRef.collection('replies').snapshots();
+    return stream
+        .map((snapshot) => snapshot.documents
+        .map((doc) => Reply.fromMap(doc.reference, questionRef, doc.data))
+        .toList());
+  }
+
   Stream<List<Like>> getLike(DocumentReference questionRef, DocumentReference userRef){
     Stream <QuerySnapshot> stream = questionRef.collection('likes').where('user', isEqualTo: userRef).snapshots();
     return stream
@@ -66,7 +76,7 @@ class DatabaseService {
         .toList());
   }
 
-  Stream<List<Dislike>> getDislke(DocumentReference questionRef, DocumentReference userRef){
+  Stream<List<Dislike>> getDislike(DocumentReference questionRef, DocumentReference userRef){
     Stream <QuerySnapshot> stream = questionRef.collection('dislikes').where('user', isEqualTo: userRef).snapshots();
     return stream
         .map((snapshot) => snapshot.documents
@@ -101,6 +111,10 @@ class DatabaseService {
 
   Future addQuestion(Question data) async{
     return await dbReference.collection('questions').add(data.toJson());
+  }
+
+  void addReply(DocumentReference questionRef, Reply reply) async {
+    await questionRef.collection('replies').add(reply.toJson());
   }
 
   void addLike(DocumentReference questionRef, Like data) async{

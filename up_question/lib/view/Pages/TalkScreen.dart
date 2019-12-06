@@ -13,35 +13,32 @@ import 'package:up_question/view/Widgets/QuestionForm.dart';
 import 'package:up_question/view/Widgets/SpeakerAuthForm.dart';
 import '../TalkView.dart';
 
-class QuestionPageView extends StatefulWidget {
+class TalkScreen extends StatefulWidget {
   final Talk talk;
   
   
 
-  const QuestionPageView(this.talk);
+  const TalkScreen(this.talk);
 
   @override
-  _QuestionsPageState createState() {
-    return _QuestionsPageState(talk);
+  _TalkScreenState createState() {
+    return _TalkScreenState(talk);
   }
 }
 
-class _QuestionsPageState extends State<QuestionPageView> {
+class _TalkScreenState extends State<TalkScreen> {
   DatabaseService _db;
   final Talk talk;
   bool _isvisibleIcon;
   bool _isSpeakerNameVisible;
-  bool _speakerLogged = false;
   String _speakerSignature="";
-  
-
- 
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   //List<Question> questions = new List();
 
-  _QuestionsPageState(this.talk);
+  //List<Question> questions = new List();
+  _TalkScreenState(this.talk);
 
   String getSpeakerSignature(Talk talk){
     
@@ -89,7 +86,7 @@ class _QuestionsPageState extends State<QuestionPageView> {
         });
 
     if (returnVal == 'sucess') {
-      _speakerLogged = true;
+      LocalData.speakerLogged = true;
       //Get the initials of that talk speaker
       this._speakerSignature=getSpeakerSignature(talk);
       if(LocalData.arrayLogged.contains(talk.title)==true){
@@ -341,11 +338,6 @@ class _QuestionListState extends State<QuestionList> {
   Widget build(BuildContext context) {
     List<Question> questionsProvided = Provider.of<List<Question>>(context);
 
-    /*if ((this.newSelectedOption != this.oldSelectedOption) && (questionsProvided != null)) {
-      questionsProvided.sort(compareQuestions);
-      this.oldSelectedOption = this.newSelectedOption;
-    }*/
-
     if (questionsProvided != null && questionsProvided.isNotEmpty)
       questionsProvided.sort(compareQuestions);
     return (questionsProvided == null)
@@ -361,7 +353,7 @@ class _QuestionListState extends State<QuestionList> {
                               questionsProvided[index].questionRef,
                               LocalData.user.userRef)),
                       StreamProvider<List<Dislike>>.value(
-                          value: _db.getDislke(
+                          value: _db.getDislike(
                               questionsProvided[index].questionRef,
                               LocalData.user.userRef)),
                     ],

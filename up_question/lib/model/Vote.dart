@@ -13,8 +13,7 @@ class Vote {
   Vote.fromMap(DocumentReference reference, Map data, DocumentReference questionRef) :
         voteRef = reference ?? '',
         questionRef = questionRef ?? '',
-        userRef = data['user'] ?? ''
-  {}
+        userRef = data['user'] ?? '';
 }
 
 class Like extends Vote {

@@ -6,7 +6,6 @@ import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/model/Vote.dart';
-
 import 'Widgets/Loading.dart';
 
 class QuestionView extends StatefulWidget {
@@ -39,6 +38,7 @@ class QuestionViewState extends State<QuestionView> {
 
   @override
   void didUpdateWidget(QuestionView oldWidget) {
+    super.didUpdateWidget(oldWidget);
     if (oldWidget.question != widget.question) this.question = widget.question;
   }
 
@@ -53,13 +53,11 @@ class QuestionViewState extends State<QuestionView> {
     isSelected[1] = dislike.isNotEmpty;
 
     return Container(
-            height: 150,
-            // TODO: relative size
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(color: Color(0xFF353535), width: 3))),
-            child: Stack(children: <Widget>[
+            child: Column(children: <Widget>[
               Container(
                 alignment: Alignment.topLeft,
                 child: Row(
@@ -76,8 +74,8 @@ class QuestionViewState extends State<QuestionView> {
                           return Loading();
                         } else {
                           final user = snapshot.data;
-                          return Text(
-                              question.anonimous ? "Anonimous" : user.username,
+                          return Text( // TODO: adapt username size to space available (1line)
+                              question.anonymous ? "Anonimous" : user.username,
                               style: TextStyle(fontSize: 20));
                         }
                       },
@@ -86,6 +84,7 @@ class QuestionViewState extends State<QuestionView> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.all(5),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     question.question,
@@ -125,7 +124,10 @@ class QuestionViewState extends State<QuestionView> {
                         icon: Icon(Icons.insert_comment,
                             color: Color(0xFF353535)),
                         iconSize: 20,
-                        onPressed: null,
+                        onPressed: () {
+                        Navigator.pushNamed(context, '/QuestionPage',
+                            arguments: question);
+                      },
                       ),
                     ],
                   ))

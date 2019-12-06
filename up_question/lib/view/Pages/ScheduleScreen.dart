@@ -70,7 +70,7 @@ class ScheduleWidget extends StatelessWidget{
                     image: AssetImage("assets/images/user_bg.png"),
                     colorFilter: new ColorFilter.mode(
                         Colors.white.withOpacity(0.85), BlendMode.dstATop),
-                    fit: BoxFit.fill),
+                    fit: BoxFit.cover),
               ),
               child: new BackdropFilter(
                 filter: new ImageFilter.blur(sigmaX: 1, sigmaY: 1),
