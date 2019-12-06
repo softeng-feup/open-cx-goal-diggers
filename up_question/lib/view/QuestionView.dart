@@ -74,7 +74,7 @@ class QuestionViewState extends State<QuestionView> {
                           return Loading();
                         } else {
                           final user = snapshot.data;
-                          return Text( // TODO: adapt username size to space available (1line)
+                          return Text(
                               question.anonymous ? "Anonimous" : user.username,
                               style: TextStyle(fontSize: 20));
                         }

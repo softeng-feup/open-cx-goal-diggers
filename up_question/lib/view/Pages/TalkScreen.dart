@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/LocalData.dart';
@@ -58,6 +59,7 @@ class _TalkScreenState extends State<TalkScreen> {
     return ret;
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -72,8 +74,9 @@ class _TalkScreenState extends State<TalkScreen> {
       _isvisibleIcon = true;
       _isSpeakerNameVisible = false;
     }
-
   }
+
+
   Future _changevisability() async {
     setState(() {
       _isvisibleIcon = !_isvisibleIcon;
@@ -232,15 +235,18 @@ class _TalkScreenState extends State<TalkScreen> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return QuestionForm(talk: talk);
-              });
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: Visibility(
+        visible: LocalData.show,
+        child: FloatingActionButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return QuestionForm(talk: talk);
+                });
+          },
+          child: Icon(Icons.add),
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
@@ -264,6 +270,7 @@ class QuestionList extends StatefulWidget {
 class _QuestionListState extends State<QuestionList> {
   String newSelectedOption;
   DatabaseService _db;
+  ScrollController controller;
 
   //String oldSelectedOption = "";
   //List<Question> questions = new List();
@@ -274,6 +281,24 @@ class _QuestionListState extends State<QuestionList> {
   void initState() {
     super.initState();
     _db = new DatabaseService();
+
+    controller = new ScrollController();
+    controller.addListener((){
+      if(controller.position.userScrollDirection == ScrollDirection.reverse){
+        if(LocalData.show == true) {
+          setState((){
+            LocalData.show = false;
+          });
+        }
+      } else {
+        if(controller.position.userScrollDirection == ScrollDirection.forward){
+          if(LocalData.show == false) {
+            setState((){
+              LocalData.show = true;
+            });
+          }
+        }
+      }});
   }
 
   @override
@@ -339,6 +364,7 @@ class _QuestionListState extends State<QuestionList> {
         ? Loading()
         : new Expanded(
             child: new ListView.builder(
+                controller: controller,
                 itemCount: questionsProvided.length,
                 itemBuilder: (BuildContext context, int index) {
                   return MultiProvider(
