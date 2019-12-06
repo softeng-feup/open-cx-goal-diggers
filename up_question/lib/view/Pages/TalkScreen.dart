@@ -33,6 +33,7 @@ class _TalkScreenState extends State<TalkScreen> {
   bool _isvisibleIcon;
   bool _isSpeakerNameVisible;
   String _speakerSignature="";
+  bool showButton = true;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -108,7 +109,12 @@ class _TalkScreenState extends State<TalkScreen> {
 
   List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
-  
+
+  _toggleShow(bool value){
+    setState(() {
+      showButton = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -231,12 +237,13 @@ class _TalkScreenState extends State<TalkScreen> {
             //child: !snapshot.hasData ? Loading() : QuestionList();
             child: QuestionList(
               selectedOption: _selectedOption,
+              parentAction: _toggleShow,
             ),
           )
         ],
       ),
       floatingActionButton: Visibility(
-        visible: LocalData.show,
+        visible: showButton,
         child: FloatingActionButton(
           onPressed: () {
             showDialog(
@@ -258,8 +265,10 @@ class SpeakerLoginState {
 
 class QuestionList extends StatefulWidget {
   final selectedOption;
+  final void Function(bool value) parentAction;
 
-  const QuestionList({this.selectedOption});
+  const QuestionList({this.selectedOption, this.parentAction});
+
 
   @override
   State<StatefulWidget> createState() {
@@ -285,18 +294,10 @@ class _QuestionListState extends State<QuestionList> {
     controller = new ScrollController();
     controller.addListener((){
       if(controller.position.userScrollDirection == ScrollDirection.reverse){
-        if(LocalData.show == true) {
-          setState((){
-            LocalData.show = false;
-          });
-        }
+        widget.parentAction(false);
       } else {
         if(controller.position.userScrollDirection == ScrollDirection.forward){
-          if(LocalData.show == false) {
-            setState((){
-              LocalData.show = true;
-            });
-          }
+          widget.parentAction(true);
         }
       }});
   }
