@@ -27,9 +27,9 @@ class EnterQuestion extends AndWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
-    //String input1 = "TestQuestion";
-    //await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('AddQuestion'));
+    String input1 = "TestQuestion";
+    await FlutterDriverUtils.enterText(world.driver, find.byValueKey('EnterQuestion'), input1);
     return null;
   }
 
@@ -44,7 +44,7 @@ class TappedAnonymousCheckbox extends WhenWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('AnonymousCheckbox'));
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('AnonymousCheckbox'));
     return null;
   }
 
@@ -59,7 +59,7 @@ class TappedShareButton extends AndWithWorld<FlutterWorld> {
 
   @override
   Future<void> executeStep() async {
-    //await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
+    await FlutterDriverUtils.tap(world.driver, find.byValueKey('Share'));
     return null;
   }
 
