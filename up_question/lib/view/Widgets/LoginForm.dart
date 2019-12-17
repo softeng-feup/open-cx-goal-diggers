@@ -23,6 +23,14 @@ class _LoginFormState extends State<LoginForm> {
   bool loading = false;
   bool showPassResetForm = false;
 
+  //SHOW/HIDE PASSWORD AND CONFIRMPASSWORD
+  bool _obscurePassword;
+  @override
+  void initState() {
+    _obscurePassword = true;
+  }
+  //SHOW/HIDE PASSWORD
+
   void togglePasswordForm() {
     setState(() => showPassResetForm = !showPassResetForm);
   }
@@ -109,20 +117,33 @@ class _LoginFormState extends State<LoginForm> {
                               TextFormField(
                                 key: Key('Password'),
                                 keyboardType: TextInputType.visiblePassword,
-                                obscureText: true,
+                                obscureText: _obscurePassword,
                                 decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      top: 0, right: 2, left: 2, bottom: 5),
-                                  enabledBorder: _underlineBorder,
-                                  focusedBorder: _underlineBorder,
-                                  errorBorder: _underlineBorder,
-                                  filled: true,
-                                  hintText: 'Password',
-                                  hintStyle: TextStyle(
-                                      color:
-                                          Color.fromRGBO(255, 255, 255, 0.7)),
-                                  helperText: ' ',
-                                ),
+                                    contentPadding: EdgeInsets.only(
+                                        top: 0, right: 2, left: 2, bottom: 5),
+                                    enabledBorder: _underlineBorder,
+                                    focusedBorder: _underlineBorder,
+                                    errorBorder: _underlineBorder,
+                                    filled: true,
+                                    hintText: 'Password',
+                                    hintStyle: TextStyle(
+                                        color:
+                                            Color.fromRGBO(255, 255, 255, 0.7)),
+                                    helperText: ' ',
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        !_obscurePassword
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _obscurePassword = !_obscurePassword;
+                                        });
+                                      },
+                                    )),
                                 validator: (value) {
                                   if (value.isEmpty)
                                     return 'Please enter your Password';
