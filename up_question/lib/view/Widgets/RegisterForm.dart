@@ -23,11 +23,10 @@ class _RegisterFormState extends State<RegisterForm> {
   bool loading = false;
 
   //SHOW/HIDE PASSWORD
-  bool _obscureText=true;
-  void _toggle(){
-    setState(() {
-      _obscureText=!_obscureText;
-    });
+  bool _obscurePassword;
+  @override
+  void initState() {
+    _obscurePassword = true;
   }
   //SHOW/HIDE PASSWORD
 
@@ -127,19 +126,31 @@ class _RegisterFormState extends State<RegisterForm> {
                         new TextFormField(
                           controller: _passController,
                           keyboardType: TextInputType.visiblePassword,
-                          obscureText: _obscureText,
+                          obscureText: _obscurePassword,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                                top: 0, right: 2, left: 2, bottom: 5),
-                            enabledBorder: _underlineBorder,
-                            focusedBorder: _underlineBorder,
-                            errorBorder: _underlineBorder,
-                            filled: true,
-                            hintText: 'Password',
-                            hintStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.7)),
-                            helperText: ' ',
-                          ),
+                              contentPadding: EdgeInsets.only(
+                                  top: 0, right: 2, left: 2, bottom: 5),
+                              enabledBorder: _underlineBorder,
+                              focusedBorder: _underlineBorder,
+                              errorBorder: _underlineBorder,
+                              filled: true,
+                              hintText: 'Password',
+                              hintStyle: TextStyle(
+                                  color: Color.fromRGBO(255, 255, 255, 0.7)),
+                              helperText: ' ',
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Theme.of(context).primaryColorDark,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
+                              )),
                           validator: validatePassword,
                           onSaved: (val) => setState(() => user.password = val),
                           style: new TextStyle(
@@ -147,9 +158,6 @@ class _RegisterFormState extends State<RegisterForm> {
                             color: Colors.white,
                           ),
                         ),
-                        new FlatButton(
-                            onPressed: _toggle,
-                            child: new Text(_obscureText ? "Show" : "Hide")),
                         new TextFormField(
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
@@ -170,7 +178,7 @@ class _RegisterFormState extends State<RegisterForm> {
                               return 'Please confirm your Password';
                             if (value != _passController.text)
                               return 'Passwords do not match';
-                              //To silence warning
+                            //To silence warning
                             return null;
                           },
                           //onSaved: (val) => setState(() => user.password = val),
