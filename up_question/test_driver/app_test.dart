@@ -14,7 +14,7 @@ import 'steps/vote_asked_questions.dart';
 
 Future<void> main() {
   final config = FlutterTestConfiguration()
-    ..features = [Glob(r"test_driver/features/**.feature")]
+    ..features = [Glob(r"test_driver/features/user_login.feature")]
 
     ..stepDefinitions = [
       InsertedEmail(), InsertedPassword(), TapedLoginButton(), UserLoggedIn(), // steps/user_login.dart

@@ -42,29 +42,96 @@ class _QuestionScreenState extends State<QuestionScreen> {
   Widget build(BuildContext context) {
     if (LocalData.speakerLogged) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         key: Key('QuestionScreen'),
           appBar: AppBar(
             title: Text("Replies"),
           ),
-          body: Column(
+          body: Stack(
             children: <Widget>[
-              MultiProvider(
-                providers: [
-                  StreamProvider<List<Like>>.value(
-                      value: _db.getLike(
-                          question.questionRef, LocalData.user.userRef)),
-                  StreamProvider<List<Dislike>>.value(
-                      value: _db.getDislike(
-                          question.questionRef, LocalData.user.userRef)),
-                ],
-                //child: !snapshot.hasData ? Loading() : QuestionList();
-                child: QuestionView(question: question),
-              ),
-              StreamProvider<List<Reply>>.value(
-                  value: _db.getReplyStream(question), child: ReplyList()),
+              Column(
+                  children: <Widget>[
+                    MultiProvider(
+                          providers: [
+                            StreamProvider<List<Like>>.value(
+                                value: _db.getLike(
+                                    question.questionRef, LocalData.user.userRef)),
+                            StreamProvider<List<Dislike>>.value(
+                                value: _db.getDislike(
+                                    question.questionRef, LocalData.user.userRef)),
+                          ],
+                          //child: !snapshot.hasData ? Loading() : QuestionList();
+                          child: SingleChildScrollView(child: QuestionView(question: question, showMoreButton: true,)),
+                    ),
+                    StreamProvider<List<Reply>>.value(
+                        value: _db.getReplyStream(question), child: ReplyList()),
+                    Container (height: 40,)
+                  ],
+                ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ExpandableNotifier(
+                  //initialExpanded: false,
+                    controller: _expandableController,
+                    child: Expandable(
+                        collapsed: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: InkWell(
+                            key: Key('replyOpen'),
+                            onTap: () {
+                              _expandableController.toggle();
+                            },
+                            child: Container(
+                                padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                                alignment: Alignment.centerRight,
+                                child: Icon(
+                                  Icons.add_comment,
+                                  size: 30,
+                                  color: Colors.white,
+                                ),
+                                height: 40,
+                                color: Colors.black87),
+                          ),
+                        ),
+                        expanded: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Container(
+                            height: 120,
+                            color: Color.fromRGBO(255, 255, 255, 0.98),
+                            child: ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: <Widget>[
+                                Container(
+                                  child: InkWell(
+                                    key: Key('replyClose'),
+                                    onTap: () {
+                                      _expandableController.toggle();
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    child: Container(
+                                        padding: EdgeInsets.fromLTRB(0, 5, 15, 0),
+                                        alignment: Alignment.centerRight,
+                                        child: Icon(Icons.close,
+                                            size: 30, color: Colors.black),
+                                        height: 30),
+                                  ),
+                                ),
+                                Container(
+                                  child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: ReplyForm(question: question)),
+                                ),
+                              ],
+                            ),
+                            //)
+                          ),
+                        ))),
+              )
             ],
           ),
-          bottomNavigationBar: ExpandableNotifier(
+          /*bottomNavigationBar: ExpandableNotifier(
               //initialExpanded: false,
               controller: _expandableController,
               child: Expandable(
@@ -121,7 +188,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       ),
                       //)
                     ),
-                  )))); //ReplyForm(question: question)
+                  )))*/); //ReplyForm(question: question)
     } else {
       return Scaffold(
           appBar: AppBar(
@@ -139,7 +206,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           question.questionRef, LocalData.user.userRef)),
                 ],
                 //child: !snapshot.hasData ? Loading() : QuestionList();
-                child: QuestionView(question: question),
+                child: QuestionView(question: question, showMoreButton: true,),
               ),
               StreamProvider<List<Reply>>.value(
                   value: _db.getReplyStream(question), child: ReplyList()),

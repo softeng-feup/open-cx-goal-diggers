@@ -349,10 +349,10 @@ class _QuestionListState extends State<QuestionList> {
           ),
         ),
         direction: DismissDirection.endToStart,
-        child: QuestionView(question: question),
+        child: QuestionView(question: question, showMoreButton: false,),
       );
     } else {
-      return QuestionView(question: question);
+      return QuestionView(question: question, showMoreButton: false,);
     }
   }
 

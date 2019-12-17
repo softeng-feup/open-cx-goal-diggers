@@ -10,19 +10,21 @@ import 'Widgets/Loading.dart';
 
 class QuestionView extends StatefulWidget {
   final Question question;
+  final bool showMoreButton;
 
-  QuestionView({this.question});
+  QuestionView({this.question, this.showMoreButton});
 
   @override
   State<StatefulWidget> createState() {
-    return QuestionViewState(question);
+    return QuestionViewState(question, showMoreButton);
   }
 }
 
 class QuestionViewState extends State<QuestionView> {
   Question question;
+  bool type;
 
-  QuestionViewState(this.question);
+  QuestionViewState(this.question, this.type);
 
   DatabaseService _db = new DatabaseService();
 
@@ -56,86 +58,175 @@ class QuestionViewState extends State<QuestionView> {
         key: Key(question.question),
         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
         decoration: BoxDecoration(
-            border: Border(
-                bottom: BorderSide(color: Color(0xFF353535), width: 3))),
-        child: Column(
-            children: <Widget>[
-              Container(
-                alignment: Alignment.topLeft,
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.face),
-                      iconSize: 30,
-                    ),
-                    FutureBuilder<User>(
-                      future: _db.getUserByRef(question.userRef),
-                      builder:
-                          (BuildContext context, AsyncSnapshot<User> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Loading();
-                        } else {
-                          final user = snapshot.data;
-                          return Text(
-                              question.anonymous ? "Anonimous" : user.username,
-                              style: TextStyle(fontSize: 20));
-                        }
-                      },
-                    ),
-                  ],
+            border:
+                Border(bottom: BorderSide(color: Color(0xFF353535), width: 3))),
+        child: Column(children: <Widget>[
+          Container(
+            alignment: Alignment.topLeft,
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.face),
+                  iconSize: 30,
                 ),
-              ),
-              Container(
-                  padding: EdgeInsets.all(5),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    question.question,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 18),
-                  )),
-              Container(
-                  key: Key('Buttons'),
-                  alignment: Alignment.bottomRight,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      IconButton(
-                        key: Key('upvote'),
-                        icon: Icon(Icons.arrow_upward, color: upColor()),
-                        iconSize: 20,
-                        onPressed: () {
-                          if (isSelected[1]) question.removeDislike(dislike[0]);
-                          isSelected[0]
-                              ? question.removeLike(like[0])
-                              : question.addLike(Like(LocalData.user.userRef));
-                        },
-                      ),
-                      Text(question.votes.toString(),
-                          style: TextStyle(fontSize: 18)),
-                      IconButton(
-                        key: Key('downvote'),
-                        icon: Icon(Icons.arrow_downward, color: downColor()),
-                        iconSize: 20,
-                        onPressed: () {
-                          if (isSelected[0]) question.removeLike(like[0]);
-                          isSelected[1]
-                              ? question.removeDislike(dislike[0])
-                              : question
+                FutureBuilder<User>(
+                  future: _db.getUserByRef(question.userRef),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<User> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Loading();
+                    } else {
+                      final user = snapshot.data;
+                      return Text(
+                          question.anonymous ? "Anonimous" : user.username,
+                          style: TextStyle(fontSize: 20));
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+          QuestionText(question.question, type),
+          Container(
+              key: Key('Buttons'),
+              alignment: Alignment.bottomRight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                    key: Key('upvote'),
+                    icon: Icon(Icons.arrow_upward, color: upColor()),
+                    iconSize: 20,
+                    onPressed: () {
+                      if (isSelected[1]) question.removeDislike(dislike[0]);
+                      isSelected[0]
+                          ? question.removeLike(like[0])
+                          : question.addLike(Like(LocalData.user.userRef));
+                    },
+                  ),
+                  Text(question.votes.toString(),
+                      style: TextStyle(fontSize: 18)),
+                  IconButton(
+                    key: Key('downvote'),
+                    icon: Icon(Icons.arrow_downward, color: downColor()),
+                    iconSize: 20,
+                    onPressed: () {
+                      if (isSelected[0]) question.removeLike(like[0]);
+                      isSelected[1]
+                          ? question.removeDislike(dislike[0])
+                          : question
                               .addDislike(Dislike(LocalData.user.userRef));
-                        },
-                      ),
-                      IconButton(
-                        key: Key('reply'),
-                        icon: Icon(Icons.insert_comment,
-                            color: Color(0xFF353535)),
-                        iconSize: 20,
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/QuestionPage',
-                              arguments: question);
-                        },
-                      ),
-                    ],
-                  ))
-            ]));
+                    },
+                  ),
+                  IconButton(
+                    key: Key('reply'),
+                    icon: Icon(Icons.insert_comment, color: Color(0xFF353535)),
+                    iconSize: 20,
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/QuestionPage',
+                          arguments: question);
+                    },
+                  ),
+                ],
+              ))
+        ]));
+  }
+}
+
+class QuestionText extends StatefulWidget {
+  String questionText;
+  bool type;
+
+  QuestionText(this.questionText, this.type);
+
+  @override
+  State<StatefulWidget> createState() {
+    if (type)
+      return QuestionTextStateShowMore(questionText);
+    else
+      return QuestionTextState(questionText);
+  }
+}
+
+class QuestionTextState extends State<QuestionText> {
+  String question;
+
+  QuestionTextState(this.question);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.all(5),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          question,
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 18),
+        ));
+  }
+}
+
+class QuestionTextStateShowMore extends State<QuestionText> {
+  String question;
+
+  String firstHalf;
+  String secondHalf;
+
+  bool flag = true;
+
+  QuestionTextStateShowMore(this.question);
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (question.length > 88) {
+      firstHalf = question.substring(0, 85);
+      secondHalf = question.substring(85, question.length);
+    } else {
+      firstHalf = question;
+      secondHalf = "";
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      //padding: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      child: Container(padding: EdgeInsets.all(5),
+        alignment: Alignment.centerLeft,
+        child: secondHalf.isEmpty
+            ? new Text(firstHalf,
+              style: TextStyle(fontSize: 18),
+              textAlign: TextAlign.justify)
+            : new Column(
+                children: <Widget>[
+                  Container(padding: EdgeInsets.all(5),
+                      alignment: Alignment.centerLeft,
+                      child: new Text(
+                    flag ? (firstHalf + "...") : (firstHalf + secondHalf),
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.justify,
+                  )),
+                  new InkWell(
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        new Text(
+                          flag ? "show more" : "show less",
+                          style: new TextStyle(color: Colors.blue),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      setState(() {
+                        flag = !flag;
+                      });
+                    },
+                  ),
+                ],
+              ),
+      ),
+    );
   }
 }
