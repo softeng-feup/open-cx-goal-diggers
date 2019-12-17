@@ -22,11 +22,13 @@ class _RegisterFormState extends State<RegisterForm> {
   final AuthService _auth = AuthService();
   bool loading = false;
 
-  //SHOW/HIDE PASSWORD
+  //SHOW/HIDE PASSWORD AND CONFIRMPASSWORD
   bool _obscurePassword;
+  bool _obscureConfirmPassword;
   @override
   void initState() {
     _obscurePassword = true;
+    _obscureConfirmPassword = true;
   }
   //SHOW/HIDE PASSWORD
 
@@ -140,7 +142,7 @@ class _RegisterFormState extends State<RegisterForm> {
                               helperText: ' ',
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _obscurePassword
+                                  !_obscurePassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
                                   color: Theme.of(context).primaryColorDark,
@@ -160,19 +162,32 @@ class _RegisterFormState extends State<RegisterForm> {
                         ),
                         new TextFormField(
                           keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
+                          obscureText: _obscureConfirmPassword,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                                top: 0, right: 2, left: 2, bottom: 5),
-                            enabledBorder: _underlineBorder,
-                            focusedBorder: _underlineBorder,
-                            errorBorder: _underlineBorder,
-                            filled: true,
-                            hintText: 'Confirm Password',
-                            hintStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.7)),
-                            helperText: ' ',
-                          ),
+                              contentPadding: EdgeInsets.only(
+                                  top: 0, right: 2, left: 2, bottom: 5),
+                              enabledBorder: _underlineBorder,
+                              focusedBorder: _underlineBorder,
+                              errorBorder: _underlineBorder,
+                              filled: true,
+                              hintText: 'Confirm Password',
+                              hintStyle: TextStyle(
+                                  color: Color.fromRGBO(255, 255, 255, 0.7)),
+                              helperText: ' ',
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  !_obscureConfirmPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Theme.of(context).primaryColorDark,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureConfirmPassword =
+                                        !_obscureConfirmPassword;
+                                  });
+                                },
+                              )),
                           validator: (value) {
                             if (value.isEmpty)
                               return 'Please confirm your Password';
