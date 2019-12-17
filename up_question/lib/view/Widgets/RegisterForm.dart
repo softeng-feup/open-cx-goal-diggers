@@ -22,6 +22,15 @@ class _RegisterFormState extends State<RegisterForm> {
   final AuthService _auth = AuthService();
   bool loading = false;
 
+  //SHOW/HIDE PASSWORD
+  bool _obscureText=true;
+  void _toggle(){
+    setState(() {
+      _obscureText=!_obscureText;
+    });
+  }
+  //SHOW/HIDE PASSWORD
+
   final _passController = TextEditingController();
   User user = new User();
 
@@ -118,7 +127,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         new TextFormField(
                           controller: _passController,
                           keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
+                          obscureText: _obscureText,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(
                                 top: 0, right: 2, left: 2, bottom: 5),
@@ -138,6 +147,9 @@ class _RegisterFormState extends State<RegisterForm> {
                             color: Colors.white,
                           ),
                         ),
+                        new FlatButton(
+                            onPressed: _toggle,
+                            child: new Text(_obscureText ? "Show" : "Hide")),
                         new TextFormField(
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
