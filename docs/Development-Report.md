@@ -209,6 +209,8 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 
 &nbsp;The prototyping building phase was made during the iteration 0 after building an joining an initial collection of user stories, the group decided to use the film of the navigation through the different menus with responsive button to actions feature of FIGMA  in order to build a practical graphical and intuitive first prototype of UpQuestion without a single line of code. 
 
+&nbsp;There we can already watch the initial sketch of the implementation of user stories such releated with questions, votes, conference selection, login and twitter connection. [User Stories](#User-stories) 
+
 With that practicable feature always in mind the group was able to check on every iteration that every user story initial design in prototype was implemented, and more important than that receive immediate feedback of the deviance from the original plan in every flutter implementation.
 
 You can check our prototype in FIGMA using the invitation link below, but since you require login in FIGMA to do that, we also post some photos demonstrating the referred slideshow. [Link](#https://www.figma.com/proto/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=94%3A2&scaling=scale-down)
