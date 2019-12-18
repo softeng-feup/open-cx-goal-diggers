@@ -2,6 +2,7 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
+import 'package:quiver/collection.dart';
 
 class Talk extends Comparable {
   DocumentReference talkRef;
@@ -12,8 +13,8 @@ class Talk extends Comparable {
   String location;
   String backgroundImagePath;
   String speakerCode;
-  bool mutex=true;
   List<Question> questionList = new List();
+  List speakersLoggedIn=new List();
 
   Talk(
       {this.title,
@@ -35,6 +36,8 @@ class Talk extends Comparable {
         speaker = snapshot['speaker'] ?? '',
         location = snapshot['room'] ?? '',
         speakerCode=snapshot['speaker_code']??'',
+        //RETREVIE THE SPEAKERS ALREADY AUTHENTICATED
+        speakersLoggedIn=snapshot['loginSpeakers']??'',
         backgroundImagePath = 'assets/images/' + reference.documentID +'.jpg' ?? '' {
     DateTime date = snapshot['start_time'].toDate();
 
@@ -46,9 +49,11 @@ class Talk extends Comparable {
     endTime = DateTime(dayTime.year, dayTime.month, dayTime.day, date2.hour,
             date2.minute) ??
         '';
-    if(LocalData.setLoaded==false){
-      LocalData.arrayLogged.add(this.title);
-    }
-  
-  }
+    //ADD THE TALK TO THE LOGINS IF THE USER ALREADY LOGGED ON THAT TALK
+    for(int i=0;i<speakersLoggedIn.length;i++){
+      if(speakersLoggedIn[i]==LocalData.user.username){
+        LocalData.talksLoggs.add(this.title,LocalData.user.username);
+      }
+    } 
+  } 
 }

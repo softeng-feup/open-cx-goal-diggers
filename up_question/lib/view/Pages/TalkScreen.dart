@@ -12,12 +12,11 @@ import 'package:up_question/view/QuestionView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/QuestionForm.dart';
 import 'package:up_question/view/Widgets/SpeakerAuthForm.dart';
+import 'package:quiver/collection.dart';
 import '../TalkView.dart';
 
 class TalkScreen extends StatefulWidget {
   final Talk talk;
-  
-  
 
   const TalkScreen(this.talk);
 
@@ -32,7 +31,7 @@ class _TalkScreenState extends State<TalkScreen> {
   final Talk talk;
   bool _isvisibleIcon;
   bool _isSpeakerNameVisible;
-  String _speakerSignature="";
+  String _speakerSignature = "";
   bool showButton = true;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -42,43 +41,48 @@ class _TalkScreenState extends State<TalkScreen> {
   //List<Question> questions = new List();
   _TalkScreenState(this.talk);
 
-  String getSpeakerSignature(Talk talk){
-    
+  String getSpeakerSignature(Talk talk) {
     String ret;
     String _firstLetter;
     String _lastNameFirstLetter;
-    int _lastIndexSpace=-1;
+    int _lastIndexSpace = -1;
 
-    _firstLetter=talk.speaker[0];
+    _firstLetter = talk.speaker[0];
     //Find last Space
-    _lastIndexSpace=talk.speaker.lastIndexOf(' ');
+    _lastIndexSpace = talk.speaker.lastIndexOf(' ');
     //Get the next letter
     _lastIndexSpace++;
-    _lastNameFirstLetter=talk.speaker[_lastIndexSpace];
-    
-    ret=_firstLetter+_lastNameFirstLetter;
+    _lastNameFirstLetter = talk.speaker[_lastIndexSpace];
+
+    ret = _firstLetter + _lastNameFirstLetter;
     return ret;
   }
-
 
   @override
   void initState() {
     super.initState();
+    LocalData.speakerLogged=false;
     _db = new DatabaseService();
+
+    String username=LocalData.user.username;
     
-    if(LocalData.arrayLogged.contains(talk.title)==false){
-      this._speakerSignature=getSpeakerSignature(talk);
+    if(LocalData.talksLoggs.contains(this.talk.title, username)==true){
+      print('Login Start');
+      this._speakerSignature = getSpeakerSignature(talk);
       _isvisibleIcon = false;
       _isSpeakerNameVisible = true;
-
+      LocalData.speakerLogged=true;
     }else{
+      //Double Check
+      print('not Login Start');
+      LocalData.speakerLogged=false;
       _isvisibleIcon = true;
       _isSpeakerNameVisible = false;
-    }
+    }    
   }
 
-
   Future _changevisability() async {
+
     setState(() {
       _isvisibleIcon = !_isvisibleIcon;
     });
@@ -90,17 +94,18 @@ class _TalkScreenState extends State<TalkScreen> {
         });
 
     if (returnVal == 'sucess') {
-      LocalData.speakerLogged = true;
+      //ADD THE INFO TO THE DATABASE
+      LocalData.speakerLogged=true;
+      print('Tou aqui');
+      _db.addSpeakerLoggin(LocalData.user.username, this.talk);
       //Get the initials of that talk speaker
-      this._speakerSignature=getSpeakerSignature(talk);
-      if(LocalData.arrayLogged.contains(talk.title)==true){
-        LocalData.arrayLogged.remove(talk.title);
-      }else{
-        print("PANIC");
-      }
-      _isSpeakerNameVisible = true;
-
-    } else if (returnVal == null) {
+      this._speakerSignature = getSpeakerSignature(talk);
+      _isSpeakerNameVisible =!_isSpeakerNameVisible ;
+      print(_isSpeakerNameVisible);
+    }
+    
+    else if(returnVal==null){
+      print('Tou aqui 1');
       setState(() {
         _isvisibleIcon = !_isvisibleIcon;
       });
@@ -110,7 +115,7 @@ class _TalkScreenState extends State<TalkScreen> {
   List<String> _options = ['Top', 'New', 'Old'];
   String _selectedOption = 'Top';
 
-  _toggleShow(bool value){
+  _toggleShow(bool value) {
     setState(() {
       showButton = value;
     });
@@ -140,52 +145,50 @@ class _TalkScreenState extends State<TalkScreen> {
                       visible: _isvisibleIcon,
                       child: ClipOval(
                           child: Material(
-                            color: Colors.red,
-                            child: InkWell(
-                                // TODO: change icon
-                                splashColor: Colors.green,
-                                child: SizedBox(
-                                  width: 45.0,
-                                  height: 100.0,
-                                  child: Icon(
-                                    Icons.event_note,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
-                                ),
-                                onTap: _isvisibleIcon == false
-                                    ? null
-                                    : _changevisability),
-                          )),
-                        )),
+                        color: Colors.red,
+                        child: InkWell(
+                            // TODO: change icon
+                            splashColor: Colors.green,
+                            child: SizedBox(
+                              width: 45.0,
+                              height: 100.0,
+                              child: Icon(
+                                Icons.event_note,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                            onTap: _isvisibleIcon == false
+                                ? null
+                                : _changevisability),
+                      )),
+                    )),
 
                 Positioned(
                   right: 20,
                   top: 20,
                   bottom: 20,
                   child: Visibility(
-                    visible: _isSpeakerNameVisible,
-                    child: ClipOval(
+                      visible: _isSpeakerNameVisible,
+                      child: ClipOval(
                         child: Material(
-                      color: Colors.green,
-                      child: SizedBox(
-                        width: 45,
-                        height: 90,
-                        child: Center(
-                          child: Text(
-                          _speakerSignature,
-                          textAlign:TextAlign.center,
-                          style: TextStyle(
+                          color: Colors.green,
+                          child: SizedBox(
+                              width: 45,
+                              height: 90,
+                              child: Center(
+                                  child: Text(
+                                _speakerSignature,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   fontSize: 22,
-                                  ),
-                        )
-                        )
+                                ),
+                              ))),
                         ),
-                      ),
-                    )),
-                  ),
+                      )),
+                ),
               ],
             ),
           ),
@@ -274,7 +277,6 @@ class QuestionList extends StatefulWidget {
 
   const QuestionList({this.selectedOption, this.parentAction});
 
-
   @override
   State<StatefulWidget> createState() {
     return _QuestionListState(newSelectedOption: selectedOption);
@@ -297,14 +299,16 @@ class _QuestionListState extends State<QuestionList> {
     _db = new DatabaseService();
 
     controller = new ScrollController();
-    controller.addListener((){
-      if(controller.position.userScrollDirection == ScrollDirection.reverse){
+    controller.addListener(() {
+      if (controller.position.userScrollDirection == ScrollDirection.reverse) {
         widget.parentAction(false);
       } else {
-        if(controller.position.userScrollDirection == ScrollDirection.forward){
+        if (controller.position.userScrollDirection ==
+            ScrollDirection.forward) {
           widget.parentAction(true);
         }
-      }});
+      }
+    });
   }
 
   @override
@@ -323,9 +327,11 @@ class _QuestionListState extends State<QuestionList> {
       case 'Top':
         return question2.votes - question1.votes;
       case 'New':
-        return question2.postedTime.millisecondsSinceEpoch - question1.postedTime.millisecondsSinceEpoch;
+        return question2.postedTime.millisecondsSinceEpoch -
+            question1.postedTime.millisecondsSinceEpoch;
       case 'Old':
-        return question1.postedTime.millisecondsSinceEpoch - question2.postedTime.millisecondsSinceEpoch;
+        return question1.postedTime.millisecondsSinceEpoch -
+            question2.postedTime.millisecondsSinceEpoch;
     }
     return 0;
   }

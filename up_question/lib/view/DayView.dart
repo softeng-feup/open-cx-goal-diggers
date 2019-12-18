@@ -40,8 +40,6 @@ class DayView extends StatelessWidget {
         ),
         //Iterate List of items
         for (var item in day.talks) TalkView(item, true),
-
-
       ],
     );
   }

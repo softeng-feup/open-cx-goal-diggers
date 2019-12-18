@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:up_question/controller/auth.dart';
 import 'package:up_question/controller/validation.dart';
-import 'package:up_question/main.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'dart:ui';
@@ -181,10 +180,6 @@ class _RegisterFormState extends State<RegisterForm> {
                               if (form.validate()) {
                                 form.save();
                                 setState(() => loading = true);
-
-                                // TODO: depois apagar isto
-                                MyApp.database.users.add(user);
-
                                 dynamic result = await _auth.register(
                                     user.email, user.username, user.password);
 
