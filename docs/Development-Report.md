@@ -24,7 +24,7 @@ You can find here detailed information about the project, from a high-level prod
     * [Backend](#Backend)
          * [Firebase](#Backend)
          * Twitter API
-    
+    * [Prototype](#Prototype)
  
 * #### Tasks Management Tool
 
@@ -124,20 +124,20 @@ A exampling picture of the status of our Trello organization is the following:
 
 
 
-#### First sprint
+#### First-sprint
 
 &nbsp;In the first sprint our focus was on implementing the prototype. That demanded to architecture the future design under we would code into, an MVC one, using a local DataBase, implement the UI designed in the mockups from the inception phase, which means we built the prototype with the fundations required for many of the user stories with the greastest interaction with the user such as login
 
 In terms of user stories, we implemented the following: [Iteration #1](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration1) 
 
 
-#### Second sprint
+#### Second-sprint
 
 &nbsp;The second iteration we project from the results of [Iteration #1](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration1) . We decide to implement a firebase backend, according the reasons stated here, that required to redefine the implementation of the user stories completed in the first iteration to work using a real time database as firebase. 
 
 Furthermore, we decide to move forward and implement in the following user stories: [Iteration #2](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration2)
 
-#### Third sprint
+#### Third-sprint
 &nbsp;The third iteration focused on the development of the reply capability to any question previously made, the integration of the twitter’s related capabilities and also the the implementation of constrains to the register form. 
 
 &nbsp;In UpQuestion at the time of the third iteration, only the speaker has the capability to reply to questions. Furthermore, that capability is constrained to talks where he responsible for. In order to increment this feature, it was necessary to include the capability to distinguish a simple user from a speaker. In order to achieve that objective, a special speaker-login system based on a code stored in the database was designed.
@@ -153,7 +153,7 @@ About the twitter’s subject, we were unable to achieve any progress on that, s
 
 Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Sprint%203%20-%2022%20de%20novembro).
 
-#### Fourth sprint
+#### Fourth-sprint
 &nbsp;The fourth iteration was the stabilizing iteration. The main goal was to sharp every feature implemented during the previous iterations, in order to make the app in a 1.0 version ready to share to the openCX open project.  
 
 ##### Stabilizing things included:
@@ -204,6 +204,23 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 #### Database Model
 
 ![](https://i.imgur.com/eEO8QZK.png)
+
+### Prototype
+
+&nbsp;The prototyping building phase was made during the iteration 0 after building an joining an initial collection of user stories, the group decided to use the film of the navigation through the different menus with responsive button to actions feature of FIGMA  in order to build a practical graphical and intuitive first prototype of UpQuestion without a single line of code. 
+
+With that practicable feature always in mind the group was able to check on every iteration that every user story initial design in prototype was implemented, and more important than that receive immediate feedback of the deviance from the original plan in every flutter implementation.
+
+You can check our prototype in FIGMA using the invitation link below, but since you require login in FIGMA to do that, we also post some photos demonstrating the referred slideshow. [Link](#https://www.figma.com/proto/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=94%3A2&scaling=scale-down)
+
+
+<img style="float:left;clear:both;width:40%; height:50%;"
+src="https://i.imgur.com/ASAEVSH.png">
+
+<img style="margin-left:20%;width:40%; height:370px;" 
+src="https://i.imgur.com/eXlquk1.png">
+
+&nbsp; By the end of the first iteration we were able to replicate in flutter code as much as we could these features that the prototype includes. The decision of which user stories complete firstly was based on the priority scheduled established in the iteration zero. [Link for the first iteration results](#First-sprint) 
 
 ## Tasks Management Tools
 To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
