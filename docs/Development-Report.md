@@ -25,6 +25,8 @@ You can find here detailed information about the project, from a high-level prod
          * [Firebase](#Backend)
          * Twitter API
     * [Prototype](#Prototype)
+    * [Logical architecture](#)
+    * [Physical architecture](#)
  
 * #### Tasks Management Tool
 
@@ -73,7 +75,11 @@ We believe that a communitarian forum open to all conference participants with f
 A more detailed analysis of this topic is made below targeting RUP & AGILE methodologies of requirement engineering:
 
 
-### Use case diagram 
+### Use Case Diagram
+![Use Case Diagram](https://i.imgur.com/QCCtZqq.jpg =400x400)
+
+
+ *Fig.1: Use Case Diagram*
 
 #### Ask Questions
 * **Actor**. Any user attending a lecture.
@@ -102,11 +108,6 @@ A more detailed analysis of this topic is made below targeting RUP & AGILE metho
 * **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. At the end of each lecture, speakers can answer this questions to clarify the audience.
 * **Alternative Flows and Exceptions**. After the lecture is over, speaker can answer the questions, by clicking on the comment button of a giving question.
 
-#### Use Case Diagram
-![Use Case Diagram](https://i.imgur.com/QCCtZqq.jpg)
-
-
- *Fig.1: Use Case Diagram*
 
 ### User stories
 
@@ -192,10 +193,12 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 ## Architectural Structure & Design
 
 
-### MVC
-&nbsp; We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
+### Logical Architecture
 
-### Backend
+#### MVC
+
+&nbsp; We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
+#### Backend
 
 &nbsp; An application as UpQuestion with the aim of manipulate multiple questions in different talks will generate a huge amount of data easily. Furthermore, for testing purposes, a local static database is a nonsense further than the prototyping phase. The effective test to evaluate the practicability of our design is made submitting plenty of questions, and, then, manipulate it simulating the role of user and speaker.
 
@@ -203,10 +206,19 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 
 &nbsp; Firebase is a backend API with support to Flutter that provide between plenty of services, two very interlinked with our goals, authentication services with email/password, but also with twitter (that we will yet explore), furthermore, it provides the capability to store data in a NoSQL structure.
 
-
 #### Database Model
 
 ![](https://i.imgur.com/eEO8QZK.png)
+
+
+#### Package Diagram UML
+![](https://i.imgur.com/6gqHMDc.png)
+
+### Physical Architecture
+
+#### Deployment Diagram UML
+![](https://i.imgur.com/r2i9wXS.png)
+
 
 ### Prototype
 
