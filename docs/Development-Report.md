@@ -102,8 +102,11 @@ A more detailed analysis of this topic is made below targeting RUP & AGILE metho
 * **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. At the end of each lecture, speakers can answer this questions to clarify the audience.
 * **Alternative Flows and Exceptions**. After the lecture is over, speaker can answer the questions, by clicking on the comment button of a giving question.
 
-![User Case Diagram](UserCase.jpg)
- *Fig.1: User Case Diagram*
+#### Use Case Diagram
+![Use Case Diagram](https://i.imgur.com/QCCtZqq.jpg)
+
+
+ *Fig.1: Use Case Diagram*
 
 ### User stories
 
