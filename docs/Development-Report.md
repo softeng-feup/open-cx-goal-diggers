@@ -25,8 +25,8 @@ You can find here detailed information about the project, from a high-level prod
          * [Firebase](#Backend)
          * Twitter API
     * [Prototype](#Prototype)
-    * [Logical architecture](#)
-    * [Physical architecture](#)
+    * [Logical architecture](#Logical-Architecture)
+    * [Physical architecture](#Physical-Architecture)
  
 * #### Tasks Management Tool
 
@@ -193,7 +193,7 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 ## Architectural Structure & Design
 
 
-### Logical Architecture
+### Logical-Architecture
 
 #### MVC
 
@@ -206,7 +206,7 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 
 &nbsp; Firebase is a backend API with support to Flutter that provide between plenty of services, two very interlinked with our goals, authentication services with email/password, but also with twitter (that we will yet explore), furthermore, it provides the capability to store data in a NoSQL structure.
 
-#### Database Model
+#### Database-Model
 
 ![](https://i.imgur.com/eEO8QZK.png)
 
