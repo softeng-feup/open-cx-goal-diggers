@@ -12,12 +12,13 @@ class GenericButton extends StatefulWidget {
   final Key key;
   final Function toggleForm;
 
-  GenericButton(this.textInButton, this.user, this.loading, this._formKey,this._auth, this.key,this.toggleForm);
+  GenericButton(this.textInButton, this.user, this.loading, this._formKey,
+      this._auth, this.key, this.toggleForm);
 
   @override
   _GenericButtonState createState() {
     return _GenericButtonState(
-        user, textInButton, loading, _formKey, _auth, key,toggleForm);
+        user, textInButton, loading, _formKey, _auth, key, toggleForm);
   }
 }
 
@@ -31,7 +32,7 @@ class _GenericButtonState extends State<GenericButton> {
   final Function toggleForm;
 
   _GenericButtonState(this.user, this.textInButton, this.loading, this._formKey,
-      this._auth, this.keyvalue,this.toggleForm);
+      this._auth, this.keyvalue, this.toggleForm);
 
   void initState() {
     super.initState();
@@ -77,7 +78,6 @@ class _GenericButtonState extends State<GenericButton> {
                 break;
 
               case 'Create Your Account':
-                  
                 if (form.validate()) {
                   form.save();
                   setState(() => loading = true);

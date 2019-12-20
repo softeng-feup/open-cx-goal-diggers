@@ -22,6 +22,5 @@ class User {
     return this;
   }
 
-  // TODO: complete
   User.fromData(Map data) : username = data['username'];
 }

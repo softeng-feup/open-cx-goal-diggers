@@ -37,6 +37,7 @@ class ReplyViewState extends State<ReplyView> {
               IconButton(
                 icon: Icon(Icons.face),
                 iconSize: 30,
+                onPressed: null,
               ),
               FutureBuilder<User>(
                 future: _db.getUserByRef(reply.userReference),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:quiver/collection.dart';
 
 import 'User.dart';

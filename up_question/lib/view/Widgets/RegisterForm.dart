@@ -21,6 +21,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final AuthService _auth = AuthService();
   bool loading = false;
+  final colorRegister=Color(0xAF000000);
   final Function toggleForm;
   //SHOW/HIDE PASSWORD AND CONFIRMPASSWORD
   bool _obscurePassword;
@@ -30,6 +31,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   void initState() {
+    super.initState();
     _obscurePassword = true;
     _obscureConfirmPassword = true;
   }
@@ -75,7 +77,7 @@ class _RegisterFormState extends State<RegisterForm> {
       child: new Form(
           key: this._formKey,
           child: new Container(
-            color: Color(0xAF000000), // TODO: macro
+            color: colorRegister, 
             width: MediaQuery.of(context).size.width,
             height: height_fun(),
             child: loading
@@ -225,9 +227,5 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
           )),
     );
-  }
-
-  _showDialog(BuildContext context, String text) {
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 }

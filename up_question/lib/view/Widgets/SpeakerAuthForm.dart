@@ -14,7 +14,7 @@ class SpeakerAuthForm extends StatefulWidget {
 
 class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
   String speakerCodeInput;
-
+  final colorSpeaker=Color(0xff353535);
   final Talk talk;
   final _formKey = GlobalKey<FormState>();
 
@@ -25,7 +25,7 @@ class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
     OutlineInputBorder _questionOutlineBorder = OutlineInputBorder(
         borderRadius: BorderRadius.circular(0.0),
         borderSide: BorderSide(
-            color: Color(0xff353535), // TODO: por em const
+            color: colorSpeaker, 
             width: 1));
     return GestureDetector(
       onTap: () {
@@ -46,7 +46,6 @@ class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
                         hintText: "Enter the Speaker Code"),
                     autocorrect: false,
                     maxLines: 2,
-                    //TODO:CAP ON 30chars speakercode
                     maxLength: 30,
                     keyboardType: TextInputType.visiblePassword,
                     onSaved: (val) {

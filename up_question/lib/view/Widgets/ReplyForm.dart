@@ -60,6 +60,8 @@ class ReplyFormState extends State<ReplyForm> {
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Please insert your reply';
+                    }else{
+                      return null;
                     }
                   },
                   onSaved: (val) => setState(() => reply.reply = val),

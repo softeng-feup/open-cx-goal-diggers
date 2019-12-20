@@ -28,6 +28,7 @@ class _LoginFormState extends State<LoginForm> {
   bool _obscurePassword;
   @override
   void initState() {
+    super.initState();
     _obscurePassword = true;
   }
   //SHOW/HIDE PASSWORD
@@ -170,66 +171,8 @@ class _LoginFormState extends State<LoginForm> {
                                   )
                                 ],
                               ),
-
+                              //null parameter because is not used in this type of functionality.
                               new GenericButton('Login', user, loading, _formKey, _auth, Key('LOGIN'), null),
-                              //Login button
-                   
-                   
-                   
-                   
-                   /*
-                              Padding(
-                                key: Key('LOGIN'),
-                                padding: const EdgeInsets.only(bottom: 20),
-                                child: ButtonTheme(
-                                  minWidth: double.infinity,
-                                  height: 44,
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                    color: Color(0xFF353535),
-                                    textColor: Colors.white,
-                                    onPressed: () async {
-                                      final form = _formKey.currentState;
-
-                                      if (form.validate()) {
-                                        form.save();
-
-                                        setState(() => loading = true);
-                                        dynamic result = await _auth.signIn(
-                                            user.email, user.password);
-
-                                        setState(() => loading = false);
-
-                                        if (result != null) {
-                                          if (!result.isEmailVerified)
-                                            _showDialog(context,
-                                                'Please Confirm your Email');
-                                          else {
-                                            _showDialog(
-                                                context, 'Login Successfull');
-                                            Navigator.pushReplacementNamed(
-                                                context, '/SchedulePage');
-                                          }
-                                        } else {
-                                          _showDialog(context, 'Login Failed');
-                                        }
-                                      }
-                                    },
-                                    child: Text(
-                                      'Login',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 0.5,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              */
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -255,9 +198,5 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                 )),
           );
-  }
-
-  _showDialog(BuildContext context, String text) {
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 }

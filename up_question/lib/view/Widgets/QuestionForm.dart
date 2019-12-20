@@ -148,9 +148,4 @@ class _QuestionFormState extends State<QuestionForm> {
           )),
     );
   }
-
-  _showDialog(BuildContext context) {
-    Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('Submitting question')));
-  }
 }

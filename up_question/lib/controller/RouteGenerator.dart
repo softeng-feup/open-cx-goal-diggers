@@ -13,11 +13,10 @@ class Router {
       case '/HomePage': case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/SchedulePage':
-        //return MaterialPageRoute(builder: (_) => ScheduleScreen(days: MyApp.database.schedule)); // TODO: fazer agenda e passar agenda
-        return MaterialPageRoute(builder: (_) => ScheduleScreen()); // TODO: fazer agenda e passar agenda
+        return MaterialPageRoute(builder: (_) => ScheduleScreen()); 
       case '/TalkPage':
         Talk talk = settings.arguments;
-        return MaterialPageRoute(builder: (_) => TalkScreen(talk)); // TODO: passar argumentos corretos
+        return MaterialPageRoute(builder: (_) => TalkScreen(talk));
       case '/QuestionPage':
         Question question = settings.arguments;
         return MaterialPageRoute(builder: (_) => QuestionScreen(question));
