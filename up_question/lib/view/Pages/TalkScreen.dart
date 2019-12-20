@@ -67,14 +67,12 @@ class _TalkScreenState extends State<TalkScreen> {
     String username=LocalData.user.username;
     
     if(LocalData.talksLoggs.contains(this.talk.title, username)==true){
-      print('Login Start');
       this._speakerSignature = getSpeakerSignature(talk);
       _isvisibleIcon = false;
       _isSpeakerNameVisible = true;
       LocalData.speakerLogged=true;
     }else{
       //Double Check
-      print('not Login Start');
       LocalData.speakerLogged=false;
       _isvisibleIcon = true;
       _isSpeakerNameVisible = false;
@@ -96,16 +94,13 @@ class _TalkScreenState extends State<TalkScreen> {
     if (returnVal == 'sucess') {
       //ADD THE INFO TO THE DATABASE
       LocalData.speakerLogged=true;
-      print('Tou aqui');
       _db.addSpeakerLoggin(LocalData.user.username, this.talk);
       //Get the initials of that talk speaker
       this._speakerSignature = getSpeakerSignature(talk);
-      _isSpeakerNameVisible =!_isSpeakerNameVisible ;
-      print(_isSpeakerNameVisible);
+      _isSpeakerNameVisible =true;
     }
     
     else if(returnVal==null){
-      print('Tou aqui 1');
       setState(() {
         _isvisibleIcon = !_isvisibleIcon;
       });

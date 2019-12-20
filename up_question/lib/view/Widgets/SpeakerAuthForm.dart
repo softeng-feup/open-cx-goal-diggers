@@ -69,10 +69,7 @@ class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
                             form.save();
                           }
                           if (speakerCodeInput == talk.speakerCode) {
-                            print('Returned Sucess');
                             Navigator.pop(context, 'sucess');
-                          } else {
-                            print("Speaker Code error");
                           }
                         }))
               ],
