@@ -39,7 +39,6 @@ class _PasswordFormState extends State<PasswordForm> {
     var padding = MediaQuery.of(context).padding;
 
     // height without status and toolbar
-    // TODO: 26 macro de baixo
     double utilHeight =
         height - padding.top - kToolbarHeight - padding.bottom - 26;
 
@@ -82,6 +81,9 @@ class _PasswordFormState extends State<PasswordForm> {
                           validator: (value) {
                             if (value.isEmpty)
                               return 'Please enter your username';
+                            else{
+                              return null;
+                            }
                           },
                           onSaved: (val) => setState(() => user.email = val),
                           style: Constants.authenticationInputTextStyle,
@@ -102,8 +104,7 @@ class _PasswordFormState extends State<PasswordForm> {
                                 form.save();
 
                                 setState(() => loading = true);
-                                dynamic result =
-                                    await _auth.resetPassword(user.email);
+                                await _auth.resetPassword(user.email);
 
                                 setState(() => loading = false);
 

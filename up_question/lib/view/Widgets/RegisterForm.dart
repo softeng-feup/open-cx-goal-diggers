@@ -60,7 +60,6 @@ class _RegisterFormState extends State<RegisterForm> {
     var padding = MediaQuery.of(context).padding;
 
     // height without status and toolbar
-    // TODO: 26 macro de baixo
     double utilHeight =
         height - padding.top - kToolbarHeight - padding.bottom - 26;
 

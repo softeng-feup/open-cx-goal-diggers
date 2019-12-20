@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
 import 'package:up_question/view/Constants.dart';
@@ -44,10 +43,8 @@ class _QuestionFormState extends State<QuestionForm> {
             padding: new EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.1),
             child: new Container(
-              width: 330, // TODO: mudar para em função de ecrã
-              height: 470, // TODO: mudar para em função de ecrã
-               //height: MediaQuery.of(context).size.height * 0.75,
-               //width: MediaQuery.of(context).size.width * 0.85,
+              width: 330,
+              height: 470,
               child: new Card(
                   color: Colors.white,
                   elevation: 10.0,
@@ -72,7 +69,7 @@ class _QuestionFormState extends State<QuestionForm> {
                             enabledBorder: _questionOutlineBorder,
                             focusedBorder: _questionOutlineBorder,
                             errorBorder: _questionOutlineBorder,
-                            // TODO: por uma margem vermelha
+
                             hintText: 'Enter your question here...',
                           ),
                           maxLines: 10,
@@ -87,7 +84,7 @@ class _QuestionFormState extends State<QuestionForm> {
                           onSaved: (val) =>
                               setState(() => _question.question = val),
                         ),
-                        // TODO: depois remover paddings
+                        
                         CheckboxListTile(
                           key: Key('AnonymousCheckbox'),
                           title: const Text(

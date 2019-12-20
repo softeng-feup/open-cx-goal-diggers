@@ -75,7 +75,6 @@ class _HomePageState extends State<HomePage> {
                   top: 85,
                 ),
                 Positioned(
-                  // TODO: depois ver este valor hardcoded
                   bottom: MediaQuery.of(context).size.height *0.09,
                   child: correctForm(),
                 ),

@@ -56,7 +56,6 @@ class _LoginFormState extends State<LoginForm> {
     var padding = MediaQuery.of(context).padding;
 
     // height without status and toolbar
-    // TODO: 26 macro de baixo
     double utilHeight =
         height - padding.top - kToolbarHeight - padding.bottom - 26;
 
@@ -107,7 +106,6 @@ class _LoginFormState extends State<LoginForm> {
                                   else
                                     return null;
                                 },
-                                // TODO: mudar depois
                                 onSaved: (val) =>
                                     setState(() => user.email = val),
                                 style: Constants.authenticationInputTextStyle,
