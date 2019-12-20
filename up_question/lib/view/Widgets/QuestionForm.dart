@@ -1,10 +1,10 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
+import 'package:up_question/view/Constants.dart';
 
 class QuestionForm extends StatefulWidget {
   final Talk talk;
@@ -30,9 +30,8 @@ class _QuestionFormState extends State<QuestionForm> {
     OutlineInputBorder _questionOutlineBorder = OutlineInputBorder(
         borderRadius: BorderRadius.circular(0.0),
         borderSide: BorderSide(
-            color: Color(0xff353535), // TODO: por em const
+            color: Constants.defaultBackgroundColor,
             width: 1));
-    // TODO: implement build
     return GestureDetector(
       onTap: (){
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -48,8 +47,8 @@ class _QuestionFormState extends State<QuestionForm> {
             child: new Container(
               width: 330, // TODO: mudar para em função de ecrã
               height: 470, // TODO: mudar para em função de ecrã
-              // height: MediaQuery.of(context).size.height * 0.75,
-              //width: MediaQuery.of(context).size.width * 0.85,
+               //height: MediaQuery.of(context).size.height * 0.75,
+               //width: MediaQuery.of(context).size.width * 0.85,
               child: new Card(
                   color: Colors.white,
                   elevation: 10.0,
@@ -91,19 +90,18 @@ class _QuestionFormState extends State<QuestionForm> {
                         CheckboxListTile(
                           key: Key('AnonymousCheckbox'),
                           title: const Text(
-                            "Anonimous",
+                            "Anonymous",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
                             ),
                           ),
                           value: _question.anonymous,
-                          // TODO: mudar depois
                           onChanged: (val) {
                             setState(() => _question.anonymous = val);
                           },
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Color(0xff353535), // TODO: por em const
+                          activeColor: Constants.defaultBackgroundColor,
                         ),
                         Padding(
                           key: Key('Share'),
@@ -114,8 +112,7 @@ class _QuestionFormState extends State<QuestionForm> {
                             child: RaisedButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
-                              color: Color(0xFF353535),
-                              // TODO: por em const
+                              color: Constants.defaultBackgroundColor,
                               textColor: Colors.white,
                               onPressed: () async {
                                 final form = _formKey.currentState;

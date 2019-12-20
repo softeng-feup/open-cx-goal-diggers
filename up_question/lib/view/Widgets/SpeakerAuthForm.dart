@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:up_question/model/Talk.dart';
+import 'package:up_question/view/Constants.dart';
 
 class SpeakerAuthForm extends StatefulWidget {
   final Talk talk;
@@ -25,7 +26,7 @@ class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
     OutlineInputBorder _questionOutlineBorder = OutlineInputBorder(
         borderRadius: BorderRadius.circular(0.0),
         borderSide: BorderSide(
-            color: Color(0xff353535), // TODO: por em const
+            color: Constants.defaultBackgroundColor,
             width: 1));
     return GestureDetector(
       onTap: () {
@@ -46,7 +47,6 @@ class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
                         hintText: "Enter the Speaker Code"),
                     autocorrect: false,
                     maxLines: 2,
-                    //TODO:CAP ON 30chars speakercode
                     maxLength: 30,
                     keyboardType: TextInputType.visiblePassword,
                     onSaved: (val) {
@@ -60,7 +60,7 @@ class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         icon: Icon(Icons.send, size: 11),
-                        color: Color(0xFF353535),
+                        color: Constants.defaultBackgroundColor,
                         textColor: Colors.white,
                         label: Text("Login as Speaker"),
                         onPressed: () {

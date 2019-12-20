@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/Reply.dart';
 import 'package:up_question/model/User.dart';
+import 'package:up_question/view/Constants.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 
 
@@ -28,7 +29,7 @@ class ReplyViewState extends State<ReplyView> {
       padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
       decoration: BoxDecoration(
           border:
-          Border(bottom: BorderSide(color: Color(0xFF353535), width: 3))),
+          Border(bottom: BorderSide(color: Constants.defaultBackgroundColor, width: 3))),
       child: Column(children: <Widget>[
         Container(
           alignment: Alignment.topLeft,
@@ -45,7 +46,7 @@ class ReplyViewState extends State<ReplyView> {
                     return Loading();
                   } else {
                     final user = snapshot.data;
-                    return Text(user.username + " replied", style: TextStyle(fontSize: 20)); // TODO: adapt username size to space available (1line)
+                    return Text(user.username + " replied", style: Constants.questionReplyUsernameTextStyle);
                   }
                 },
               ),
@@ -57,8 +58,8 @@ class ReplyViewState extends State<ReplyView> {
             alignment: Alignment.centerLeft,
             child: Text(
               reply.reply,
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 18),
+              textAlign: TextAlign.justify,
+              style: Constants.questionReplyContentTextStyle,
             ))
       ]),
     );

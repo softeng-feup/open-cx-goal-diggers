@@ -6,6 +6,7 @@ import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/model/Vote.dart';
+import 'package:up_question/view/Constants.dart';
 import 'Widgets/Loading.dart';
 
 class QuestionView extends StatefulWidget {
@@ -31,11 +32,11 @@ class QuestionViewState extends State<QuestionView> {
   List<bool> isSelected = [false, false];
 
   upColor() {
-    return isSelected[0] ? Color(0xFF11DE00) : Color(0xFF353535);
+    return isSelected[0] ? Color(0xFF11DE00) : Constants.defaultBackgroundColor;
   }
 
   downColor() {
-    return isSelected[1] ? Color(0xFFFF0B0B) : Color(0xFF353535);
+    return isSelected[1] ? Color(0xFFFF0B0B) : Constants.defaultBackgroundColor;
   }
 
   @override
@@ -59,7 +60,7 @@ class QuestionViewState extends State<QuestionView> {
         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
         decoration: BoxDecoration(
             border:
-                Border(bottom: BorderSide(color: Color(0xFF353535), width: 3))),
+                Border(bottom: BorderSide(color: Constants.defaultBackgroundColor, width: 3))),
         child: Column(children: <Widget>[
           Container(
             alignment: Alignment.topLeft,
@@ -79,7 +80,7 @@ class QuestionViewState extends State<QuestionView> {
                       final user = snapshot.data;
                       return Text(
                           question.anonymous ? "Anonimous" : user.username,
-                          style: TextStyle(fontSize: 20));
+                          style: Constants.questionReplyUsernameTextStyle);
                     }
                   },
                 ),
@@ -120,7 +121,7 @@ class QuestionViewState extends State<QuestionView> {
                   ),
                   IconButton(
                     key: Key('reply'),
-                    icon: Icon(Icons.insert_comment, color: Color(0xFF353535)),
+                    icon: Icon(Icons.insert_comment, color: Constants.defaultBackgroundColor),
                     iconSize: 20,
                     onPressed: () {
                       Navigator.pushNamed(context, '/QuestionPage',
@@ -161,7 +162,7 @@ class QuestionTextState extends State<QuestionText> {
         child: Text(
           question,
           textAlign: TextAlign.justify,
-          style: TextStyle(fontSize: 18),
+          style: Constants.questionReplyContentTextStyle,
         ));
   }
 }
@@ -192,12 +193,11 @@ class QuestionTextStateShowMore extends State<QuestionText> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      //padding: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       child: Container(padding: EdgeInsets.all(5),
         alignment: Alignment.centerLeft,
         child: secondHalf.isEmpty
             ? new Text(firstHalf,
-              style: TextStyle(fontSize: 18),
+              style: Constants.questionReplyContentTextStyle,
               textAlign: TextAlign.justify)
             : new Column(
                 children: <Widget>[
@@ -205,7 +205,7 @@ class QuestionTextStateShowMore extends State<QuestionText> {
                       alignment: Alignment.centerLeft,
                       child: new Text(
                     flag ? (firstHalf + "...") : (firstHalf + secondHalf),
-                    style: TextStyle(fontSize: 18),
+                    style: Constants.questionReplyContentTextStyle,
                     textAlign: TextAlign.justify,
                   )),
                   new InkWell(

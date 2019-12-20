@@ -8,7 +8,6 @@ import 'package:up_question/model/User.dart';
 import 'package:up_question/model/Vote.dart';
 
 class DatabaseService {
-  //TODO: CONSTRUTOR CHAMAR METODO INIT
   final dbReference = Firestore.instance;
 
   final String uid;
@@ -56,7 +55,6 @@ class DatabaseService {
         .map((snapshot) => snapshot.documents
         .map((doc) => Question.fromMap(doc.reference, doc.data))
         .toList());
-    //return dbReference.collection('questions').where('idTalk', isEqualTo: talk.talkRef).snapshots();
   }
 
   Stream<List<Reply>> getReplyStream(Question question) {

@@ -8,6 +8,7 @@ import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
 import 'package:up_question/model/Vote.dart';
+import 'package:up_question/view/Constants.dart';
 import 'package:up_question/view/QuestionView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/QuestionForm.dart';
@@ -36,9 +37,6 @@ class _TalkScreenState extends State<TalkScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  //List<Question> questions = new List();
-
-  //List<Question> questions = new List();
   _TalkScreenState(this.talk);
 
   String getSpeakerSignature(Talk talk) {
@@ -189,7 +187,7 @@ class _TalkScreenState extends State<TalkScreen> {
           ),
 
           Container(
-              color: Color(0xFF353535),
+              color: Constants.defaultBackgroundColor,
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
@@ -201,7 +199,7 @@ class _TalkScreenState extends State<TalkScreen> {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(
-                                width: 2.0, color: Color(0XFF353535))),
+                                width: 2.0, color: Constants.defaultBackgroundColor)),
                         child: DropdownButton(
                           value: _selectedOption,
                           onChanged: (newValue) {
@@ -236,7 +234,6 @@ class _TalkScreenState extends State<TalkScreen> {
 
           StreamProvider<List<Question>>.value(
             value: _db.getQuestionStream(talk),
-            //child: !snapshot.hasData ? Loading() : QuestionList();
             child: QuestionList(
               selectedOption: _selectedOption,
               parentAction: _toggleShow,
@@ -283,9 +280,6 @@ class _QuestionListState extends State<QuestionList> {
   DatabaseService _db;
   ScrollController controller;
 
-  //String oldSelectedOption = "";
-  //List<Question> questions = new List();
-
   _QuestionListState({this.newSelectedOption});
 
   @override
@@ -309,11 +303,7 @@ class _QuestionListState extends State<QuestionList> {
   @override
   void didUpdateWidget(QuestionList oldWidget) {
     if (oldWidget.selectedOption != widget.selectedOption) {
-      //this.oldSelectedOption = this.newSelectedOption;
       this.newSelectedOption = widget.selectedOption;
-      //questions = new List();
-      //if(questions.isNotEmpty)
-      //questions.sort(compareQuestions);
     }
   }
 
@@ -381,7 +371,6 @@ class _QuestionListState extends State<QuestionList> {
                               questionsProvided[index].questionRef,
                               LocalData.user.userRef)),
                     ],
-                    //child: !snapshot.hasData ? Loading() : QuestionList();
                     child: questionWithDismiss(questionsProvided[index]),
                   );
                 }),

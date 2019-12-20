@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:up_question/controller/database.dart';
-
-import 'Talk.dart';
 import 'Vote.dart';
 
 class Question extends Comparable {
@@ -10,7 +8,6 @@ class Question extends Comparable {
 
   DocumentReference questionRef;
   DocumentReference talkRef;
-  Talk talk; /// Needed?!
   String question;
   int votes;
   Like like;

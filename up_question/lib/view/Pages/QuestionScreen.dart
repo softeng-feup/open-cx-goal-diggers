@@ -131,64 +131,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
               )
             ],
           ),
-          /*bottomNavigationBar: ExpandableNotifier(
-              //initialExpanded: false,
-              controller: _expandableController,
-              child: Expandable(
-                  collapsed: Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: InkWell(
-                      key: Key('replyOpen'),
-                      onTap: () {
-                        _expandableController.toggle();
-                      },
-                      child: Container(
-                          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          alignment: Alignment.centerRight,
-                          child: Icon(
-                            Icons.add_comment,
-                            size: 30,
-                            color: Colors.white,
-                          ),
-                          height: 40,
-                          color: Colors.black87),
-                    ),
-                  ),
-                  expanded: Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: Container(
-                      height: 120,
-                      color: Colors.white70,
-                      child: ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: <Widget>[
-                          Container(
-                            child: InkWell(
-                              key: Key('replyClose'),
-                              onTap: () {
-                                _expandableController.toggle();
-                                FocusScope.of(context).unfocus();
-                              },
-                              child: Container(
-                                  padding: EdgeInsets.fromLTRB(0, 5, 15, 0),
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(Icons.close,
-                                      size: 30, color: Colors.black),
-                                  height: 30),
-                            ),
-                          ),
-                          Container(
-                            child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: ReplyForm(question: question)),
-                          ),
-                        ],
-                      ),
-                      //)
-                    ),
-                  )))*/); //ReplyForm(question: question)
+      ); //ReplyForm(question: question)
     } else {
       return Scaffold(
           appBar: AppBar(
@@ -205,7 +148,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       value: _db.getDislike(
                           question.questionRef, LocalData.user.userRef)),
                 ],
-                //child: !snapshot.hasData ? Loading() : QuestionList();
                 child: QuestionView(question: question, showMoreButton: true,),
               ),
               StreamProvider<List<Reply>>.value(
@@ -252,11 +194,7 @@ class ReplyListState extends State<ReplyList> {
         );
       } else {
         replies.sort(compareReplies);
-        return /*Container(
-        color: Colors.black54,
-        //padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
-        child: */
-            new Expanded(
+        return new Expanded(
           child: Container(
             padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
             child: new ListView.builder(

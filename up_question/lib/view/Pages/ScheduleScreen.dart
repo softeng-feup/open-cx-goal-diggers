@@ -44,7 +44,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 }
 
 class ScheduleWidget extends StatelessWidget {
-  // TODO: mudar depois para lista
   final List<Day> days;
 
   final AuthService _auth = AuthService();

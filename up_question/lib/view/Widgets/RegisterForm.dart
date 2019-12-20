@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:up_question/controller/auth.dart';
 import 'package:up_question/controller/validation.dart';
 import 'package:up_question/model/User.dart';
+import 'package:up_question/view/Constants.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'dart:ui';
 
@@ -71,73 +72,60 @@ class _RegisterFormState extends State<RegisterForm> {
       child: new Form(
           key: this._formKey,
           child: new Container(
-            color: Color(0xAF000000), // TODO: macro
+            color: Constants.authenticationBackgroundColor,
             width: MediaQuery.of(context).size.width,
             height: height_fun(),
             child: loading
                 ? Loading()
                 : SingleChildScrollView(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20, top: 26, bottom: 8),
+                    padding: Constants.authenticationFormPadding,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         new TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                                top: 0, right: 2, left: 2, bottom: 5),
+                            contentPadding: Constants.authenticationFormFieldPadding,
                             enabledBorder: _underlineBorder,
                             focusedBorder: _underlineBorder,
                             errorBorder: _underlineBorder,
                             filled: true,
                             hintText: 'Email',
-                            hintStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.7)),
+                            hintStyle: Constants.authenticationHintStyle,
                             helperText: ' ',
                           ),
                           validator: validateEmail,
                           onSaved: (val) => setState(() => user.email = val),
-                          style: new TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                          ),
+                          style: Constants.authenticationInputTextStyle,
                         ),
                         new TextFormField(
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                                top: 0, right: 2, left: 2, bottom: 5),
+                            contentPadding: Constants.authenticationFormFieldPadding,
                             enabledBorder: _underlineBorder,
                             focusedBorder: _underlineBorder,
                             errorBorder: _underlineBorder,
                             filled: true,
                             hintText: 'Username',
-                            hintStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.7)),
+                            hintStyle: Constants.authenticationHintStyle,
                             helperText: ' ',
                           ),
                           validator: validateUsername,
                           onSaved: (val) => setState(() => user.username = val),
-                          style: new TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                          ),
+                          style: Constants.authenticationInputTextStyle,
                         ),
                         new TextFormField(
                           controller: _passController,
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: _obscurePassword,
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(
-                                  top: 0, right: 2, left: 2, bottom: 5),
+                              contentPadding: Constants.authenticationFormFieldPadding,
                               enabledBorder: _underlineBorder,
                               focusedBorder: _underlineBorder,
                               errorBorder: _underlineBorder,
                               filled: true,
                               hintText: 'Password',
-                              hintStyle: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 0.7)),
+                              hintStyle: Constants.authenticationHintStyle,
                               helperText: ' ',
                               suffixIcon: IconButton(
                                 icon: Icon(
@@ -154,24 +142,19 @@ class _RegisterFormState extends State<RegisterForm> {
                               )),
                           validator: validatePassword,
                           onSaved: (val) => setState(() => user.password = val),
-                          style: new TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                          ),
+                          style: Constants.authenticationInputTextStyle,
                         ),
                         new TextFormField(
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: _obscureConfirmPassword,
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(
-                                  top: 0, right: 2, left: 2, bottom: 5),
+                              contentPadding: Constants.authenticationFormFieldPadding,
                               enabledBorder: _underlineBorder,
                               focusedBorder: _underlineBorder,
                               errorBorder: _underlineBorder,
                               filled: true,
                               hintText: 'Confirm Password',
-                              hintStyle: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 0.7)),
+                              hintStyle: Constants.authenticationHintStyle,
                               helperText: ' ',
                               suffixIcon: IconButton(
                                 icon: Icon(
@@ -196,10 +179,7 @@ class _RegisterFormState extends State<RegisterForm> {
                             return null;
                           },
                           //onSaved: (val) => setState(() => user.password = val),
-                          style: new TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                          ),
+                          style: Constants.authenticationInputTextStyle,
                         ),
                         new ButtonTheme(
                           minWidth: double.infinity,
@@ -207,7 +187,7 @@ class _RegisterFormState extends State<RegisterForm> {
                           child: RaisedButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
-                            color: Color(0xFF353535),
+                            color: Constants.defaultBackgroundColor,
                             textColor: Colors.white,
                             onPressed: () async {
                               final form = _formKey.currentState;

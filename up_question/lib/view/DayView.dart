@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/model/Day.dart';
 import 'package:intl/intl.dart';
+import 'package:up_question/view/Constants.dart';
 import 'package:up_question/view/TalkView.dart';
 import 'package:up_question/controller/database.dart';
 
@@ -20,15 +21,12 @@ class DayView extends StatelessWidget {
           day:DateTime.now(),
           talks:[]);
     
-    //na database os dias estao em minuscula.
-
-    // TODO: NOT COMPLETED YET
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
           width:  MediaQuery.of(context).size.width,
-          color: Color(0xFF353535),
+          color: Constants.defaultBackgroundColor,
           padding: EdgeInsets.only(left: 4),
           child: Padding(
             padding: const EdgeInsets.all(4.0),

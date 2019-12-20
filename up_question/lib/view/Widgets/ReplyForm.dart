@@ -3,6 +3,7 @@ import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Reply.dart';
+import 'package:up_question/view/Constants.dart';
 
 class ReplyForm extends StatefulWidget {
   final Question question;
@@ -20,14 +21,11 @@ class ReplyFormState extends State<ReplyForm> {
   Reply reply = new Reply();
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
-  //DatabaseService _db;
-
   ReplyFormState(this.question);
 
   @override
   void initState() {
     super.initState();
-    //_db = new DatabaseService();
   }
 
   @override
@@ -52,9 +50,9 @@ class ReplyFormState extends State<ReplyForm> {
                       hintText: 'Insert your reply here...',
                       fillColor: Colors.white,
                       border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(15.0),
+                          borderRadius: new BorderRadius.circular(0.0),
                           borderSide:
-                              new BorderSide(color: Colors.black26, width: 3))),
+                              new BorderSide(color: Constants.defaultBackgroundColor, width: 3))),
                   maxLines: 2,
                   keyboardType: TextInputType.multiline,
                   validator: (value) {
