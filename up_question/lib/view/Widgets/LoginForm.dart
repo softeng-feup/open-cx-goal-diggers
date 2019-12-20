@@ -91,7 +91,8 @@ class _LoginFormState extends State<LoginForm> {
                                 key: Key('Email'),
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
-                                  contentPadding: Constants.authenticationFormFieldPadding,
+                                  contentPadding:
+                                      Constants.authenticationFormFieldPadding,
                                   enabledBorder: _underlineBorder,
                                   focusedBorder: _underlineBorder,
                                   errorBorder: _underlineBorder,
@@ -117,13 +118,15 @@ class _LoginFormState extends State<LoginForm> {
                                     keyboardType: TextInputType.visiblePassword,
                                     obscureText: _obscurePassword,
                                     decoration: InputDecoration(
-                                      contentPadding: Constants.authenticationFormFieldPadding,
+                                      contentPadding: Constants
+                                          .authenticationFormFieldPadding,
                                       enabledBorder: _underlineBorder,
                                       focusedBorder: _underlineBorder,
                                       errorBorder: _underlineBorder,
                                       filled: true,
                                       hintText: 'Password',
-                                      hintStyle: Constants.authenticationHintStyle,
+                                      hintStyle:
+                                          Constants.authenticationHintStyle,
                                       helperText: ' ',
                                     ),
                                     validator: (value) {
@@ -134,7 +137,8 @@ class _LoginFormState extends State<LoginForm> {
                                     },
                                     onSaved: (val) =>
                                         setState(() => user.password = val),
-                                    style: Constants.authenticationInputTextStyle,
+                                    style:
+                                        Constants.authenticationInputTextStyle,
                                   ),
                                   Align(
                                     alignment: Alignment.centerRight,
@@ -158,7 +162,17 @@ class _LoginFormState extends State<LoginForm> {
                                 ],
                               ),
                               //null parameter because is not used in this type of functionality.
-                              new GenericButton('Login', user, loading, _formKey, _auth, Key('LOGIN'), null,null,null,null),
+                              new GenericButton(
+                                  'Login',
+                                  user,
+                                  loading,
+                                  _formKey,
+                                  _auth,
+                                  Key('LOGIN'),
+                                  null,
+                                  null,
+                                  null,
+                                  null),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

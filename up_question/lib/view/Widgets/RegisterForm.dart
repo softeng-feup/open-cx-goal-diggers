@@ -22,7 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final AuthService _auth = AuthService();
   bool loading = false;
-  final colorRegister=Color(0xAF000000);
+  final colorRegister = Color(0xAF000000);
   final Function toggleForm;
   //SHOW/HIDE PASSWORD AND CONFIRMPASSWORD
   bool _obscurePassword;
@@ -151,8 +151,8 @@ class _RegisterFormState extends State<RegisterForm> {
                                   !_obscurePassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Colors.white70,
-                                  size: 24.0,
+                                  color: Theme.of(context).primaryColorDark,
+                                  size: 25.0,
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -198,8 +198,8 @@ class _RegisterFormState extends State<RegisterForm> {
                                   !_obscureConfirmPassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Colors.white70,
-                                  size: 24.0,
+                                  color: Theme.of(context).primaryColorDark,
+                                  size: 25.0,
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -211,8 +211,17 @@ class _RegisterFormState extends State<RegisterForm> {
                             )
                           ],
                         ),
-                        new GenericButton('Create Your Account', user, loading,
-                            _formKey, _auth, Key('Create Your Account'), toggleForm,null,null,null),
+                        new GenericButton(
+                            'Create Your Account',
+                            user,
+                            loading,
+                            _formKey,
+                            _auth,
+                            Key('Create Your Account'),
+                            toggleForm,
+                            null,
+                            null,
+                            null),
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0),
                           child: GestureDetector(
