@@ -21,6 +21,16 @@ class _RegisterFormState extends State<RegisterForm> {
   final AuthService _auth = AuthService();
   bool loading = false;
 
+  //SHOW/HIDE PASSWORD AND CONFIRMPASSWORD
+  bool _obscurePassword;
+  bool _obscureConfirmPassword;
+  @override
+  void initState() {
+    _obscurePassword = true;
+    _obscureConfirmPassword = true;
+  }
+  //SHOW/HIDE PASSWORD
+
   final _passController = TextEditingController();
   User user = new User();
 
@@ -117,19 +127,31 @@ class _RegisterFormState extends State<RegisterForm> {
                         new TextFormField(
                           controller: _passController,
                           keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
+                          obscureText: _obscurePassword,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                                top: 0, right: 2, left: 2, bottom: 5),
-                            enabledBorder: _underlineBorder,
-                            focusedBorder: _underlineBorder,
-                            errorBorder: _underlineBorder,
-                            filled: true,
-                            hintText: 'Password',
-                            hintStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.7)),
-                            helperText: ' ',
-                          ),
+                              contentPadding: EdgeInsets.only(
+                                  top: 0, right: 2, left: 2, bottom: 5),
+                              enabledBorder: _underlineBorder,
+                              focusedBorder: _underlineBorder,
+                              errorBorder: _underlineBorder,
+                              filled: true,
+                              hintText: 'Password',
+                              hintStyle: TextStyle(
+                                  color: Color.fromRGBO(255, 255, 255, 0.7)),
+                              helperText: ' ',
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  !_obscurePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Theme.of(context).primaryColorDark,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
+                              )),
                           validator: validatePassword,
                           onSaved: (val) => setState(() => user.password = val),
                           style: new TextStyle(
@@ -139,25 +161,38 @@ class _RegisterFormState extends State<RegisterForm> {
                         ),
                         new TextFormField(
                           keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
+                          obscureText: _obscureConfirmPassword,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                                top: 0, right: 2, left: 2, bottom: 5),
-                            enabledBorder: _underlineBorder,
-                            focusedBorder: _underlineBorder,
-                            errorBorder: _underlineBorder,
-                            filled: true,
-                            hintText: 'Confirm Password',
-                            hintStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.7)),
-                            helperText: ' ',
-                          ),
+                              contentPadding: EdgeInsets.only(
+                                  top: 0, right: 2, left: 2, bottom: 5),
+                              enabledBorder: _underlineBorder,
+                              focusedBorder: _underlineBorder,
+                              errorBorder: _underlineBorder,
+                              filled: true,
+                              hintText: 'Confirm Password',
+                              hintStyle: TextStyle(
+                                  color: Color.fromRGBO(255, 255, 255, 0.7)),
+                              helperText: ' ',
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  !_obscureConfirmPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Theme.of(context).primaryColorDark,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureConfirmPassword =
+                                        !_obscureConfirmPassword;
+                                  });
+                                },
+                              )),
                           validator: (value) {
                             if (value.isEmpty)
                               return 'Please confirm your Password';
                             if (value != _passController.text)
                               return 'Passwords do not match';
-                              //To silence warning
+                            //To silence warning
                             return null;
                           },
                           //onSaved: (val) => setState(() => user.password = val),
@@ -180,7 +215,6 @@ class _RegisterFormState extends State<RegisterForm> {
                               if (form.validate()) {
                                 form.save();
                                 setState(() => loading = true);
-
                                 dynamic result = await _auth.register(
                                     user.email, user.username, user.password);
 

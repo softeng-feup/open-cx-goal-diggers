@@ -24,7 +24,9 @@ You can find here detailed information about the project, from a high-level prod
     * [Backend](#Backend)
          * [Firebase](#Backend)
          * Twitter API
-    
+    * [Prototype](#Prototype)
+    * [Logical architecture](#Logical-Architecture)
+    * [Physical architecture](#Physical-Architecture)
  
 * #### Tasks Management Tool
 
@@ -73,7 +75,11 @@ We believe that a communitarian forum open to all conference participants with f
 A more detailed analysis of this topic is made below targeting RUP & AGILE methodologies of requirement engineering:
 
 
-### Use case diagram 
+### Use Case Diagram
+![Use Case Diagram](https://i.imgur.com/QCCtZqq.jpg =400x400)
+
+
+ *Fig.1: Use Case Diagram*
 
 #### Ask Questions
 * **Actor**. Any user attending a lecture.
@@ -102,8 +108,6 @@ A more detailed analysis of this topic is made below targeting RUP & AGILE metho
 * **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. At the end of each lecture, speakers can answer this questions to clarify the audience.
 * **Alternative Flows and Exceptions**. After the lecture is over, speaker can answer the questions, by clicking on the comment button of a giving question.
 
-![User Case Diagram](UserCase.jpg)
- *Fig.1: User Case Diagram*
 
 ### User stories
 
@@ -115,29 +119,23 @@ We are using Trello to keep track of the user stories in the state of:
 
 You have a [link](#Tasks-Management-Tools) to check all the dashboard bellow, but here we brief you that information with a screenshot of our Trello's user stories organization. 
 
-A exampling picture of the status of our Trello organization is the following:
-
-![](https://i.imgur.com/l8s83Wo.png)
 
 
 
-
-
-
-#### First sprint
+#### First-sprint
 
 &nbsp;In the first sprint our focus was on implementing the prototype. That demanded to architecture the future design under we would code into, an MVC one, using a local DataBase, implement the UI designed in the mockups from the inception phase, which means we built the prototype with the fundations required for many of the user stories with the greastest interaction with the user such as login
 
 In terms of user stories, we implemented the following: [Iteration #1](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration1) 
 
 
-#### Second sprint
+#### Second-sprint
 
 &nbsp;The second iteration we project from the results of [Iteration #1](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration1) . We decide to implement a firebase backend, according the reasons stated here, that required to redefine the implementation of the user stories completed in the first iteration to work using a real time database as firebase. 
 
 Furthermore, we decide to move forward and implement in the following user stories: [Iteration #2](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration2)
 
-#### Third sprint
+#### Third-sprint
 &nbsp;The third iteration focused on the development of the reply capability to any question previously made, the integration of the twitter’s related capabilities and also the the implementation of constrains to the register form. 
 
 &nbsp;In UpQuestion at the time of the third iteration, only the speaker has the capability to reply to questions. Furthermore, that capability is constrained to talks where he responsible for. In order to increment this feature, it was necessary to include the capability to distinguish a simple user from a speaker. In order to achieve that objective, a special speaker-login system based on a code stored in the database was designed.
@@ -153,7 +151,7 @@ About the twitter’s subject, we were unable to achieve any progress on that, s
 
 Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Sprint%203%20-%2022%20de%20novembro).
 
-#### Fourth sprint
+#### Fourth-sprint
 &nbsp;The fourth iteration was the stabilizing iteration. The main goal was to sharp every feature implemented during the previous iterations, in order to make the app in a 1.0 version ready to share to the openCX open project.  
 
 ##### Stabilizing things included:
@@ -171,7 +169,12 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 
 #### Fifth sprint
 
-//TODO: Upload photo with the plan for this iteration
+The fifth and last iteration of UpQuestion was divided into two major purposes:
+* Integration in the major open-CX app
+* Refactoring and documenting the code and development report.
+
+Regarding the first topic our group because of the similarity with other group [Jakepaulers](https://github.com/softeng-feup/open-cx-jakepaulers), decided to contact them directly, in order to schedule work that could maximize efficiency. From that contact, it was agreed that our group should implement the anonymous question feature and improve the way the question deletion is made, as a simple sliding.
+
 
 
 
@@ -189,10 +192,14 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 ## Architectural Structure & Design
 
 
-### MVC
-&nbsp; We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
+### Logical-Architecture
 
-### Backend
+#### MVC
+
+&nbsp;We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
+
+&nbsp;After the implementation of the firebase backend, many feature were added to the controller component side of Upquestion.
+#### Backend
 
 &nbsp; An application as UpQuestion with the aim of manipulate multiple questions in different talks will generate a huge amount of data easily. Furthermore, for testing purposes, a local static database is a nonsense further than the prototyping phase. The effective test to evaluate the practicability of our design is made submitting plenty of questions, and, then, manipulate it simulating the role of user and speaker.
 
@@ -200,15 +207,73 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 
 &nbsp; Firebase is a backend API with support to Flutter that provide between plenty of services, two very interlinked with our goals, authentication services with email/password, but also with twitter (that we will yet explore), furthermore, it provides the capability to store data in a NoSQL structure.
 
-
-#### Database Model
+#### Database-Model
 
 ![](https://i.imgur.com/eEO8QZK.png)
 
+
+#### Package Diagram UML
+![](https://i.imgur.com/kqzFwhQ.png)
+
+### Physical Architecture
+
+&nbsp;In UpQuestion there is a simple physical architecture since we are not using any kind of hardware or even any specific feature of the host smartphone. The following diagram shows a high-level schema of the app physical architecture:
+
+#### Deployment Diagram UML
+![](https://i.imgur.com/r2i9wXS.png)
+
+
+### Prototype
+
+&nbsp;The prototyping building phase was made during the iteration 0 after building an joining an initial collection of user stories, the group decided to use the film of the navigation through the different menus with responsive button to actions feature of FIGMA  in order to build a practical graphical and intuitive first prototype of UpQuestion without a single line of code. 
+
+&nbsp;There we can already watch the initial sketch of the implementation of user stories such releated with questions, votes, conference selection, login and twitter connection. [User Stories](#User-stories) 
+
+With that practicable feature always in mind the group was able to check on every iteration that every user story initial design in prototype was implemented, and more important than that receive immediate feedback of the deviance from the original plan in every flutter implementation.
+
+You can check our prototype in FIGMA using the invitation link below, but since you require login in FIGMA to do that, we also post some photos demonstrating the referred slideshow. [Link](#https://www.figma.com/proto/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=94%3A2&scaling=scale-down)
+
+![](https://i.imgur.com/ASAEVSH.png =300x450)
+![](https://i.imgur.com/eXlquk1.png =300x450)
+
+
+&nbsp; By the end of the first iteration we were able to replicate in flutter code as much as we could these features that the prototype includes. The decision of which user stories complete firstly was based on the priority scheduled established in the iteration zero. [Link for the first iteration results](#First-sprint) 
+
+## Test
+In order to test the features developed throughout each iteration, and thus to see if the user stories were fullfiled, some tests were prepared with that intent.
+
+These tests were automatized with the support of Gherkin that gives the oportunity to assemble tests in a much more readable way. 
+
+Gherkin makes tests more readable given they are written in a more human friendly way.
+
+However, Gherkin falls short when testing applications written in Flutter/Dart that use a database service, given that, to our understandment, the test driver can only identify widget modifications and isn´t able to do the same with data modifications.
+
+Nevertheless, some features were tested (which are listed bellow) by inducing modifications and then finding them executed in the widget tree.
+
+Tested features:
+* User Login
+* Activity Conection
+* Ask Question
+* Ask Anonymous Question
+* Vote a Question
+* Consult Most Voted Question
+* Reply Question
+
 ## Tasks Management Tools
-To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
+To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. 
+
+As mention above, we made use of trello, also, to store the information of the user stories, dynamically organized in three types of status
+* Planed of (Backlog)
+* Under Work (Doing)  
+* Done.
+
+User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
 
 
+
+A exampling picture of the status of our Trello organization is the following:
+
+![](https://i.imgur.com/l8s83Wo.png)
 
 
 

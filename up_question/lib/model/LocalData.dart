@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:quiver/collection.dart';
 
 import 'User.dart';
 
 class LocalData {
   static User user = new User();
   static bool setLoaded=false;
-  static Set<String> arrayLogged= new Set();
+  static Multimap<String,String> talksLoggs=new Multimap<String, String>();
   static bool speakerLogged=false;
-  static bool show=true;
 }

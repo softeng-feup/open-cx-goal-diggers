@@ -23,6 +23,14 @@ class _LoginFormState extends State<LoginForm> {
   bool loading = false;
   bool showPassResetForm = false;
 
+  //SHOW/HIDE PASSWORD AND CONFIRMPASSWORD
+  bool _obscurePassword;
+  @override
+  void initState() {
+    _obscurePassword = true;
+  }
+  //SHOW/HIDE PASSWORD
+
   void togglePasswordForm() {
     setState(() => showPassResetForm = !showPassResetForm);
   }
@@ -106,33 +114,69 @@ class _LoginFormState extends State<LoginForm> {
                                   color: Colors.white,
                                 ),
                               ),
-                              TextFormField(
-                                key: Key('Password'),
-                                keyboardType: TextInputType.visiblePassword,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      top: 0, right: 2, left: 2, bottom: 5),
-                                  enabledBorder: _underlineBorder,
-                                  focusedBorder: _underlineBorder,
-                                  errorBorder: _underlineBorder,
-                                  filled: true,
-                                  hintText: 'Password',
-                                  hintStyle: TextStyle(
-                                      color:
-                                          Color.fromRGBO(255, 255, 255, 0.7)),
-                                  helperText: ' ',
-                                ),
-                                validator: (value) {
-                                  if (value.isEmpty)
-                                    return 'Please enter your Password';
-                                },
-                                onSaved: (val) =>
-                                    setState(() => user.password = val),
-                                style: new TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
-                                ),
+                              Stack(
+                                children: <Widget>[
+                                  TextFormField(
+                                    key: Key('Password'),
+                                    keyboardType: TextInputType.visiblePassword,
+                                    obscureText: _obscurePassword,
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.only(top: 0, right: 2, left: 2, bottom: 5),
+                                        enabledBorder: _underlineBorder,
+                                        focusedBorder: _underlineBorder,
+                                        errorBorder: _underlineBorder,
+                                        filled: true,
+                                        hintText: 'Password',
+                                        hintStyle: TextStyle(
+                                            color:
+                                                Color.fromRGBO(255, 255, 255, 0.7)),
+                                        helperText: ' ',
+                                        /*suffixIcon: IconButton(
+                                          icon: Icon(
+                                            !_obscurePassword
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                            color:
+                                                Theme.of(context).primaryColorDark,
+                                            size: 18.0,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              _obscurePassword = !_obscurePassword;
+                                            });
+                                          },
+                                        )*/),
+                                    validator: (value) {
+                                      if (value.isEmpty)
+                                        return 'Please enter your Password';
+                                    },
+                                    onSaved: (val) =>
+                                        setState(() => user.password = val),
+                                    style: new TextStyle(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                      padding: EdgeInsets.only(bottom: 30.0),
+                                      icon: Icon(
+                                        !_obscurePassword
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color:
+                                        Theme.of(context).primaryColorDark,
+                                        size: 25.0,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _obscurePassword = !_obscurePassword;
+                                        });
+                                      },
+                                    ),
+                                  )
+                                ],
                               ),
                               //Login button
                               Padding(
