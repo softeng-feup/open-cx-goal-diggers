@@ -90,8 +90,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         new TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            contentPadding:
-                                Constants.authenticationFormFieldPadding,
+                            contentPadding: Constants.authenticationFormFieldPadding,
                             enabledBorder: _underlineBorder,
                             focusedBorder: _underlineBorder,
                             errorBorder: _underlineBorder,
@@ -107,8 +106,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         new TextFormField(
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            contentPadding:
-                                Constants.authenticationFormFieldPadding,
+                            contentPadding: Constants.authenticationFormFieldPadding,
                             enabledBorder: _underlineBorder,
                             focusedBorder: _underlineBorder,
                             errorBorder: _underlineBorder,
@@ -121,85 +119,54 @@ class _RegisterFormState extends State<RegisterForm> {
                           onSaved: (val) => setState(() => user.username = val),
                           style: Constants.authenticationInputTextStyle,
                         ),
-                        Stack(
-                          children: <Widget>[
-                            TextFormField(
-                              controller: _passController,
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: _obscurePassword,
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    Constants.authenticationFormFieldPadding,
-                                enabledBorder: _underlineBorder,
-                                focusedBorder: _underlineBorder,
-                                errorBorder: _underlineBorder,
-                                filled: true,
-                                hintText: 'Password',
-                                hintStyle: Constants.authenticationHintStyle,
-                                helperText: ' ',
-                              ),
-                              validator: validatePassword,
-                              onSaved: (val) =>
-                                  setState(() => user.password = val),
-                              style: Constants.authenticationInputTextStyle,
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                padding: EdgeInsets.only(bottom: 30.0),
+                        new TextFormField(
+                          controller: _passController,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: _obscurePassword,
+                          decoration: InputDecoration(
+                              contentPadding: Constants.authenticationFormFieldPadding,
+                              enabledBorder: _underlineBorder,
+                              focusedBorder: _underlineBorder,
+                              errorBorder: _underlineBorder,
+                              filled: true,
+                              hintText: 'Password',
+                              hintStyle: Constants.authenticationHintStyle,
+                              helperText: ' ',
+                              suffixIcon: IconButton(
                                 icon: Icon(
                                   !_obscurePassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Colors.white70,
-                                  size: 24.0,
+                                  color: Theme.of(context).primaryColorDark,
                                 ),
                                 onPressed: () {
                                   setState(() {
                                     _obscurePassword = !_obscurePassword;
                                   });
                                 },
-                              ),
-                            )
-                          ],
+                              )),
+                          validator: validatePassword,
+                          onSaved: (val) => setState(() => user.password = val),
+                          style: Constants.authenticationInputTextStyle,
                         ),
-                        Stack(
-                          children: <Widget>[
-                            TextFormField(
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: _obscureConfirmPassword,
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    Constants.authenticationFormFieldPadding,
-                                enabledBorder: _underlineBorder,
-                                focusedBorder: _underlineBorder,
-                                errorBorder: _underlineBorder,
-                                filled: true,
-                                hintText: 'Confirm Password',
-                                hintStyle: Constants.authenticationHintStyle,
-                                helperText: ' ',
-                              ),
-                              validator: (value) {
-                                if (value.isEmpty)
-                                  return 'Please confirm your Password';
-                                if (value != _passController.text)
-                                  return 'Passwords do not match';
-                                //To silence warning
-                                return null;
-                              },
-                              //onSaved: (val) => setState(() => user.password = val),
-                              style: Constants.authenticationInputTextStyle,
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                padding: EdgeInsets.only(bottom: 30.0),
+                        new TextFormField(
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: _obscureConfirmPassword,
+                          decoration: InputDecoration(
+                              contentPadding: Constants.authenticationFormFieldPadding,
+                              enabledBorder: _underlineBorder,
+                              focusedBorder: _underlineBorder,
+                              errorBorder: _underlineBorder,
+                              filled: true,
+                              hintText: 'Confirm Password',
+                              hintStyle: Constants.authenticationHintStyle,
+                              helperText: ' ',
+                              suffixIcon: IconButton(
                                 icon: Icon(
                                   !_obscureConfirmPassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Colors.white70,
-                                  size: 24.0,
+                                  color: Theme.of(context).primaryColorDark,
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -207,9 +174,17 @@ class _RegisterFormState extends State<RegisterForm> {
                                         !_obscureConfirmPassword;
                                   });
                                 },
-                              ),
-                            )
-                          ],
+                              )),
+                          validator: (value) {
+                            if (value.isEmpty)
+                              return 'Please confirm your Password';
+                            if (value != _passController.text)
+                              return 'Passwords do not match';
+                            //To silence warning
+                            return null;
+                          },
+                          //onSaved: (val) => setState(() => user.password = val),
+                          style: Constants.authenticationInputTextStyle,
                         ),
                         new GenericButton('Create Your Account', user, loading,
                             _formKey, _auth, Key('Create Your Account'), toggleForm,null,null,null),
