@@ -119,12 +119,6 @@ We are using Trello to keep track of the user stories in the state of:
 
 You have a [link](#Tasks-Management-Tools) to check all the dashboard bellow, but here we brief you that information with a screenshot of our Trello's user stories organization. 
 
-A exampling picture of the status of our Trello organization is the following:
-
-![](https://i.imgur.com/l8s83Wo.png)
-
-
-
 
 
 
@@ -175,7 +169,12 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 
 #### Fifth sprint
 
-//TODO: Upload photo with the plan for this iteration
+The fifth and last iteration of UpQuestion was divided into two major purposes:
+* Integration in the major open-CX app
+* Refactoring and documenting the code and development report.
+
+Regarding the first topic our group because of the similarity with other group [Jakepaulers](https://github.com/softeng-feup/open-cx-jakepaulers), decided to contact them directly, in order to schedule work that could maximize efficiency. From that contact, it was agreed that our group should implement the anonymous question feature and improve the way the question deletion is made, as a simple sliding.
+
 
 
 
@@ -197,7 +196,9 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 
 #### MVC
 
-&nbsp; We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
+&nbsp;We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
+
+&nbsp;After the implementation of the firebase backend, many feature were added to the controller component side of Upquestion.
 #### Backend
 
 &nbsp; An application as UpQuestion with the aim of manipulate multiple questions in different talks will generate a huge amount of data easily. Furthermore, for testing purposes, a local static database is a nonsense further than the prototyping phase. The effective test to evaluate the practicability of our design is made submitting plenty of questions, and, then, manipulate it simulating the role of user and speaker.
@@ -212,10 +213,11 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 
 
 #### Package Diagram UML
-![](https://i.imgur.com/QyUKtI3.png)
-
+![](https://i.imgur.com/kqzFwhQ.png)
 
 ### Physical Architecture
+
+&nbsp;In UpQuestion there is a simple physical architecture since we are not using any kind of hardware or even any specific feature of the host smartphone. The following diagram shows a high-level schema of the app physical architecture:
 
 #### Deployment Diagram UML
 ![](https://i.imgur.com/r2i9wXS.png)
@@ -231,17 +233,28 @@ With that practicable feature always in mind the group was able to check on ever
 
 You can check our prototype in FIGMA using the invitation link below, but since you require login in FIGMA to do that, we also post some photos demonstrating the referred slideshow. [Link](#https://www.figma.com/proto/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=94%3A2&scaling=scale-down)
 
+![](https://i.imgur.com/ASAEVSH.png =300x450)
+![](https://i.imgur.com/eXlquk1.png =300x450)
 
-<img style="float:left;clear:both;width:40%; height:50%;"
-src="https://i.imgur.com/ASAEVSH.png">
-
-<img style="margin-left:20%;width:40%; height:370px;" 
-src="https://i.imgur.com/eXlquk1.png">
 
 &nbsp; By the end of the first iteration we were able to replicate in flutter code as much as we could these features that the prototype includes. The decision of which user stories complete firstly was based on the priority scheduled established in the iteration zero. [Link for the first iteration results](#First-sprint) 
 
 ## Tasks Management Tools
-To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
+To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. 
+
+As mention above, we made use of trello, also, to store the information of the user stories, dynamically organized in three types of status
+* Planed of (Backlog)
+* Under Work (Doing)  
+* Done.
+
+User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
+
+
+
+A exampling picture of the status of our Trello organization is the following:
+
+![](https://i.imgur.com/l8s83Wo.png)
+
 
 
 
