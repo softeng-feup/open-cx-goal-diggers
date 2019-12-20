@@ -1,7 +1,3 @@
-
-
-
-
 class Speaker {
 
   String Name;

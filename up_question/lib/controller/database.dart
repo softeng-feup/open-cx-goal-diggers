@@ -150,5 +150,11 @@ class DatabaseService {
         ds.reference.delete();
       }
     });
+  } 
+  Future addSpeakerLoggin(String username,Talk talkToAddInfo) async {
+    List <String> aux=new List();
+    aux.add(username);
+    return await talkToAddInfo.talkRef.updateData({"loginSpeakers": FieldValue.arrayUnion(aux)});
   }
 }
+
