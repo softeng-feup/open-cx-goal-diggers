@@ -241,9 +241,13 @@ You can check our prototype in FIGMA using the invitation link below, but since 
 
 ## Test
 In order to test the features developed throughout each iteration, and thus to see if the user stories were fullfiled, some tests were prepared with that intent.
+
 These tests were automatized with the support of Gherkin that gives the oportunity to assemble tests in a much more readable way. 
+
 Gherkin makes tests more readable given they are written in a more human friendly way.
+
 However, Gherkin falls short when testing applications written in Flutter/Dart that use a database service, given that, to our understandment, the test driver can only identify widget modifications and isn´t able to do the same with data modifications.
+
 Nevertheless, some features were tested (which are listed bellow) by inducing modifications and then finding them executed in the widget tree.
 
 Tested features:
