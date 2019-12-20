@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/database.dart';
-import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
 import 'package:up_question/view/Constants.dart';
+import 'package:up_question/view/Widgets/GenericButton.dart';
 
 class QuestionForm extends StatefulWidget {
   final Talk talk;
@@ -26,7 +26,6 @@ class _QuestionFormState extends State<QuestionForm> {
 
   @override
   Widget build(BuildContext context) {
-    DatabaseService _db = new DatabaseService();
     OutlineInputBorder _questionOutlineBorder = OutlineInputBorder(
         borderRadius: BorderRadius.circular(0.0),
         borderSide: BorderSide(
@@ -81,6 +80,8 @@ class _QuestionFormState extends State<QuestionForm> {
                           validator: (value) {
                             if (value.isEmpty) {
                               return 'Please enter a question';
+                            }else{
+                              return null;
                             }
                           },
                           onSaved: (val) =>
@@ -103,51 +104,12 @@ class _QuestionFormState extends State<QuestionForm> {
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Constants.defaultBackgroundColor,
                         ),
-                        Padding(
-                          key: Key('Share'),
-                          padding: const EdgeInsets.only(bottom: 24.0),
-                          child: ButtonTheme(
-                            minWidth: double.infinity,
-                            height: 44,
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              color: Constants.defaultBackgroundColor,
-                              textColor: Colors.white,
-                              onPressed: () async {
-                                final form = _formKey.currentState;
-                                if (form.validate()) {
-                                  form.save();
-                                  _question.talkRef = talk.talkRef;
-                                  // TODO: ver isto
-                                  _question.userRef = LocalData.user.userRef;
-
-                                  await _db.addQuestion(_question);
-                                  // TODO: ver isto
-                                  //_showDialog(context);
-                                  Navigator.pop(context);
-                                }
-                              },
-                              child: Text(
-                                'Share',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        new GenericButton('Share', null, null, _formKey, null,Key('Share'), null,null, _question, talk),
                       ],
                     ),
                   )),
             ),
           )),
     );
-  }
-
-  _showDialog(BuildContext context) {
-    Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('Submitting question')));
   }
 }

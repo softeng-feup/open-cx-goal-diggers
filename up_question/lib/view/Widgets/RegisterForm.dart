@@ -4,6 +4,7 @@ import 'package:up_question/controller/validation.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/view/Constants.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
+import 'package:up_question/view/Widgets/GenericButton.dart';
 import 'dart:ui';
 
 class RegisterForm extends StatefulWidget {
@@ -13,7 +14,7 @@ class RegisterForm extends StatefulWidget {
 
   @override
   _RegisterFormState createState() {
-    return _RegisterFormState();
+    return _RegisterFormState(toggleForm);
   }
 }
 
@@ -21,12 +22,17 @@ class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final AuthService _auth = AuthService();
   bool loading = false;
-
+  final colorRegister=Color(0xAF000000);
+  final Function toggleForm;
   //SHOW/HIDE PASSWORD AND CONFIRMPASSWORD
   bool _obscurePassword;
   bool _obscureConfirmPassword;
+
+  _RegisterFormState(this.toggleForm);
+
   @override
   void initState() {
+    super.initState();
     _obscurePassword = true;
     _obscureConfirmPassword = true;
   }
@@ -181,43 +187,8 @@ class _RegisterFormState extends State<RegisterForm> {
                           //onSaved: (val) => setState(() => user.password = val),
                           style: Constants.authenticationInputTextStyle,
                         ),
-                        new ButtonTheme(
-                          minWidth: double.infinity,
-                          height: 44,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            color: Constants.defaultBackgroundColor,
-                            textColor: Colors.white,
-                            onPressed: () async {
-                              final form = _formKey.currentState;
-
-                              if (form.validate()) {
-                                form.save();
-                                setState(() => loading = true);
-                                dynamic result = await _auth.register(
-                                    user.email, user.username, user.password);
-
-                                setState(() => loading = false);
-
-                                if (result != null) {
-                                  _showDialog(context, 'Register Successful');
-                                  widget.toggleForm();
-                                } else {
-                                  _showDialog(context, 'Register Failed');
-                                }
-                              }
-                            },
-                            child: Text(
-                              'Create Your Account',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5,
-                                fontSize: 22,
-                              ),
-                            ),
-                          ),
-                        ),
+                        new GenericButton('Create Your Account', user, loading,
+                            _formKey, _auth, Key('Create Your Account'), toggleForm,null,null,null),
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0),
                           child: GestureDetector(
@@ -236,9 +207,5 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
           )),
     );
-  }
-
-  _showDialog(BuildContext context, String text) {
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 }

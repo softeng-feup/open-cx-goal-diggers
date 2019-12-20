@@ -3,21 +3,21 @@ import 'package:up_question/view/Widgets/RegisterForm.dart';
 
 import '../Widgets/LoginForm.dart';
 
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() {
-    return _HomePageState();;
+    return _HomePageState();
   }
-
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> {
   bool showSignIn = true;
-  void toggleView(){
+  void toggleView() {
     setState(() => showSignIn = !showSignIn);
   }
-  correctForm(){
-    if(showSignIn)
+
+  correctForm() {
+    if (showSignIn)
       return RegisterForm(toggleForm: this.toggleView);
     else
       return LoginForm(toggleForm: this.toggleView);
@@ -29,7 +29,9 @@ class _HomePageState extends State<HomePage>{
       key: Key('Homepage'),
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
-        onTap: () {FocusScope.of(context).requestFocus(new FocusNode());},
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -73,7 +75,8 @@ class _HomePageState extends State<HomePage>{
                   top: 85,
                 ),
                 Positioned(
-                  bottom: MediaQuery.of(context).size.height * 0.09, // TODO: depois ver este valor hardcoded
+                  // TODO: depois ver este valor hardcoded
+                  bottom: MediaQuery.of(context).size.height *0.09,
                   child: correctForm(),
                 ),
               ],
