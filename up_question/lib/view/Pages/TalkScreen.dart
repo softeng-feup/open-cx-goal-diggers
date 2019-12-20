@@ -145,7 +145,7 @@ class _TalkScreenState extends State<TalkScreen> {
                             // TODO: change icon
                             splashColor: Colors.green,
                             child: SizedBox(
-                              width: 45.0,
+                              width: 50.0,
                               height: 100.0,
                               child: Icon(
                                 Icons.event_note,
@@ -169,8 +169,8 @@ class _TalkScreenState extends State<TalkScreen> {
                         child: Material(
                           color: Colors.green,
                           child: SizedBox(
-                              width: 45,
-                              height: 90,
+                              width: 50,
+                              height: 100,
                               child: Center(
                                   child: Text(
                                 _speakerSignature,
