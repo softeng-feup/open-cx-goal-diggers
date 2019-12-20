@@ -4,6 +4,7 @@ import 'package:up_question/controller/auth.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/PasswordForm.dart';
+import 'package:up_question/view/Widgets/GenericButton.dart';
 
 class LoginForm extends StatefulWidget {
   final Function toggleForm;
@@ -169,7 +170,14 @@ class _LoginFormState extends State<LoginForm> {
                                   )
                                 ],
                               ),
+
+                              new GenericButton('Login', user, loading, _formKey, _auth, Key('LOGIN'), null),
                               //Login button
+                   
+                   
+                   
+                   
+                   /*
                               Padding(
                                 key: Key('LOGIN'),
                                 padding: const EdgeInsets.only(bottom: 20),
@@ -220,6 +228,8 @@ class _LoginFormState extends State<LoginForm> {
                                   ),
                                 ),
                               ),
+
+                              */
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
