@@ -208,7 +208,7 @@ class _RegisterFormState extends State<RegisterForm> {
                           ),
                         ),
                         new GenericButton('Create Your Account', user, loading,
-                            _formKey, _auth, Key('Create Your Account'), toggleForm),
+                            _formKey, _auth, Key('Create Your Account'), toggleForm,null,null,null),
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0),
                           child: GestureDetector(

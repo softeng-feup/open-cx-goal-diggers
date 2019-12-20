@@ -13,8 +13,9 @@ class DatabaseService {
 
   final String uid;
 
-  DatabaseService({this.uid});
-
+  DatabaseService({this.uid}){
+    LocalData.dbReference=this;
+  }
 
   Future<User> getUserByRef(DocumentReference userRef) async{
     var result = await userRef.get();

@@ -1,10 +1,10 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:up_question/controller/database.dart';
 import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
 import 'package:up_question/model/Talk.dart';
+import 'package:up_question/view/Widgets/GenericButton.dart';
 
 class QuestionForm extends StatefulWidget {
   final Talk talk;
@@ -105,42 +105,7 @@ class _QuestionFormState extends State<QuestionForm> {
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Color(0xff353535), // TODO: por em const
                         ),
-                        Padding(
-                          key: Key('Share'),
-                          padding: const EdgeInsets.only(bottom: 24.0),
-                          child: ButtonTheme(
-                            minWidth: double.infinity,
-                            height: 44,
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              color: Color(0xFF353535),
-                              // TODO: por em const
-                              textColor: Colors.white,
-                              onPressed: () async {
-                                final form = _formKey.currentState;
-                                if (form.validate()) {
-                                  form.save();
-                                  _question.talkRef = talk.talkRef;
-                                  // TODO: ver isto
-                                  _question.userRef = LocalData.user.userRef;
-
-                                  await _db.addQuestion(_question);
-                                  // TODO: ver isto
-                                  //_showDialog(context);
-                                  Navigator.pop(context);
-                                }
-                              },
-                              child: Text(
-                                'Share',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        new GenericButton('Share', null, null, _formKey, null,Key('Share'), null,null, _question, talk),
                       ],
                     ),
                   )),

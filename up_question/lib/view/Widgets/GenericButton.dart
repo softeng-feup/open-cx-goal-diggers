@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/User.dart';
 import 'package:up_question/controller/auth.dart';
+import 'package:up_question/model/Reply.dart';
+import 'package:up_question/model/Question.dart';
+import 'package:up_question/model/Talk.dart';
 
 class GenericButton extends StatefulWidget {
   final String textInButton;
-  User user;
-  bool loading;
+  final User user;
+  final bool loading;
   final GlobalKey<FormState> _formKey;
   final AuthService _auth;
   final Key key;
   final Function toggleForm;
+  final Reply reply;
+  final Question question;
+  final Talk talk;
 
   GenericButton(this.textInButton, this.user, this.loading, this._formKey,
-      this._auth, this.key, this.toggleForm);
+      this._auth, this.key, this.toggleForm,this.reply,this.question,this.talk);
 
   @override
   _GenericButtonState createState() {
     return _GenericButtonState(
-        user, textInButton, loading, _formKey, _auth, key, toggleForm);
+        user, textInButton, loading, _formKey, _auth, key, toggleForm,reply,question,talk);
   }
 }
 
@@ -30,9 +37,13 @@ class _GenericButtonState extends State<GenericButton> {
   final AuthService _auth;
   final Key keyvalue;
   final Function toggleForm;
+  final Reply reply;
+  final Question question;
+  final Talk talk;
+
 
   _GenericButtonState(this.user, this.textInButton, this.loading, this._formKey,
-      this._auth, this.keyvalue, this.toggleForm);
+      this._auth, this.keyvalue, this.toggleForm,this.reply,this.question,this.talk);
 
   void initState() {
     super.initState();
@@ -92,6 +103,17 @@ class _GenericButtonState extends State<GenericButton> {
                   } else {
                     _showDialog(context, 'Register Failed');
                   }
+                }
+                break;
+
+              case 'Share':
+
+                if (form.validate()) {
+                  form.save();
+                  question.talkRef = talk.talkRef;
+                  question.userRef = LocalData.user.userRef;
+                  await LocalData.dbReference.addQuestion(question);
+                  Navigator.pop(context);
                 }
                 break;
             }

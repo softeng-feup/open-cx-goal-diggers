@@ -172,7 +172,7 @@ class _LoginFormState extends State<LoginForm> {
                                 ],
                               ),
                               //null parameter because is not used in this type of functionality.
-                              new GenericButton('Login', user, loading, _formKey, _auth, Key('LOGIN'), null),
+                              new GenericButton('Login', user, loading, _formKey, _auth, Key('LOGIN'), null,null,null,null),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
