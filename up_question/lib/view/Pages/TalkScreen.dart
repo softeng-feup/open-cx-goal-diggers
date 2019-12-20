@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +11,6 @@ import 'package:up_question/view/QuestionView.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/QuestionForm.dart';
 import 'package:up_question/view/Widgets/SpeakerAuthForm.dart';
-import 'package:quiver/collection.dart';
 import '../TalkView.dart';
 
 class TalkScreen extends StatefulWidget {
@@ -34,9 +31,6 @@ class _TalkScreenState extends State<TalkScreen> {
   bool _isSpeakerNameVisible;
   String _speakerSignature = "";
   bool showButton = true;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   _TalkScreenState(this.talk);
 
   String getSpeakerSignature(Talk talk) {
@@ -59,26 +53,25 @@ class _TalkScreenState extends State<TalkScreen> {
   @override
   void initState() {
     super.initState();
-    LocalData.speakerLogged=false;
+    LocalData.speakerLogged = false;
     _db = new DatabaseService();
 
-    String username=LocalData.user.username;
-    
-    if(LocalData.talksLoggs.contains(this.talk.title, username)==true){
+    String username = LocalData.user.username;
+
+    if (LocalData.talksLoggs.contains(this.talk.title, username) == true) {
       this._speakerSignature = getSpeakerSignature(talk);
       _isvisibleIcon = false;
       _isSpeakerNameVisible = true;
-      LocalData.speakerLogged=true;
-    }else{
+      LocalData.speakerLogged = true;
+    } else {
       //Double Check
-      LocalData.speakerLogged=false;
+      LocalData.speakerLogged = false;
       _isvisibleIcon = true;
       _isSpeakerNameVisible = false;
-    }    
+    }
   }
 
   Future _changevisability() async {
-
     setState(() {
       _isvisibleIcon = !_isvisibleIcon;
     });
@@ -91,14 +84,12 @@ class _TalkScreenState extends State<TalkScreen> {
 
     if (returnVal == 'sucess') {
       //ADD THE INFO TO THE DATABASE
-      LocalData.speakerLogged=true;
+      LocalData.speakerLogged = true;
       _db.addSpeakerLoggin(LocalData.user.username, this.talk);
       //Get the initials of that talk speaker
       this._speakerSignature = getSpeakerSignature(talk);
-      _isSpeakerNameVisible =true;
-    }
-    
-    else if(returnVal==null){
+      _isSpeakerNameVisible = true;
+    } else if (returnVal == null) {
       setState(() {
         _isvisibleIcon = !_isvisibleIcon;
       });
@@ -140,7 +131,6 @@ class _TalkScreenState extends State<TalkScreen> {
                           child: Material(
                         color: Colors.red,
                         child: InkWell(
-                            // TODO: change icon
                             splashColor: Colors.green,
                             child: SizedBox(
                               width: 50.0,
@@ -337,6 +327,7 @@ class _QuestionListState extends State<QuestionList> {
           child: IconButton(
             icon: Icon(Icons.delete),
             iconSize: 40,
+            onPressed: null,
           ),
         ),
         direction: DismissDirection.endToStart,

@@ -10,22 +10,16 @@ class DayView extends StatelessWidget {
   final Day day;
   DayView(this.day);
 
-  
   @override
   Widget build(BuildContext context) {
-      DatabaseService aux = DatabaseService();
+    DatabaseService aux = DatabaseService();
 
-      aux.retrieveSchedule();
-    
-      final Day mine=Day(
-          day:DateTime.now(),
-          talks:[]);
-    
+    aux.retrieveSchedule();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          width:  MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width,
           color: Constants.defaultBackgroundColor,
           padding: EdgeInsets.only(left: 4),
           child: Padding(
@@ -41,8 +35,4 @@ class DayView extends StatelessWidget {
       ],
     );
   }
-
-
-
-
 }

@@ -69,6 +69,7 @@ class QuestionViewState extends State<QuestionView> {
                 IconButton(
                   icon: Icon(Icons.face),
                   iconSize: 30,
+                  onPressed: null,
                 ),
                 FutureBuilder<User>(
                   future: _db.getUserByRef(question.userRef),

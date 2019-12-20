@@ -15,7 +15,7 @@ class SpeakerAuthForm extends StatefulWidget {
 
 class _SpeakerAuthPageState extends State<SpeakerAuthForm> {
   String speakerCodeInput;
-
+  final colorSpeaker=Color(0xff353535);
   final Talk talk;
   final _formKey = GlobalKey<FormState>();
 

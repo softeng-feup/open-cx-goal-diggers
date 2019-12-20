@@ -5,6 +5,7 @@ import 'package:up_question/model/User.dart';
 import 'package:up_question/view/Constants.dart';
 import 'package:up_question/view/Widgets/Loading.dart';
 import 'package:up_question/view/Widgets/PasswordForm.dart';
+import 'package:up_question/view/Widgets/GenericButton.dart';
 
 class LoginForm extends StatefulWidget {
   final Function toggleForm;
@@ -27,6 +28,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void initState() {
+    super.initState();
     _obscurePassword = true;
   }
 
@@ -54,7 +56,6 @@ class _LoginFormState extends State<LoginForm> {
     var padding = MediaQuery.of(context).padding;
 
     // height without status and toolbar
-    // TODO: 26 macro de baixo
     double utilHeight =
         height - padding.top - kToolbarHeight - padding.bottom - 26;
 
@@ -102,8 +103,9 @@ class _LoginFormState extends State<LoginForm> {
                                 validator: (value) {
                                   if (value.isEmpty)
                                     return 'Please enter your Email';
+                                  else
+                                    return null;
                                 },
-                                // TODO: mudar depois
                                 onSaved: (val) =>
                                     setState(() => user.email = val),
                                 style: Constants.authenticationInputTextStyle,
@@ -127,6 +129,8 @@ class _LoginFormState extends State<LoginForm> {
                                     validator: (value) {
                                       if (value.isEmpty)
                                         return 'Please enter your Password';
+                                      else
+                                        return null;
                                     },
                                     onSaved: (val) =>
                                         setState(() => user.password = val),
@@ -140,9 +144,9 @@ class _LoginFormState extends State<LoginForm> {
                                         !_obscurePassword
                                             ? Icons.visibility
                                             : Icons.visibility_off,
-                                        color: Colors.white70,
-                                        //Theme.of(context).primaryColorDark
-                                        size: 24.0,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
+                                        size: 25.0,
                                       ),
                                       onPressed: () {
                                         setState(() {
@@ -153,57 +157,8 @@ class _LoginFormState extends State<LoginForm> {
                                   )
                                 ],
                               ),
-                              //Login button
-                              Padding(
-                                key: Key('LOGIN'),
-                                padding: const EdgeInsets.only(bottom: 20),
-                                child: ButtonTheme(
-                                  minWidth: double.infinity,
-                                  height: 44,
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                    color: Constants.defaultBackgroundColor,
-                                    textColor: Colors.white,
-                                    onPressed: () async {
-                                      final form = _formKey.currentState;
-
-                                      if (form.validate()) {
-                                        form.save();
-
-                                        setState(() => loading = true);
-                                        dynamic result = await _auth.signIn(
-                                            user.email, user.password);
-
-                                        setState(() => loading = false);
-
-                                        if (result != null) {
-                                          if (!result.isEmailVerified)
-                                            _showDialog(context,
-                                                'Please Confirm your Email');
-                                          else {
-                                            _showDialog(
-                                                context, 'Login Successfull');
-                                            Navigator.pushReplacementNamed(
-                                                context, '/SchedulePage');
-                                          }
-                                        } else {
-                                          _showDialog(context, 'Login Failed');
-                                        }
-                                      }
-                                    },
-                                    child: Text(
-                                      'Login',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 0.5,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              //null parameter because is not used in this type of functionality.
+                              new GenericButton('Login', user, loading, _formKey, _auth, Key('LOGIN'), null,null,null,null),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -229,9 +184,5 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                 )),
           );
-  }
-
-  _showDialog(BuildContext context, String text) {
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 }

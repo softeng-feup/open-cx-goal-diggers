@@ -2,7 +2,6 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:up_question/model/LocalData.dart';
 import 'package:up_question/model/Question.dart';
-import 'package:quiver/collection.dart';
 
 class Talk extends Comparable {
   DocumentReference talkRef;
