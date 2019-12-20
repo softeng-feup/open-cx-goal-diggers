@@ -212,7 +212,8 @@ Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esof
 
 
 #### Package Diagram UML
-![](https://i.imgur.com/6gqHMDc.png)
+![](https://i.imgur.com/QyUKtI3.png)
+
 
 ### Physical Architecture
 
