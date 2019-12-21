@@ -223,7 +223,7 @@ class _RegisterFormState extends State<RegisterForm> {
                             null,
                             null),
                         Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
+                          padding: const EdgeInsets.only(top: 0.0),
                           child: GestureDetector(
                             key: Key('AlreadyHasAccount'),
                             onTap: () {
