@@ -151,7 +151,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                   !_obscurePassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Theme.of(context).primaryColorDark,
+                                  color: Colors.white,
                                   size: 25.0,
                                 ),
                                 onPressed: () {
@@ -198,7 +198,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                   !_obscureConfirmPassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Theme.of(context).primaryColorDark,
+                                  color: Colors.white,
                                   size: 25.0,
                                 ),
                                 onPressed: () {

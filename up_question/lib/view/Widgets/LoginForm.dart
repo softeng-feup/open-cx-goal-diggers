@@ -118,15 +118,16 @@ class _LoginFormState extends State<LoginForm> {
                                     keyboardType: TextInputType.visiblePassword,
                                     obscureText: _obscurePassword,
                                     decoration: InputDecoration(
-                                      contentPadding: Constants
-                                          .authenticationFormFieldPadding,
+                                      contentPadding: EdgeInsets.only(
+                                          top: 0, right: 2, left: 2, bottom: 5),
                                       enabledBorder: _underlineBorder,
                                       focusedBorder: _underlineBorder,
                                       errorBorder: _underlineBorder,
                                       filled: true,
                                       hintText: 'Password',
-                                      hintStyle:
-                                          Constants.authenticationHintStyle,
+                                      hintStyle: TextStyle(
+                                          color: Color.fromRGBO(
+                                              255, 255, 255, 0.7)),
                                       helperText: ' ',
                                     ),
                                     validator: (value) {
@@ -137,8 +138,10 @@ class _LoginFormState extends State<LoginForm> {
                                     },
                                     onSaved: (val) =>
                                         setState(() => user.password = val),
-                                    style:
-                                        Constants.authenticationInputTextStyle,
+                                    style: new TextStyle(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                   Align(
                                     alignment: Alignment.centerRight,
@@ -148,8 +151,7 @@ class _LoginFormState extends State<LoginForm> {
                                         !_obscurePassword
                                             ? Icons.visibility
                                             : Icons.visibility_off,
-                                        color:
-                                            Theme.of(context).primaryColorDark,
+                                        color: Colors.white,
                                         size: 25.0,
                                       ),
                                       onPressed: () {
