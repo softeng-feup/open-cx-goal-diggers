@@ -76,7 +76,7 @@ A more detailed analysis of this topic is made below targeting RUP & AGILE metho
 
 
 ### Use Case Diagram
-![Use Case Diagram](https://i.imgur.com/QCCtZqq.jpg =400x400)
+![Use Case Diagram](https://i.imgur.com/QCCtZqq.jpg)
 
 
  *Fig.1: Use Case Diagram*
@@ -233,8 +233,8 @@ With that practicable feature always in mind the group was able to check on ever
 
 You can check our prototype in FIGMA using the invitation link below, but since you require login in FIGMA to do that, we also post some photos demonstrating the referred slideshow. [Link](#https://www.figma.com/proto/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=94%3A2&scaling=scale-down)
 
-![](https://i.imgur.com/ASAEVSH.png =300x450)
-![](https://i.imgur.com/eXlquk1.png =300x450)
+![](https://i.imgur.com/ASAEVSH.png)
+![](https://i.imgur.com/eXlquk1.png)
 
 
 &nbsp; By the end of the first iteration we were able to replicate in flutter code as much as we could these features that the prototype includes. The decision of which user stories complete firstly was based on the priority scheduled established in the iteration zero. [Link for the first iteration results](#First-sprint) 
