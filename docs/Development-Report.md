@@ -1,320 +1,279 @@
-# LPOO_5G43 - Craft Miner 
+# openCX Development Report
 
+Welcome to the documentation pages of the **openCX- UpQuestion** project!
 
-Craft Miner is a multi-level arena game based on Minecraft. The goal of Craft Miner is to complete all levels. The player have the oportunity to access the next level by mining collectibles while trying to avoid monsters that appear in his path.
+You can find here detailed information about the project, from a high-level product vision to low-level implementation decisions, organized as a kind of Software Development Report 
 
-This project was developed for LPOO (Object Oriented Programming Laboratory) course in the Integrated Master in Computer Engineering degree in FEUP in the year of 2020⁄21. This course has a special focus on SOLID's topics and quality solutions in the OOP paradigm. The game was developed using Java and it's library Lanterna for supporting a GUI interface. This project was made by José Guerra (up201706421@fe.up.pt) and Rúben Almeida (up201704618@fe.up.pt)
+* #### Business modeling
 
+    *  [Product Vision](#Product-Vision)
 
-## Index
+    *  [Elevator Pitch](#Elevator-Pitch)
+    *  [Public Demo](#Public-Demo)
 
-1. [Explanation](#Explanation)
-2. [Implemented Features](#Implemented-Features)
-3. [Planned Features](#Planned-Features)
-4. [Design](#Design)
-5. [Known Code Smells and Refactoring Suggestions](#Know-code-smmells-and-refactoring-suggestions)
-6. [Testing](#Testing)
-7. [Self-Evaluation](#Self-evaluation)
+* #### Requirements
 
-### Explanation
-**Hero (main character)**
+    *  [Use Case Diagram](#Use-case-diagram)
 
-The hero of this game will be a smiley face , he will be able to move up, down, left and right and will have a range weapon at his disposal, a sort of fireball cannon, that shoots fireballs. This weapon has regenarative capabilites, regenerating 1 fireball in 2 seconds and is capable of holding a maximum of 10 fireballs at any time. This hero will have a maximum of 4 lifes. The hero will loose a life if he gets attacked by a enemy but fear not there will be heart shaped symbol in a level that the hero can collect to increase his life counter.
+    *  [User stories](#User-stories)
 
-* Graphical Representation: ☺
+    * [Mockups](#Mockups)
 
-
-**Enemies**
-
-Zombie - The zombie is the most commom enemy in the game and the simplest, if the hero gets close to him and stay near him, he looses one life for each second passed.
-
-* Graphical Representation: ⚉
-
-Archer - The creeper will be a easy to kill enemy. Although its low resistance to the hero firepower, in order to shoot him, we become in range with his attack abilities. Managing it's reloading time will be the solution for the player.
-
-* Graphical Representation: A
-
-
-Beamer - This enemy is probably the most dangerous in the game. The beamer will shoot a straigth beam of light in the direction he is moving, this beam of light will have a length of 4 squares. If the hero comes in contact with this beam of light, he will loose 2 lifes instatly and 2 more for every 2 seconds in contact with him.
-
-* Graphical Representation: ⚉
-
-**Levels**
-
-Each level will be a maze surround with walls and enemys, to advance to the next level besides reaching a set score, the hero must also reach the exit of said maze.
-
-
-### Implemented Features
-
-
-* Hero - The player controlable character is already implemented. It is represented in the GUI by a smile face.
-* Pickaxe - When an hero is near of a minable object, the pickaxe is rendered. The the pickaxe is avaiable, the player can hit the correct key and mine the block.
-* Multi-Level-After collecting a certain ammout of score, the level doors open and the hero has the ability to proceeed it's journey to the next level.
-* Key Processing - The hero is already responding to commands. 
-* Playing State Header Interface - The GUI for display the in game information is already defined
-* Mining - The hero can mine a block by getting close to it when he has a pickaxe
-* Zombie Monster - The primary enemy type of the game is designed. It follow the player while in range reducing it life if close enough from hero
-* Life Restoring - The hero can collect life points in the map to face the attack effects from enemies
-* Reading Levels From Files - The game levels are constructed from a file .txt
-* Hero Attacks. Firebals - The elementary attack of the hero toward enemy elimination is defined with throwable firebals
-* Starting, High score, Winning and Gameover Menus- We implemented a simple, functional interface.
-* Limited Hero sight range - The hero cannot see elements that are farther than 5 screen unit.
-* Hidden Surround Elements - The hero cannot see collectible and enemies that are surroended. Expect suprises while you mine.
-* Pickaxe Resistance boost - Killing enemies restores you pickaxe boost.
-* Impossible game - Every Time you run out of pickaxe, if there are any more enemies to restore your pickaxe, you lose the game. Use it wisely.
-
-### Partially implemented Features
-
-* Squared Font Design - This feature can be found in fontFix branch. It's implementation was abandoned since we didn't found all icons that we use in our game to represent elements in any font library. 
-
-### Planned Features
-
-* Change collision's implementation in order to achieve greater flexibility
-* Creeper Enemy type - A explosive enemy
-
-
-### Design
-
-#### Enemy Behaviour Defined as Strategy
-
-##### Problem in Context
-
-In every game iteration it is necessary to test the possibility of the hero being attacked by an enemy in the map.
-Every enemy has it's specific attacking behaviour, completly different from their pears. The goal is to enforce the SRP SOLID principle while dealing the enemies.
-
-#### The Pattern
-
-The solution found to this problem was to follow the strategy design pattern. Each enemy has is own strategy that defines the way he should behaves while attacking and when he should do it. Furthermore, keeps the code simple with every enemy isolated from each other
-
-#### Implementation
-The UML representation of the adaptation of the pattern to the context of the problem is the following:
-
-
-![](https://i.imgur.com/SC7Veu7.png)
-
-
-The classes that are involved in this implementation are the following:
- * [PlayModel](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/menu/PlayModel.java)
- * [Enemy](#https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/elements/movable/enemies/Enemy.java)
- * [EnemyStrategy](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/enemies/EnemyStrategy.java)
- * [ArcherStrategy](#https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/enemies/ArcherStrategy.java)
- * [ZombieStrategy](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/enemies/ZombieStrategy.java)
- * [BeamerStrategy](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/enemies/BeamerStrategy.java)
-
-#### Consequences
-
-With this implementation it is possible to:
-
-* Isolate the distinct and independent behaviour of each enemy
-* The implementation of the control of a certain type of enemy becomes abstracted to the application layer above.
-* In the POV of application the only need to execute the attacking action of every enemy becomes calling a shared method attack defined in the interace required by  
-
-#### Collision Detection Abstracted as a Strategy Pattern
-
-##### Problem in Context
-
-This problem wasn't, actually, a thing, before implemented the last enemy, the Beamer. Until Beamer, every collision in the game was almost made the same way. 
-
-1. We simulate a movement by generate the destination position
-2. We test that position it's equals to every other element position
-3. If not we set the position.
-
-Beamer is an element with two parts, the body, and it's variable size rod. Testing a collision with it, requires testing this two parts. Which means it's a different way of testing from all elements considered until that moment. Different elements, may, this is important, may, because many of them share the same "equal position" methodology, require different collision testing, different strategies.
-
-Since we needed to implement this pattern we took the oportunity to move the functionalities associated with the filtering of the elements to test collision to the collision strategy class. This methods have the responsibility to decided for each element what part of the model should be tested, per example, while testing the hero class we don't want to test collision with the hearts across the map, but we dont want enemies to take those hearts for them.
-
-
-#### The Pattern
-
-Since elements may have different collision testing strategies we implemented other strategy pattern. Every element has now associated with him a strategy object.
-
-#### Implementation
-The UML representation of the adaptation of the pattern to the context of the problem is the following:
-
-![](https://i.imgur.com/com1K6R.png)
-
-
-
-#### Consequences
-
-* With this implementation the difference between collision checking is hidden from the POV of the application. To the exterior, the only need becomes calling the method "testCollision" independently from the type of element without any extra requirement
-
-* Every time we define a new Element we need to specify what kind of collision pollicy it has.
-
-* Every collision strategy must define the method that filter the elements that it will be considered in the collision testing. 
-
-
-The classes that are involved in this implementation are the following:
-* [PlayModel](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/menu/PlayModel.java)
- * [Enemy](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/elements/movable/enemies/Enemy.java)
-* [BeamerCollisionStrategy](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/collisions/BeamerCollisionStrategy.java)
-* [HeroCollisionStrategy](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/collisions/HeroCollisionStrategy.java)
-* [GeneralCollisionStrategy](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/collisions/GeneralCollisionStrategy.java)
-* [ProjectileCollisionStrategy](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/collisions/ProjectileCollisionStrategy.java)
-
-#### GUI implementation abstraction
-
-##### Problem in Context
-
-Lanterna isn't by far the greastest graphical experience, furthermore, since in the previous year, the course changed to Swing in the middle of the work. We decided to take this step further. It wasn't necessary implement a abstract factory, but we couldn't escape use the the factory pattern in order to delegate the responsibility of creating the different state's views to a specific classe enforcing SOLID principles, but from a factory to an abstract factory the difference isn't much, so we decided to implement it empowering flexibility of our code in the view sector.
-Also we need a solution to ensure the isolation of view part of the project. We needed to achieve that for the controller his interface with view would be abstracted as a simple call to a method draw()
-
-
-#### The Pattern
-
-Abstract factory pattern let us obtain a level of isolation where for every view library used we need to implement view for each state. This could appears to be overkilled, but in any case flexibility was earned and SOLID was enforced. 
-
-#### Implementation
-
-The implementation of this design pattern has two different phases:
-
-* Implementation of the interface View Factory, this interface is responsible for delagating the creation task using the correct library
-* Implementation of the interfaces that represent the methods required to render a specific view of each state of the game
-
-![](https://i.imgur.com/1rWiurB.png)
-
-
-
-
-
-The classes that are involved in this implementation are the following:
-
- * [GameController](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/GameController.java)
- * [State](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/State.java)
- * [View](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/view/View.java)
- * [ViewFactory](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/view/ViewFactory.java)
- * [LanternaFactory](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/view/lanterna/LanternaFactory.java)
- * [LanternaPlayStateView](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/view/lanterna/views/playState/LanternaPlayStateView.java)
- * [LanternaMenuStateView](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/view/lanterna/views/menuState/LanternaMenuStateView.java)
- * [LanternaHighScoreView](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/view/lanterna/views/highScores/LanternaHighScoresStateView.java)
- * [LanternaGameOverStateView](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/view/lanterna/views/gameoverState/LanternaGameOverStateView.java)
- * [PlayState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/PlayState.java)
- * [HighScoreState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/HighscoresState.java)
- * [MenuState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/MenuState.java)
- * [GameOverState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/GameOverState.java)
-
-
-
-
-#### Consequences
-
-The implementation of this pattern makes views being implemented in the project as members of a family associated with a specific and unique library. In our project there is a great family of Lanterna Views. 
-
-## Different Game Menu with completly different functions and behaviours
-
-##### Problem in Context
-The menu implementation of the game is completly distinct from the implementation of the play implementation. Furthermore, there would generate a violation to the ISP SOLID's principle. There is any necessity to the menu to know what is a enemy or a a life, elements exclusive to the play state.
-
-#### The Pattern
-
-The solution to this problem is the most radical of the behaviour patterns, the state. Using this design pattern we are able to specify a complete distinct behaviour with a dedicated model to work with for any state of the game
-
-#### Implementation
-
-The implementation of this pattern requires to State to receive a reference of the controller so that transitions between states can occur
-
-![](https://i.imgur.com/2JDCACb.png)
-
-
-
-#### Consequences
-* The game execution is delegated to their states
-* Every step of execution deals with the correct portion of the model block.
-* Arises the necessity to manage the transitions in the main controller of the game
-
-The classes that are involved in this implementation are the following:
-
-* [GameController](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/GameController.java)
-* [PlayState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/PlayState.java)
- * [HighScoreState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/HighscoresState.java)
- * [MenuState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/MenuState.java)
- * [GameOverState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/GameOverState.java)
- * [State](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/State.java)
-
-
-## Changing state by using the command pattern
-
-##### Problem in Context
- As was said previously one of the consequences of the state pattern is that its necessary to change the state in the controller whenever the need arises to, this can either be when a button is pressed, the game reaches a end state either by the player dying or winning the game and finnaly whenever the user decides to close the terminal where the game is being played on. To ensure the state doesnt have to endure checking if the transition needs to happen and executing it, this last function is delegated another class.
+* #### Architectural Structure & Design
+    * [MVC](#Architectural-Structure)
+    * [Backend](#Backend)
+         * [Firebase](#Backend)
+         * Twitter API
+    * [Prototype](#Prototype)
+    * [Logical architecture](#Logical-Architecture)
+    * [Physical architecture](#Physical-Architecture)
  
- ###### The pattern 
- The pattern used is the command pattern.
- 
- ###### Implementation
- 
-Whenever the state determines a transition is to be made it executes the selected button this then executes the command which will call the changeState function on the controller. This happens on all states related to menus in the games. In the playstate the transition of states is done on the state itself. 
- 
-![](https://i.imgur.com/rkXDNGd.png)
+* #### Tasks Management Tool
 
-###### Consequences
-* The changing of the state is not done on the state itself but is instead delegated to the button class
-* Each button needs to have his command set in the construtor of the state 
 
-The classes that are involved in this implementation are the following:
+***
 
-* [Model](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/Model.java)
-* [MenuModel](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/menu/MenuModel.java)
- * [GameOverModel](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/menu/GameOverModel.java)
- * [PlayModel](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/menu/PlayModel.java)
- * [HighScoresModel](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/menu/HighScoresModel.java)
- * [GameController](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/GameController.java)
-* [PlayState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/PlayState.java)
- * [HighScoreState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/HighscoresState.java)
- * [MenuState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/MenuState.java)
- * [GameOverState](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/GameOverState.java)
- * [State](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/state/State.java)
- * [Button](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/model/common/Button.java)
-* [ButtonCommand](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/command/ButtonCommand.java)
- * [HighScoresCommand](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/command/HighScoresCommand.java)
- * [MainMenuCommand](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/command/MainMenuCommand.java)
- * [PlayCommand](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/command/PlayCommand.java)
- * [ExitCommand](https://github.com/FEUP-LPOO/lpoo-2020-g54/blob/master/src/main/java/controller/command/ExitCommand.java)
+So far, contributions are exclusively made by the initial Goal Diggers team, but we hope to open them to the community, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
+
+Please contact us!
+
+Thank you!
+
+Team Members:
+  - [André Gomes](https://github.com/andremsgomes)
+  - [Manuel Coutinho](https://github.com/ManelCoutinho) 
+  - [Roberto Mourato](https://github.com/RobertoMourato)
+  - [Ruben Almeida](https://github.com/arubenruben) 
+  - [Tiago Silva](https://github.com/tiagogsilva) 
+
+***
+
+## Product Vision
+
+To make great questions heard (by the speaker)
+
+
+## Elevator Pitch
+
+Tired of the long awkward silences when speaker asks "Any questions??"; Tired of hearing the front line old lady telling her life story taking up your question space? Don't worry!! Send us your questions and upvote your favorites. Make your voice heard without the hassle of waiting for a mic.
+
+## [Public Demo](https://www.youtube.com/watch?v=5Jtdu8VDQec&feature=youtu.be&fbclid=IwAR1-Mc5Pf7NjWfPYQs7GwKFiovtZ_Y6ICs5jEF5wPnnWPZnVumXX50vyZtQ)
+
+## Requirements
+
+
+UpQuestion was designed to end up with the inefficient experience of the participants in a conference at the end moment when questions are made/answered.
+
+The main stakeholders identified in the given context are:
+
+* The Participant- Person who attend to listen the speaker in   a certain talk. Has the capability to Submit questions and   to upvote other participants questions he thinks deserve     being answered.
+
+* The Speaker- Person expert on the subject who performs the   talk. Has limited time to answer an, also, limited number     of questions and intend to invest that time to answer the     most interesting questions.
+
+We believe that a communitarian forum open to all conference participants with features of upvote is our greatest ally to cluster the greatest questions, those that will be answered in that limited period.
+
+A more detailed analysis of this topic is made below targeting RUP & AGILE methodologies of requirement engineering:
+
+
+### Use Case Diagram
+![Use Case Diagram](https://i.imgur.com/QCCtZqq.jpg =400x400)
+
+
+ *Fig.1: Use Case Diagram*
+
+#### Ask Questions
+* **Actor**. Any user attending a lecture.
+* **Description**. The purpose of this use case is to make questions and saving all of them on a list
+* **Preconditions and Postconditions**. Users first need to login, which they can do using twitter. Then they need to choose from the schedule the lecture they are attending. Finally they need to click the plus button. In the end the system will add the question to the list. When the lecture is over, users can't ask questions anymore.
+* **Normal Flow**. After the plus button is clicked, the system will open a pop-up with a box for a user to write a question. Then the user can click on the button to share the question and the system will close the pop-up and add the question to the list.
+* **Alternative Flows and Exceptions**. In the pop-up there is a checkout box that, when clicked, the user will be able to share the question anonymously. There is also another button to share the question, that will share it also with twitter. If the user is not logged in with twitter, the system will show an error message.
+
+#### See Questions
+* **Actors**. Any user attending a lecture and the speaker who is giving it.
+* **Description**. The purpose of this use case is to make all the questions visible for everyone who is in the lecture.
+* **Preconditions and Postconditions**. Users first need to login, which they can do using twitter. Then they need to choose from the schedule the lecture they are attending. All the questions can be seen even after the lecture is over.
+* **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. The system is always updating this list, as more questions are made.
+* **Alternative Flows and Exceptions**. The sorting can be changed by the user, when clicked the sorting dropdown box. It allows the user to select from 'Top', 'Trending' and 'New', to which the system will update the questions order, based on the option selected.
+
+#### Vote on Questions
+* **Actor**. Any user attending a lecture.
+* **Description**. The purpose of this use case is to be able to vote on the questions.
+* **Preconditions and Postconditions**. Users first need to login, which they can do using twitter. Then they need to choose from the schedule the lecture they are attending. When the lecture is over, users can't vote on the questions anymore.
+* **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. Users can click on upvote and downvote on all the questions and the system will update the number of votes and the order of the list.
+
+#### Answer Questions
+* **Actor**. The speaker who is giving the lecture.
+* **Description**. The purpose of this use case is to be able to answer the questions.
+* **Preconditions and Postconditions**. Speakers first need to login, which they can do using twitter. Then they need to choose from the schedule the lecture they are giving.
+* **Normal Flow**. After choosing the lecture from the schedule, the system shows a list of all the questions made at the moment, sorted by number of votes. At the end of each lecture, speakers can answer this questions to clarify the audience.
+* **Alternative Flows and Exceptions**. After the lecture is over, speaker can answer the questions, by clicking on the comment button of a giving question.
+
+
+### User stories
+
+We are using Trello to keep track of the user stories in the state of:
+
+* Planed of (Backlog)
+* Under Work (Doing)  
+* Done. 
+
+You have a [link](#Tasks-Management-Tools) to check all the dashboard bellow, but here we brief you that information with a screenshot of our Trello's user stories organization. 
+
+
+
+
+#### First-sprint
+
+&nbsp;In the first sprint our focus was on implementing the prototype. That demanded to architecture the future design under we would code into, an MVC one, using a local DataBase, implement the UI designed in the mockups from the inception phase, which means we built the prototype with the fundations required for many of the user stories with the greastest interaction with the user such as login
+
+In terms of user stories, we implemented the following: [Iteration #1](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration1) 
+
+
+#### Second-sprint
+
+&nbsp;The second iteration we project from the results of [Iteration #1](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration1) . We decide to implement a firebase backend, according the reasons stated here, that required to redefine the implementation of the user stories completed in the first iteration to work using a real time database as firebase. 
+
+Furthermore, we decide to move forward and implement in the following user stories: [Iteration #2](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Iteration2)
+
+#### Third-sprint
+&nbsp;The third iteration focused on the development of the reply capability to any question previously made, the integration of the twitter’s related capabilities and also the the implementation of constrains to the register form. 
+
+&nbsp;In UpQuestion at the time of the third iteration, only the speaker has the capability to reply to questions. Furthermore, that capability is constrained to talks where he responsible for. In order to increment this feature, it was necessary to include the capability to distinguish a simple user from a speaker. In order to achieve that objective, a special speaker-login system based on a code stored in the database was designed.
+
+
+&nbsp;The implementation of restrictions to the register form parameters (username, password and email) was also achieved supported in the REGEX embedded libraries offered by flutter. 
+About the twitter’s subject, we were unable to achieve any progress on that, since the Twitter API key wasn´t released in time by the Twitter team. We look forward to implementing them as soon as the mention key would be released.
+
+
+##### The original plan is represented in the following Trello schedule:
+
+![](https://i.imgur.com/6gFfXjL.png)
+
+Link to the iteration 3 tag on Trello: [Here](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Sprint%203%20-%2022%20de%20novembro).
+
+#### Fourth-sprint
+&nbsp;The fourth iteration was the stabilizing iteration. The main goal was to sharp every feature implemented during the previous iterations, in order to make the app in a 1.0 version ready to share to the openCX open project.  
+
+##### Stabilizing things included:
+
+* Remove the graphical foundation of the Twitter feature that we initial thought we could implement in our project. [Explained here].
+* Improve the UI experience.
+* Refactoring the code to a more fashion way, 
+* In terms of addictions to the project:
+* Now its possible to remove questions previously done.
+* A stable version of the speaker authentication has been added, now his login-state is preserved between navigation in the page. There is no need to authenticate each time he acess the page no more.
+* A final version of the reply form, now it’s possible to see, with an improved UI experience, what the speaker is replying.
+
+##### The original plan is represented in the following Trello schedule:
+![](https://i.imgur.com/IBMbTAn.png)
+
+#### Fifth sprint
+
+The fifth and last iteration of UpQuestion was divided into two major purposes:
+* Integration in the major open-CX app
+* Refactoring and documenting the code and development report.
+
+Regarding the first topic our group because of the similarity with other group [Jakepaulers](https://github.com/softeng-feup/open-cx-jakepaulers), decided to contact them directly, in order to schedule work that could maximize efficiency. From that contact, it was agreed that our group should implement the anonymous question feature and improve the way the question deletion is made, as a simple sliding.
+
+
+
+
+##### The final status of plan to this iteration can be seen in the following trello [link](https://trello.com/b/08Qa7QyI/esofupquestion?menu=filter&filter=label:Sprint%204%20-%206%20de%20dezembro)
+
+&nbsp;Furthermore, in this iteration we design the oficial demo for our app. You can check it [here](#Public-Demo) on the Public-Demo section.
+
+
+ ### Mockups
+ 
+ The mockups for this project were developed in Figma and can be found [here](https://www.figma.com/file/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=0%3A1). 
+ <br> (or, as an alternative, in the folder [mockups](https://github.com/softeng-feup/open-cx-goal-diggers/tree/master/docs/mockups) of this directory)
 
  
- 
+## Architectural Structure & Design
 
 
-### Know code smmells and refactoring suggestions
+### Logical-Architecture
 
-#### Large Class
+#### MVC
 
-PlayStateUpdater is the class where are implemented all updates done during the game loop. This class has the responsability to update everykind of elements with different purposes, such as movement, hero life, game level. One solution may be create bunch of classes for every specific purpose. Follow strictly the SOLID principle of single responsability, the number of classes would escalate in number
+&nbsp;We are developing code bearing in mind the MVC architectural structure. At the time of this first report, it is revealing itself harder than we anticipated the division between the View and Controller due to the code structures that Flutter implies. More refactoring will be done in the next iterations.
 
-#### Bi directional association on Testing Collisions
+&nbsp;After the implementation of the firebase backend, many feature were added to the controller component side of Upquestion.
+#### Backend
 
-This is one smell that isn't a theoretical example of books, if so it would be fixed. But there is very much point of a strategy pattern requires to instantiate with the object that strategy is related on. This case appears in the collision strategy part of our project. Although Strategy pattern is a greater option rather than a bunch of spaghetti code. It appears to be a unknown by the authors pattern that can handle the situation described above 
+&nbsp; An application as UpQuestion with the aim of manipulate multiple questions in different talks will generate a huge amount of data easily. Furthermore, for testing purposes, a local static database is a nonsense further than the prototyping phase. The effective test to evaluate the practicability of our design is made submitting plenty of questions, and, then, manipulate it simulating the role of user and speaker.
 
+&nbsp; For these reasons, we decided to move forward and integrate in our Flutter App an online backend software that could resolve the greatest number of user stories as possible. The decision made was integrate Firebase from Google(same producer of Flutter).
 
-#### Long Parameter List
+&nbsp; Firebase is a backend API with support to Flutter that provide between plenty of services, two very interlinked with our goals, authentication services with email/password, but also with twitter (that we will yet explore), furthermore, it provides the capability to store data in a NoSQL structure.
 
-This smell became more obvious as result of testing. Where we end up need to inject dependencies in order to achive isolation. One example of this escalation was the division made, in order to enforce SOLID principle of isolation in the view part, the LanternaPlayStateView parameters became huge. One solution may be create a dedicated class of data with the methods to obtain that information inside of it
+#### Database-Model
 
-#### Dead Method
-
-This smell appears as consequence of the application of the strategy pattern to abstract the enemy behaviour. The attack method on the zombie is an empty void method, since the unique feature of attack of zombie is following the player while in range, which is other method. This smell may indicate that we may have exagerate in the strict in the try of application of the SOLID principle of single responsability. The attack and movementOnAttack may be joined together. 
-
-### Testing
-
-Coverage Tests
-
-![](https://i.imgur.com/6bFXRh5.png)
-
-Mutation Tests
-
-![](https://i.imgur.com/hVTMZQv.png)
+![](https://i.imgur.com/eEO8QZK.png)
 
 
+#### Package Diagram UML
+![](https://i.imgur.com/kqzFwhQ.png)
 
-### Screenshot of the game
-![](https://i.imgur.com/3ykKTii.gif)
+### Physical Architecture
+
+&nbsp;In UpQuestion there is a simple physical architecture since we are not using any kind of hardware or even any specific feature of the host smartphone. The following diagram shows a high-level schema of the app physical architecture:
+
+#### Deployment Diagram UML
+![](https://i.imgur.com/r2i9wXS.png)
+
+
+### Prototype
+
+&nbsp;The prototyping building phase was made during the iteration 0 after building an joining an initial collection of user stories, the group decided to use the film of the navigation through the different menus with responsive button to actions feature of FIGMA  in order to build a practical graphical and intuitive first prototype of UpQuestion without a single line of code. 
+
+&nbsp;There we can already watch the initial sketch of the implementation of user stories such releated with questions, votes, conference selection, login and twitter connection. [User Stories](#User-stories) 
+
+With that practicable feature always in mind the group was able to check on every iteration that every user story initial design in prototype was implemented, and more important than that receive immediate feedback of the deviance from the original plan in every flutter implementation.
+
+You can check our prototype in FIGMA using the invitation link below, but since you require login in FIGMA to do that, we also post some photos demonstrating the referred slideshow. [Link](#https://www.figma.com/proto/BlnF2GOIbviAUOwevrIHnR/UpQuestion?node-id=94%3A2&scaling=scale-down)
+
+![](https://i.imgur.com/ASAEVSH.png =300x450)
+![](https://i.imgur.com/eXlquk1.png =300x450)
+
+
+&nbsp; By the end of the first iteration we were able to replicate in flutter code as much as we could these features that the prototype includes. The decision of which user stories complete firstly was based on the priority scheduled established in the iteration zero. [Link for the first iteration results](#First-sprint) 
+
+## Test
+In order to test the features developed throughout each iteration, and thus to see if the user stories were fullfiled, some tests were prepared with that intent.
+
+These tests were automatized with the support of Gherkin that gives the oportunity to assemble tests in a much more readable way. 
+
+Gherkin makes tests more readable given they are written in a more human friendly way.
+
+However, Gherkin falls short when testing applications written in Flutter/Dart that use a database service, given that, to our understandment, the test driver can only identify widget modifications and isn´t able to do the same with data modifications.
+
+Nevertheless, some features were tested (which are listed bellow) by inducing modifications and then finding them executed in the widget tree.
+
+Tested features:
+* User Login
+* Activity Conection
+* Ask Question
+* Ask Anonymous Question
+* Vote a Question
+* Consult Most Voted Question
+* Reply Question
+
+## Tasks Management Tools
+To communicate more efficiently we chose to use **Trello**  as our main tool of tasks management. 
+
+As mention above, we made use of trello, also, to store the information of the user stories, dynamically organized in three types of status
+* Planed of (Backlog)
+* Under Work (Doing)  
+* Done.
+
+User Stories with their BDD text, User Case Diagram and the work flow can be found [there](https://trello.com/b/08Qa7QyI).
 
 
 
+A exampling picture of the status of our Trello organization is the following:
+
+![](https://i.imgur.com/l8s83Wo.png)
 
 
-
-### Self-evaluation
-
-* José Guerra - 50%
-* Rúben Almeida - 50 %
 
